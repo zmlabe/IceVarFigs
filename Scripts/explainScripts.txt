@@ -2,6 +2,10 @@
 
 'under construction'
 
+These scripts were in no way originally intended to be the 
+most efficient or well-documented. I am currently improving 
+their comments for ease of use. 
+
 ## LandIce
 
 ## Sea Ice
