@@ -27,7 +27,7 @@ Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https:
     + Beitsch, A.; Kaleschke, L.; Kern, S. Investigating High-Resolution AMSR2 Sea Ice Concentrations during the February 2013 Fracture Event in the Beaufort Sea, 2014: Remote Sens. 6, 3841-3856, doi:10.3390/rs6053841 [[Publication]](http://www.mdpi.com/2072-4292/6/5/3841)
 + AMSR2 (JAXA Arctic Data archive System, NIPR) : [[DATA]](https://ads.nipr.ac.jp/vishop/#/monitor)
 + Sea Ice Index, Version 3 : [[DATA]](https://nsidc.org/data/seaice_index/)
-    + Fetterer, F., K. Knowles, W. Meier, M. Savoie, and A. K. Windnagel, 2017: updated daily. Sea Ice Index, Version 3. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi:http://dx.doi.org/10.7265/N5K072F8. [[Documentation]](http://nsidc.org/data/g02135)
+    + Fetterer, F., K. Knowles, W. Meier, M. Savoie, and A. K. Windnagel, 2017: updated daily. Sea Ice Index, Version 3. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi: http://dx.doi.org/10.7265/N5K072F8. [[Documentation]](http://nsidc.org/data/g02135)
 + SSMIS Sea Ice Concentration (EUMETSAT OSI SAF) : [[DATA]](http://osisaf.met.no/p/ice/#conc_details)
 ###### Sea Ice Thickness
 + Pan-Arctic Ice Ocean Modeling and Assimilation System (PIOMAS) : [[DATA]](http://psc.apl.uw.edu/research/projects/arctic-sea-ice-volume-anomaly/data/model_grid)
