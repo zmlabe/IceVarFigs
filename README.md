@@ -12,6 +12,10 @@ Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https:
 + ```requirements.txt```: List of environments and modules associated with the most recent version of this project. A Python [Anaconda3 Distribution](https://docs.continuum.io/anaconda/) was used for our analysis. Tools including [NCL](https://www.ncl.ucar.edu/), [CDO](https://code.mpimet.mpg.de/projects/cdo), and [NCO](http://nco.sourceforge.net/) were also used for initial data manipulation.
 
 ## Data
+###### Land Ice Data
++ GRACE JPL RL05M.1 Mascon Solution: Version 2 : [[DATA]](https://podaac.jpl.nasa.gov/dataset/TELLUS_GRACE_MASCON_CRI_GRID_RL05_V2)
+    + Wiese, D. N., D.-N. Yuan, C. Boening, F. W. Landerer, and M. M. Watkins (2016) JPL GRACE Mascon Ocean, Ice, and Hydrology Equivalent HDR Water Height RL05M.1 CRI Filtered Version 2., Ver. 2., PO.DAAC, CA, USA.
+    + Watkins, M. M., D. N. Wiese, D. -N. Yuan, C. Boening, and F. W. Landerer (2015), Improved methods for observing Earth's time variable mass distribution with GRACE using spherical cap mascons, J. Geophys. Res. Solid Earth, 120, 2648_2671, doi: 10.1002/2014JB011547. [[Publications]](http://onlinelibrary.wiley.com/doi/10.1002/2014JB011547/abstract)
 ###### Reanalysis Data 
 + ERA5 : [[DATA]](http://apps.ecmwf.int/data-catalogues/era5/?class=ea)
 + ERA-Interim : [[DATA]](https://www.ecmwf.int/en/research/climate-reanalysis/era-interim)
@@ -26,6 +30,8 @@ Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https:
 + AMSR2 (ASI 3.125 km, UAH-processed) : [[DATA]](http://icdc.cen.uni-hamburg.de/daten/cryosphere.html)
     + Beitsch, A.; Kaleschke, L.; Kern, S. Investigating High-Resolution AMSR2 Sea Ice Concentrations during the February 2013 Fracture Event in the Beaufort Sea, 2014: Remote Sens. 6, 3841-3856, doi:10.3390/rs6053841 [[Publication]](http://www.mdpi.com/2072-4292/6/5/3841)
 + AMSR2 (JAXA Arctic Data archive System, NIPR) : [[DATA]](https://ads.nipr.ac.jp/vishop/#/monitor)
++ Gridded Monthly Sea Ice Extent and Concentration, 1850 Onward, Version 1 : [[DATA]](http://nsidc.org/data/g10010)
+    + Walsh, John E., Florence Fetterer, J. Scott Stewart, and William L. Chapman. 2016. A database for depicting Arctic sea ice variations back to 1850. Geographical Review. doi: 10.1111/j.1931-0846.2016.12195.x. [[Publication]](http://onlinelibrary.wiley.com/doi/10.1111/j.1931-0846.2016.12195.x/abstract)
 + Sea Ice Index, Version 3 : [[DATA]](https://nsidc.org/data/seaice_index/)
     + Fetterer, F., K. Knowles, W. Meier, M. Savoie, and A. K. Windnagel, 2017: updated daily. Sea Ice Index, Version 3. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi:http: //dx.doi.org/10.7265/N5K072F8. [[Documentation]](http://nsidc.org/data/g02135)
 + SSMIS Sea Ice Concentration (EUMETSAT OSI SAF) : [[DATA]](http://osisaf.met.no/p/ice/#conc_details)
