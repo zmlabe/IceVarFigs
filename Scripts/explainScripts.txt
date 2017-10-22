@@ -1,7 +1,14 @@
 #### IceVarFigs - Scripts ####
 
+'under construction'
+
+## LandIce
+
 ## Sea Ice
+
+## SeaSurfaceTemperatures
 
 ## Temperature
 
-# under construction
+## Utilities 
+
