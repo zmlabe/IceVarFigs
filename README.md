@@ -15,7 +15,7 @@ Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https:
 ###### Land Ice Data
 + GRACE JPL RL05M.1 Mascon Solution: Version 2 : [[DATA]](https://podaac.jpl.nasa.gov/dataset/TELLUS_GRACE_MASCON_CRI_GRID_RL05_V2)
     + Wiese, D. N., D.-N. Yuan, C. Boening, F. W. Landerer, and M. M. Watkins (2016) JPL GRACE Mascon Ocean, Ice, and Hydrology Equivalent HDR Water Height RL05M.1 CRI Filtered Version 2., Ver. 2., PO.DAAC, CA, USA.
-    + Watkins, M. M., D. N. Wiese, D. -N. Yuan, C. Boening, and F. W. Landerer (2015), Improved methods for observing Earth's time variable mass distribution with GRACE using spherical cap mascons, J. Geophys. Res. Solid Earth, 120, 2648_2671, doi: 10.1002/2014JB011547. [[Publications]](http://onlinelibrary.wiley.com/doi/10.1002/2014JB011547/abstract)
+    + Watkins, M. M., D. N. Wiese, D. -N. Yuan, C. Boening, and F. W. Landerer (2015), Improved methods for observing Earth's time variable mass distribution with GRACE using spherical cap mascons, J. Geophys. Res. Solid Earth, 120, 2648_2671, doi: 10.1002/2014JB011547. [[Publication]](http://onlinelibrary.wiley.com/doi/10.1002/2014JB011547/abstract)
 ###### Reanalysis Data 
 + ERA5 : [[DATA]](http://apps.ecmwf.int/data-catalogues/era5/?class=ea)
 + ERA-Interim : [[DATA]](https://www.ecmwf.int/en/research/climate-reanalysis/era-interim)
@@ -38,3 +38,6 @@ Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https:
 ###### Sea Ice Thickness
 + Pan-Arctic Ice Ocean Modeling and Assimilation System (PIOMAS) : [[DATA]](http://psc.apl.uw.edu/research/projects/arctic-sea-ice-volume-anomaly/data/model_grid)
     + Zhang, J., and D. A. Rothrock, 2003: Modeling Global Sea Ice with a Thickness and Enthalpy Distribution Model in Generalized Curvilinear Coordinates. Monthly Weather Review, 131 (5), 845–861, doi:10.1175/1520-0493(2003)131<0845:MGSIWA>2.0.CO;2 [[Publication]](http://journals.ametsoc.org/doi/abs/10.1175/1520-0493%282003%29131%3C0845%3AMGSIWA%3E2.0.CO%3B2)
+###### Sea Surface Temperatures
++ Extended Reconstructed Sea Surface Temperature (ERSST) v5 : [[DATA]](https://www1.ncdc.noaa.gov/pub/data/cmb/ersst/v5/netcdf/)
+    + Huang, B., Peter W. Thorne, et. al, 2017: Extended Reconstructed Sea Surface Temperature version 5 (ERSSTv5), Upgrades, validations, and intercomparisons. J. Climate, doi: 10.1175/JCLI-D-16-0836.1 [[Publication]](http://journals.ametsoc.org/doi/10.1175/JCLI-D-16-0836.1)
