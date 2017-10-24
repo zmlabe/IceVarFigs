@@ -6,7 +6,7 @@
 Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https://twitter.com/ZLabe)
 
 ## Description
-+ ```Data/```: Additional data files not provided by Python reading URLs
++ ```Data/```: Additional data files not provided by Python URL functions
 + ```Figures/```: Arbitrary figures as examples from listed scripts
 + ```Scripts/```: Main [Python](https://www.python.org/) scripts/functions used in data analysis and plotting. More details are provided in ```explainScripts.txt``` for each script and function.
 + ```requirements.txt```: List of environments and modules associated with the most recent version of this project. A Python [Anaconda3 Distribution](https://docs.continuum.io/anaconda/) was used for the analysis. Tools including [NCL 6.4.0](https://www.ncl.ucar.edu/), [CDO](https://code.mpimet.mpg.de/projects/cdo), and [NCO](http://nco.sourceforge.net/) were also used for initial data manipulation. All code has been tested with Python ```3.6```.
