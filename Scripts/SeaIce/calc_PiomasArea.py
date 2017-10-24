@@ -28,7 +28,7 @@ def readPiomasArea(directory):
 
     Usage
     -----
-    lats,lons,var = readPiomas(directory,years,threshold)
+    area = readPiomasArea(directory)
     """
     
     print('\n>>> Using readPiomasArea function!')
