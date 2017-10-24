@@ -10,15 +10,23 @@ their comments for ease of use.
 + landice_grace_moving.py : animation of total ice mass change in Antarctica and Greenland from GRACE data (2002-2017). Line plot GIF created throught matplotlib's animation function. 
 
 ## Sea Ice
-+ calc_PiomasArea.py : functions calculates the area of each PIOMAS grid cell (stretched generalized orthogonal curvilinear coordinate (GOCC) grid). This is necessary for calculations of sea ice volume. Note that the North Pole is positioned over Greenland.
-+ calc_SeaIceThick_PIOMAS.py : function reads PIOMAS data from original binary files and converts to numpy arrays [year,month,lat,lon]
-+ JAXA_seaice_1980smeanblack.py : script plots JAXA (AMSR2) sea ice extent data for the current year in addition to the averages from the 1980s, 1990s, and 2000s. 
-+ JAXA_seaice_movinglines.py : script animates JAXA (AMSR2) sea ice extent data for the current year in addition to the averages from the 1980s, 1990s, and 2000s. 
-+ JAXA_seaice_recordMAX.py : plots the climatological maximum sea ice extents from JAXA (AMSR2) data over the period of 2002 to present. The current year is shown in red.
-+ JAXA_seaice_recordMIN.py : plots the climatological minimum sea ice extents from JAXA (AMSR2) data over the period of 2002 to present. The current year is shown in red.
++ calc_PiomasArea.py : functions calculates the area of each PIOMAS grid cell (stretched generalized orthogonal curvilinear
+coordinate (GOCC) grid). This is necessary for calculations of sea ice volume. Note that the North Pole is positioned over 
+Greenland.
++ calc_SeaIceThick_PIOMAS.py : function reads PIOMAS data from original binary files and converts to numpy arrays 
+[year,month,lat,lon]
++ JAXA_seaice_1980smeanblack.py : script plots JAXA (AMSR2) sea ice extent data for the current year in addition to the 
+averages from the 1980s, 1990s, and 2000s. 
++ JAXA_seaice_movinglines.py : script animates JAXA (AMSR2) sea ice extent data for the current year in addition to the 
+averages from the 1980s, 1990s, and 2000s. 
++ JAXA_seaice_recordMAX.py : plots the climatological maximum sea ice extents from JAXA (AMSR2) data over the period of 2002
+to present. The current year is shown in red.
++ JAXA_seaice_recordMIN.py : plots the climatological minimum sea ice extents from JAXA (AMSR2) data over the period of 2002 
+to present. The current year is shown in red.
 + nclcmaps.py : script/module was developed by Sam Hawkins at http://computing.io/wp/2016/01/ncl-colormaps-in-python/ 
 and https://github.com/samwisehawkins/nclcmaps. Function includes NCL colormaps to be used with matplotlib.
-+ JAXA_seaice_recordmagnitude_year.py : script calculates the difference between the current (daily) sea ice extent from the previous record low. Data is available from JAXA's AMSR2 from 2002. New daily record lows are indicated in red.
++ JAXA_seaice_recordmagnitude_year.py : script calculates the difference between the current (daily) sea ice extent from the 
+previous record low. Data is available from JAXA's AMSR2 from 2002. New daily record lows are indicated in red.
 + NSIDCseaice_Antarctic_quartiles.py :
 + nsidc_globalseaiceanom.py :
 + nsidc_regionalseaice.py :
@@ -40,11 +48,19 @@ and https://github.com/samwisehawkins/nclcmaps. Function includes NCL colormaps 
 + SIE_recordlow_JAXA.py :
 
 ## SeaSurfaceTemperatures
-+plot_ersst5.py``` : example of the interannual seasonal cycle of sea surface temperatures (SST) using the new ERSSTv5 data set. Selected years are arbitrary, but 1992-2016 (monthly) for the example. Output includes (1) png file per loop.
++plot_ersst5.py``` : example of the interannual seasonal cycle of sea surface temperatures (SST) using the new ERSSTv5 data 
+set. Selected years are arbitrary, but 1992-2016 (monthly) for the example. Output includes (1) png file per loop.
 
 ## Temperature
-+ plot_ArcticTemperatures_Reanalysis.py : script plots a time series of the mean (2-m) air temperature (67N+) from 1958 to 2016 using various reanalysis data sets. Data sets in this example include: NCEP/NCAR Reanalysis 1 (R1), NCEP-DOE AMIP-II Reanalysis (R2), Climate Forecast System Reanalysis (CFSR), Modern-Era Retrospective analysis for Research and Applications, Version 2  (MERRA-2), Japanese 55-year Reanalysis (JRA-55), and ERA-Interim (ERAi). Data is provided in the ```Data``` directory.
-+ plot_rankmesh_NCEP.py : script ranks the mean Arctic (70N+) air temperature at 925 hPa over the satellite era (monthly from 1979). For example, a rank of 39 is the 'coldest' month in the time series and a rank of 1 is the 'warmest' month. Data is from NCEP/NCAR Reanalysis 1 (R1) and provided in the ```Data``` directory. 
++ plot_ArcticTemperatures_Reanalysis.py : script plots a time series of the mean (2-m) air temperature (67N+) from 1958 to 
+2016 using various reanalysis data sets. Data sets in this example include: NCEP/NCAR Reanalysis 1 (R1), NCEP-DOE AMIP-II 
+Reanalysis (R2), Climate Forecast System Reanalysis (CFSR), Modern-Era Retrospective analysis for Research and Applications,
+Version 2  (MERRA-2), Japanese 55-year Reanalysis (JRA-55), and ERA-Interim (ERAi). Data is provided in the ```Data``` 
+directory.
++ plot_rankmesh_NCEP.py : script ranks the mean Arctic (70N+) air temperature at 925 hPa over the satellite era (monthly from
+1979). For example, a rank of 39 is the 'coldest' month in the time series and a rank of 1 is the 'warmest' month. Data is 
+from NCEP/NCAR Reanalysis 1 (R1) and provided in the ```Data``` directory. 
 
 ## Utilities
-+ plot_80N_circle.py : script plots the region of averaging for the ECMWF 80N+ (2-m) temperature figures (e.g., FDD, TDD). Area includes both land and ocean.
++ plot_80N_circle.py : script plots the region of averaging for the ECMWF 80N+ (2-m) temperature figures (e.g., FDD, TDD). 
+Area includes both land and ocean.
