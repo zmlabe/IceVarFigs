@@ -10,8 +10,8 @@ their comments for ease of use.
 + landice_grace_moving.py : animation of total ice mass change in Antarctica and Greenland from GRACE data (2002-2017). Line plot GIF created throught matplotlib's animation function. 
 
 ## Sea Ice
-+ calc_PiomasArea.py :
-+ calc_SeaIceThick_PIOMAS.py :
++ calc_PiomasArea.py : functions calculates the area of each PIOMAS grid cell (stretched generalized orthogonal curvilinear coordinate (GOCC) grid). This is necessary for calculations of sea ice volume. Note that the North Pole is positioned over Greenland.
++ calc_SeaIceThick_PIOMAS.py : function reads PIOMAS data from original binary files and converts to numpy arrays [year,month,lat,lon]
 + JAXA_seaice_1980smeanblack.py :
 + JAXA_seaice_movinglines.py :
 + JAXA_seaice_recordMAX.py :
