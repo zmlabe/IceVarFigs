@@ -7,7 +7,8 @@ most efficient or well-documented. I am currently improving
 their comments for ease of use. 
 
 ## LandIce
-+ landice_grace_moving.py : animation of total ice mass change in Antarctica and Greenland from GRACE data (2002-2017). Line plot GIF created throught matplotlib's animation function. 
++ landice_grace_moving.py : animation of total ice mass change in Antarctica and Greenland from GRACE data (2002-2017). 
+Line plot GIF created throught matplotlib's animation function. 
 
 ## Sea Ice
 + calc_PiomasArea.py : functions calculates the area of each PIOMAS grid cell (stretched generalized orthogonal curvilinear
@@ -45,7 +46,7 @@ previous record low. Data is available from JAXA's AMSR2 from 2002. New daily re
 + plot_SIVbar.py :
 + plot_Walsh_ExtendedSeaIceConc.py :
 + read_SeaIceThick_PIOMAS.py :
-+ SIE_recordlow_JAXA.py :
++ SIE_recordlow_JAXA.py : script creates a binary for whether each daily sea ice
 
 ## SeaSurfaceTemperatures
 +plot_ersst5.py``` : example of the interannual seasonal cycle of sea surface temperatures (SST) using the new ERSSTv5 data 
