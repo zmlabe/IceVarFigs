@@ -101,13 +101,13 @@ volume. A second bar includes the 1981-2010 mean sea ice volume for comparison, 
 [year,month,latitude,longitude]. Script fills in nan's for future months in the present year. In addition, the function
 ```calc_PiomasArea.py``` is needed to calculate sea ice volume.
 
-+ SIE_recordlow_JAXA.py : script creates a binary value for whether each daily sea ice
++ SIE_recordlow_JAXA.py : script creates a binary value (red bar on graph) for whether each daily sea ice extent is a new record low in the JAXA AMSR2 time series
 
 ##############################################################################################################################
 ##############################################################################################################################
 ##############################################################################################################################
 ### SeaSurfaceTemperatures
-+plot_ersst5.py``` : example of the interannual seasonal cycle of sea surface temperatures (SST) using the new ERSSTv5 data 
++ plot_ersst5.py``` : example of the interannual seasonal cycle of sea surface temperatures (SST) using the new ERSSTv5 data 
 set. Selected years are arbitrary, but 1992-2016 (monthly) for the example. Output includes (1) png file per loop.
 
 ##############################################################################################################################
