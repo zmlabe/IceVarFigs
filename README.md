@@ -25,7 +25,7 @@ Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https:
 + ERA-20C : [[DATA]](http://apps.ecmwf.int/datasets/data/era20c-daily/levtype=sfc/type=an/)
     + Poli, P, and co-authors., 2016: ERA-20C: An Atmospheric Reanalysis of the Twentieth Century. J. Climate, 29, 4083–4097, doi: 10.1175/JCLI-D-15-0556.1. [[Publication]](http://journals.ametsoc.org/doi/10.1175/JCLI-D-15-0556.1)
 + NCEP-DOE Reanalysis 2 : [[DATA]](https://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis2.html)
-    + NCEP-DOE AMIP-II Reanalysis (R-2): M. Kanamitsu, W. Ebisuzaki, J. Woollen, S-K Yang, J.J. Hnilo, M. Fiorino, and G. L. Potter, 2002: Bulletin of the American Meteorological Society, 1631-1643 [[Publication]](http://journals.ametsoc.org/doi/abs/10.1175/BAMS-83-11-1631)
+    + M. Kanamitsu, and co-authors., 2002: NCEP-DOE AMIP-II Reanalysis (R-2). Bulletin of the American Meteorological Society, 1631-1643 [[Publication]](http://journals.ametsoc.org/doi/abs/10.1175/BAMS-83-11-1631)
 + NCEP/NCAR Reanalysis 1 : [[DATA]](https://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.html)
     + Kalnay, E., and co-authors, 1996: The NCEP/NCAR 40-year reanalysis project. Bulletin of the American meteorological Society, 77(3), 437-471 [[Publication]](http://journals.ametsoc.org/doi/abs/10.1175/1520-0477(1996)077%3C0437:TNYRP%3E2.0.CO;2)
 + NOAA-CIRES Twentieth Century Reanalysis (20Cv2c) : [[DATA]](https://www.esrl.noaa.gov/psd/data/gridded/data.20thC_ReanV2.html)
