@@ -12,7 +12,6 @@ Notes
 Usage
 -----
     readPIOMAS(directory,years,threshold)
-    meanThick(yearmin,yearmax,years,sit)
 """
 
 def readPiomas(directory,years,threshold):
@@ -103,44 +102,3 @@ def readPiomas(directory,years,threshold):
     print('\n*Completed: Read SIT data!')   
     
     return lats,lons,var
-    
-def meanThick(yearmin,yearmax,years,sit):
-    """
-    Function calculates climatological gridded average sea ice thickness
-
-    Parameters
-    ----------
-    yearmin : integer
-        min year for climatological mean
-    yearmax : integer
-        max year for climatological mean
-    years : 1d array
-        years used in prior sit array
-    sit : 4d array [year,month,lat,lon]
-        sea ice thickness
-
-    Returns
-    -------
-    meansit : 3d array [month,lat,lon]
-        average sit over set climatological bounds
-
-    Usage
-    -----
-    meansit = meanThick(yearmin,yearmax,years,sit)
-    """
-    
-    print('\n>>> Using climatology sit function!')
-    
-    ### Import modules
-    import numpy as np
-    
-    ### Calculate average
-    slicee = np.where((years >= yearmin) & (years <= yearmax))[0]
-    print('\nClimatology calculated over (%s - %s)' \
-            % (np.nanmin(years[slicee]),np.nanmax(years[slicee])))
-            
-    newsit = sit[slicee,:,:,:]
-    meansit = np.nanmean(newsit,axis=0)
-    
-    print('\n*Completed: Climatology sit calculated!\n')
-    return meansit
