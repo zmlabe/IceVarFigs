@@ -101,7 +101,8 @@ volume. A second bar includes the 1981-2010 mean sea ice volume for comparison, 
 [year,month,latitude,longitude]. Script fills in nan's for future months in the present year. In addition, the function
 ```calc_PiomasArea.py``` is needed to calculate sea ice volume.
 
-+ SIE_recordlow_JAXA.py : script creates a binary value (red bar on graph) for whether each daily sea ice extent is a new record low in the JAXA AMSR2 time series
++ SIE_recordlow_JAXA.py : script creates a binary value (red bar on graph) for whether each daily sea ice extent is a new
+record low in the JAXA AMSR2 time series
 
 ##############################################################################################################################
 ##############################################################################################################################
