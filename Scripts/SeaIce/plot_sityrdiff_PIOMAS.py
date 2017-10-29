@@ -1,6 +1,6 @@
 """
-Script plots sea ice thickness (SIT) data using Basemap module between
-ortho or polar stereographic grids
+Script plots sea ice thickness (SIT) data comparison between 2 years. Data 
+is from PIOMAS
  
 Source : http://psc.apl.washington.edu/zhang/IDAO/data_piomas.html
 Author : Zachary Labe
@@ -10,11 +10,8 @@ Date   : 7 September 2016
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
-import matplotlib.colors as c
 import datetime
 import calc_SeaIceThick_PIOMAS as CP
-import iris as ir
-import iris.quickplot as qplt
 
 ### Define directories
 directorydata = '/home/zlabe/surt/seaice_obs/PIOMAS/'    
@@ -32,21 +29,19 @@ currentyr = str(now.year)
 currenttime = currentmn + '_' + currentdy + '_' + currentyr
 titletime = currentmn + '/' + currentdy + '/' + currentyr
 
-print '\n' '----Plot Sea Ice Thickness - %s----' % titletime 
+print('\n' '----Plot Sea Ice Thickness - %s----' % titletime) 
 
-### Use functions
+### Use functions to read in data
 lats,lons,sit = CP.readPiomas(directorydata,years,0.01)
 
 ###########################################################################
-###########################################################################
 ### Define specs
 style = 'polar'
-plotyr1 = 2016
-plotyr2 = 2017
-plotmonth = 6
-###########################################################################
-###########################################################################
+plotyr1 = 2016 # select year 1
+plotyr2 = 2017 # select year 2
+plotmonth = 6  # select month
 
+###########################################################################
 ### Computer difference
 def diffThick(sit,plotyr1,plotyr2,years,month):
     """
@@ -75,7 +70,7 @@ def diffThick(sit,plotyr1,plotyr2,years,month):
     -----
     diffsit = diffThick(sit,plotyr1,plotyr2,years,month)
     """
-    print '\n>>> Using difference in SIT function!'    
+    print('\n>>> Using difference in SIT function!')    
     
     yr1 = np.where(years == plotyr1)[0]
     yr2 = np.where(years == plotyr2)[0]
@@ -83,11 +78,11 @@ def diffThick(sit,plotyr1,plotyr2,years,month):
     if month == 'None':
         year1 = sit[yr1,:,:,:]
         year2 = sit[yr2,:,:,:]
-        print 'No month included'
+        print('No month included')
     elif month <= 11:
         year1 = sit[yr1,month,:,:]
         year2 = sit[yr2,month,:,:]
-        print '%s month sliced' % month
+        print('%s month sliced' % month)
     else:
         ValueError('Month is out of range!')
     
@@ -98,14 +93,19 @@ def diffThick(sit,plotyr1,plotyr2,years,month):
     diffsit = np.squeeze(diffsit)
     diffsit[np.where(diffsit == 0.0)] = np.nan
     
-    print '*Completed: Calculated difference between %s and %s!\n' \
-            % (plotyr1,plotyr2)    
+    print('*Completed: Calculated difference between %s and %s!\n' \
+            % (plotyr1,plotyr2))    
     return diffsit
 
 diffsit = diffThick(sit,plotyr1,plotyr2,years,plotmonth)
 
-print 'Completed: Beginning plotting!'
-### Create colormaps for sit
+print('Completed: Beginning plotting!')
+
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
+
 def setcolor(x, color):
      for m in x:
          for t in x[m][1]:
@@ -150,9 +150,6 @@ values = np.arange(-2,2.1,.2)
 ### Plot filled contours    
 cs = m.contourf(lons[:,:],lats[:,:],np.squeeze(diffsit[:,:]),
                 values,latlon=True,extend='both')
-#cs1 = m.contour(lons[:,:],lats[:,:],np.squeeze(diffsit[:,:]),
-#                values,linewidths=0.2,colors='darkgrey',
-#                linestyles='-',latlon=True) 
                   
 ### Set colormap                              
 cs.set_cmap(plt.cm.get_cmap('RdBu'))
@@ -171,9 +168,6 @@ plt.annotate(r'\textbf{Sea Ice Thickness -- [July, %s-%s]}' \
             % (plotyr2,plotyr1),xy=(1,1),
              xytext=(0.54,1.06),textcoords='axes fraction',
              fontsize=15,color='w',ha='center')
-#plt.annotate(r'%s' % (monthtitle),xy=(1,1),
-#             xytext=(-0.1,1.018),textcoords='axes fraction',
-#             fontsize=14,color='w',ha='center')
 plt.annotate(r'\textbf{GRAPHIC}: Zachary Labe (@ZLabe)',
              textcoords='axes fraction',
              xy=(0,0), xytext=(-0.1,-0.11),
@@ -190,4 +184,4 @@ plt.annotate(r'\textbf{DATA}: PIOMAS v2.1 (Zhang and Rothrock, 2003)',
 ### Save figure
 plt.savefig(directoryfigure +'sit_%s_%s.png' % (plotyr1,plotyr2),dpi=800)
 
-print 'Completed: Script finished!'
+print('Completed: Script finished!')

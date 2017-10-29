@@ -16,6 +16,7 @@ import datetime
 ### Directory and time
 directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
 
+### Read in data
 year,day,volume = np.loadtxt(
                           'PIOMAS.vol.daily.1979.2017.Current.v2.1.dat.gz',
                           skiprows=1,unpack=True)
@@ -31,7 +32,8 @@ years = np.arange(1979,2018,1)
 currenttime = currentmn + '_' + currentdy + '_' + currentyr
 currentdoy = now.timetuple().tm_yday
 
-month = datetime.date(int(currentyr), int(currentmn)-1, int(currentdy)).strftime('%B')
+month = datetime.date(int(currentyr), int(currentmn)-1, 
+                      int(currentdy)).strftime('%B')
 
 ### Reshape sea ice volumes arrays
 currentyear = volume.copy()[-day[-1]:]
@@ -39,7 +41,7 @@ volumen = volume[:-day[-1]]
 
 volumen = np.reshape(volumen,(volumen.shape[0]/365,365))
 
-### Calculate mean volume
+### Calculate mean volume over all years
 mean = np.nanmean(volumen,axis=0)
 
 ### x-coordinates
@@ -50,7 +52,12 @@ minsiv = np.nanmin(volumen[:,day[-1]])
 minyear = np.where(volumen[:,day[-1]] == minsiv)[0]
 timeyr = years[minyear][0]
 
-### Make plot
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
+
+### Select plot attributes
 plt.rc('savefig', facecolor='black')
 plt.rc('axes', edgecolor='white')
 plt.rc('xtick', color='white')
@@ -87,11 +94,12 @@ def adjust_spines(ax, spines):
         ax.xaxis.set_ticks_position('bottom')
     else:
         ax.xaxis.set_ticks([])
+        
 plt.plot(doy,mean,color='white',linewidth=4,label='Average Volume',
          zorder=3,linestyle='-')
 
 color=iter(plt.cm.magma(np.linspace(0,1,volumen.shape[0])))
-for i in xrange(volumen.shape[0]):
+for i in range(volumen.shape[0]):
     if i == 33:
         c = 'r'
         l = 2
@@ -112,6 +120,7 @@ plt.scatter(day[-1]-1,currentyear[-1],
                        
 le = plt.legend(shadow=False,fontsize=8,loc='upper right',fancybox=True,
                 frameon=False)
+
 for text in le.get_texts():
     text.set_color('w')
                        
@@ -144,18 +153,11 @@ plt.text(0.3,1.1,r'\textbf{CSV:} http://psc.apl.washington.edu/zhang/IDAO/',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey')
 plt.text(0.3,0.1,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey')
-plt.text(day[-1]+4,currentyear[-1]-2,r'\textbf{2017}',fontsize=8,color='aqua')
-
-#plt.text(60,12,r'\textbf{%s %s}' % (month,currentyr),
-#         color='aqua',fontsize=11,ha='left')
-#plt.text(60,10,r'\textbf{%s [$\times$1000 km$^{3}$]}' % (currentyear[-1]),
-#         color='aqua',fontsize=11,ha='left')
-#plt.text(60,8,r'\textbf{*New Record Low*}',
-#         color='aqua',fontsize=11,ha='left')         
+plt.text(day[-1]+4,currentyear[-1]-2,r'\textbf{2017}',fontsize=8,color='aqua')      
 
 fig.suptitle(r'\textbf{ARCTIC SEA ICE VOLUME (1979-%s)}' % currentyr,
                        fontsize=18,color='darkgrey') 
 
 plt.savefig(directoryfigure + 'SIV_PIOMAS_September.png',dpi=900)
 
-print '\n' '\n' 'Completed: Figure plotted!'
+print('\n' '\n' 'Completed: Figure plotted!')

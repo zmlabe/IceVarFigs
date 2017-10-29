@@ -52,9 +52,10 @@ lastday = now.timetuple().tm_yday
 currentice = currentyear[lastday]
 currentanom = currentice - (mean1980[lastday]/1e6)
 
+### Fill missing day 
 currentyear[10] = currentyear[9]
 
-### Changes 
+### Changes in sea ice extent 
 weekchange = currentice - currentyear[lastday-7]
 daychange = currentice - currentyear[lastday-1]
 
@@ -77,6 +78,11 @@ print('Total new records [%s] out of [%s] for SIE! \n' % (numberlow,lastday))
 means = np.nanmean(years[:lastday,:],axis=0)
 
 values = np.arange(len(recordlow))
+
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
 
 ### Call parameters
 plt.rc('text',usetex=True)

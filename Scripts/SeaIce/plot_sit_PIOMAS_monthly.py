@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 import numpy as np
 import datetime
-import calendar as cal
 import matplotlib.colors as c
 
 #### Define constants
@@ -74,15 +73,19 @@ def readPiomas(directory,vari,years,thresh):
     print('Completed: Read "%s" data!' % (vari))   
     
     return lats,lons,var
+
+### Read in PIOMAS thickness data
 lats,lons,sit = readPiomas(directorydata2,'thick',years,0.1)
 
-### Read SIV data
+### Read PIOMAS sea ice volume data
 years2,aug = np.genfromtxt(directorydata3 + 'monthly_piomas.txt',
                            unpack=True,delimiter='',usecols=[0,9])
-                           
+
+### Calculate average from 1981-2010 baseline                           
 climyr = np.where((years2 >= 1981) & (years2 <= 2010))[0]  
 clim = np.nanmean(aug[climyr])  
 
+### Create SIT colormap
 def colormapSIT():
     cmap1 = plt.get_cmap('BuPu')
     cmap2 = plt.get_cmap('RdPu_r')
@@ -143,10 +146,9 @@ for i in range(aug.shape[0]):
     m.drawlsmask(land_color='k',ocean_color='k')
     m.drawcoastlines(color='mediumseagreen',linewidth=0.4)
     
-    # Make the plot continuous
+    # Select colorbar limits
     barlim = np.arange(0,9,1)
     
-#    cmap = colormapSIT()
     cmap = colormapSIT()
     cs = m.contourf(lons,lats,var,
                     np.arange(0,7.1,0.25),extend='max',
@@ -182,9 +184,10 @@ for i in range(aug.shape[0]):
     cbar.ax.tick_params(axis='x', size=.0001)
     cbar.ax.tick_params(labelsize=7) 
 
-###########################################################################
-###########################################################################  
-    ### Create subplot         
+###############################################################################
+###############################################################################
+###############################################################################  
+    ### Create subplot of sea ice volume bar graph        
     a = plt.axes([.24, .27, .08, .4], axisbg='k')
     
     N = 1
@@ -194,8 +197,6 @@ for i in range(aug.shape[0]):
     meansiv = np.nanmean(aug)
 
     rects = plt.bar(ind,[aug[i]],width,zorder=2)
-    
-#    plt.plot(([meansiv]*2),zorder=1)    
     
     rects[0].set_color('powderblue')
     if i == 38:
@@ -216,9 +217,7 @@ for i in range(aug.shape[0]):
            
     fig.subplots_adjust(right=1.1)
     
-###########################################################################
-###########################################################################
-         
+    ### Save each image for use of GIF in ImageMagick         
     if i < 10:        
         plt.savefig(directory + 'icy_0%s.png' % i,dpi=300)
     else:
@@ -238,6 +237,8 @@ for i in range(aug.shape[0]):
             plt.savefig(directory + 'icy_49.png',dpi=300)
             plt.savefig(directory + 'icy_50.png',dpi=300)
             plt.savefig(directory + 'icy_51.png',dpi=300)
+            
+    ### Remove text per each loop        
     t1.remove()
     t2.remove()
     t3.remove()

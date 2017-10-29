@@ -1,5 +1,6 @@
 """
-Reads in current year's Arctic sea ice extent from Sea Ice Index 2 (NSIDC)
+Plot anomalies for Arctic and Antarctic sea ice extents of the current
+year from Sea Ice Index 3 (NSIDC). Total anomaly (global) is also shown.
 
 Website   : ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/
 Author    : Zachary M. Labe
@@ -25,7 +26,7 @@ currentdoy = now.timetuple().tm_yday
 url = 'ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/' \
     'N_seaice_extent_daily_v3.0.csv'
 
-### Read file
+### Read Arctic file
 raw_data = UL.request.urlopen(url)
 dataset = np.genfromtxt(raw_data, skip_header=2,delimiter=',',
                         usecols=[0,1,2,3,4])
@@ -42,10 +43,11 @@ day = dataset[:,2]
 iceAR = dataset[:,3]
 missing = dataset[:,4]
 
+### Find current year
 yr2017 = np.where(year == 2017)[0]
 iceAR17 = iceAR[yr2017]
 
-### Ice Conversion
+### Ice unit Conversion
 icevalAR = iceAR17 * 1e6    
 
 ###########################################################################
@@ -72,7 +74,7 @@ currentanomAR = icevalAR-meaniceAR[:currentdoy-1]
 ###########################################################################
 ###########################################################################
 ###########################################################################
-### Antarctic
+### Antarctic file
 
 ### Load url
 url = 'ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/south/daily/data/' \
@@ -95,6 +97,7 @@ day = dataset[:,2]
 iceAA = dataset[:,3]
 missing = dataset[:,4]
 
+### Find current year
 yr2017 = np.where(year == 2017)[0]
 iceAA17 = iceAA[yr2017]
 
@@ -120,7 +123,6 @@ meaniceAA = dataset2[:,1] * 1e6
 
 ### Anomalies
 currentanomAA = icevalAA-meaniceAA[:currentdoy-1]
-
 
 ###########################################################################
 ###########################################################################
@@ -219,5 +221,6 @@ plt.text(0.5,-4.60,r'\textbf{SOURCE:} ftp://sidads.colorado.edu/DATASETS/NOAA/G0
 plt.text(0.5,-4.85,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=6,rotation='horizontal',ha='left',color='darkgrey')    
 fig.subplots_adjust(top=0.91)
-       
+ 
+### Save figure      
 plt.savefig(directoryfigure + 'nsidc_sie_globalanom_year.png',dpi=300)                            

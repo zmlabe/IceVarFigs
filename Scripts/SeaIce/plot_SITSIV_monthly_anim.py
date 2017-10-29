@@ -1,5 +1,5 @@
 """
-Scripts calculates SIT time series for March and April 
+Scripts calculates monthly mean sea ice thickness and volume from PIOMAS
  
 Notes
 -----
@@ -16,8 +16,6 @@ import matplotlib
 import datetime
 import read_SeaIceThick_PIOMAS as CT
 import calc_PiomasArea as CA
-import statsmodels.api as sm
-from mpl_toolkits.basemap import Basemap
 
 ### Define directories
 directorydata = '/home/zlabe/surt/seaice_obs/PIOMAS/'   
@@ -52,6 +50,8 @@ print('\n' 'PIOMAS -- Sea Ice Volume --', \
 ### Read data
 years2,aug = np.genfromtxt(directorydatab + 'monthly_piomas.txt',
                            unpack=True,delimiter='',usecols=[0,9])
+
+### Calculate climatology from 1981-2010 baseline
 climyr = np.where((years2 >= 1981) & (years2 <= 2010))[0]  
 
 clim = np.nanmean(aug[climyr])  
@@ -62,14 +62,15 @@ clim = np.nanmean(aug[climyr])
 ### Calculating temporal sit
 def weightThick(var,area):
     """
-    Area weights sit array 4d [year,month,lat,lon] into [year,month]
+    Area weights sit array 4d [year,month,lat,lon] into [year,month] from
+    original PIOMAS GOCC grid (area weighted)
     """
     sityr = np.empty((var.shape[0],var.shape[1]))
     for i in range(var.shape[0]):
         for j in range(var.shape[1]):
             varq = var[i,j,:,:]
             mask = np.isfinite(varq) & np.isfinite(area)
-            varmask = varq[mask]
+            varmask = varq[mask]#    plt.subplots_adjust(top=0.98)
             areamask = area[mask]
             sityr[i,j] = np.nansum(varmask*areamask)/np.sum(areamask)
      
@@ -78,7 +79,10 @@ def weightThick(var,area):
      
 sitave = weightThick(sit,area)
 
-### Plot figure
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot plot of sea ice thickness
 matplotlib.rc('savefig', facecolor='black')
 matplotlib.rc('axes', edgecolor='white')
 matplotlib.rc('xtick', color='white')
@@ -137,13 +141,6 @@ for i in range(sitave.shape[0]):
         aaa = 1
     t = plt.annotate(r'\textbf{%s}' % years[i],xy=(1,1),xytext=(8.8,2.7),color=ccc,
                      fontsize=50,alpha=aaa)    
-#    if years[i] == 2017:
-#        tt = plt.annotate(r'\textbf{%s}' % years[i],xy=(1,1),xytext=(3.15,sitave[i,3]-0.03),color=cma,
-#                     fontsize=7)    
-#    else:
-#        tt = plt.annotate(r'\textbf{%s}' % years[i],xy=(1,1),xytext=(11.3,sitave[i,-1]-0.03),color=cma,
-#                 fontsize=7)
-                          
 
     xlabels = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',
               r'Aug',r'Sep',r'Oct',r'Nov',r'Dec',r'Jan'] 
@@ -154,7 +151,6 @@ for i in range(sitave.shape[0]):
     plt.xlim([0,11])
     plt.ylim([0.5,3])
     
-#    plt.ylabel(r'\textbf{Sea Ice Thickness (m)}',fontsize=9)
     a = plt.text(-1.3,2.7,r'\textbf{THICKNESS}',fontsize=20,color='w',rotation=90,
              alpha=0.6)
     b = plt.text(-1.3,-1.15,r'\textbf{VOLUME}',fontsize=20,color='w',rotation=90,
@@ -165,6 +161,8 @@ for i in range(sitave.shape[0]):
 ###########################################################################
 ###########################################################################
 ###########################################################################
+### Begin plot of sea ice volume    
+    
 ### Adjust axes in time series plots 
     def adjust_spines(ax, spines):
         for loc, spine in ax.spines.items():
@@ -215,11 +213,8 @@ for i in range(sitave.shape[0]):
     rects[-1].set_color('dimgray')
     
     plt.xticks(np.arange(0,31,5),map(str,np.arange(0,31,5)),fontsize=6.5)
-#    plt.xlabel(r'\textbf{May: Sea Ice Volume [$\times$1000 km$^{3}$]}',
-#               fontsize=9)
                
     plt.subplots_adjust(bottom=0.15) 
-#    plt.subplots_adjust(top=0.98)
 
     d = plt.text(0.03,-0.39,r'\textbf{DATA:} PIOMAS v2.1 [Zhang and Rothrock, 2003]',
          fontsize=5,rotation='horizontal',ha='left',color='w',
@@ -246,7 +241,7 @@ for i in range(sitave.shape[0]):
     h = plt.text(31.45,-0.136,r'\textbf{km$^{3}$}',fontsize=11,
                     color='w',alpha=0.6)
     
-    ### Save figure
+    ### Save figure to be used in ImageMagick for GIF
     if i < 10:        
         plt.savefig(directoryfigure + 'map_0%s.png' % i,dpi=300)
     else:
@@ -268,7 +263,8 @@ for i in range(sitave.shape[0]):
             plt.savefig(directoryfigure + 'map_51.png',dpi=300)
             plt.savefig(directoryfigure + 'map_52.png',dpi=300)
             plt.savefig(directoryfigure + 'map_53.png',dpi=300)
-       
+      
+    ### Remove texts per each loop    
     t.remove()
     ttt.remove()
     rects.remove()

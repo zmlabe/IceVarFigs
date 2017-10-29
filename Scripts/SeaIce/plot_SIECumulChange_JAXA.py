@@ -51,6 +51,7 @@ lastday = now.timetuple().tm_yday -1
 currentice = currentyear[lastday]
 currentanom = currentice - (mean1980[lastday]/1e6)
 
+### Fill in missing days
 currentyear[10] = currentyear[9]
 currentyear[59] = currentyear[58]
                         
@@ -59,7 +60,7 @@ print('\nCompleted: Read sea ice data!' )
 ### Set missing data to nan
 dataset[np.where(dataset==-9999)] = np.nan
 
-### October
+### October (select any month)
 monthq = np.where(month == 10)[0]
 
 octice = years[monthq,:]
@@ -82,7 +83,10 @@ plt.rc('ytick',color='white')
 plt.rc('axes',labelcolor='white')
 plt.rc('axes',facecolor='black')
 
-### Create plot
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
 fig = plt.figure()
 ax = plt.subplot(111)
 
@@ -158,6 +162,7 @@ fig.subplots_adjust(bottom=0.17)
 ### Save figure     
 plt.savefig(directoryfigure + 'Oct17_siecumul_jaxa.png',dpi=300)     
 
+### Print info about the data
 print('\n')
 print('----JAXA Sea Ice Change----')
 print('Day 5 = %s km^2' % ((currentyear[lastday-4] - currentyear[lastday-5])*1e6))

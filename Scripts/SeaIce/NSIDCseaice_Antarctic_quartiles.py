@@ -1,5 +1,5 @@
 """
-Reads in current year's Arctic sea ice extent from Sea Ice Index 2 (NSIDC)
+Reads in current year's Antarctic sea ice extent from Sea Ice Index 3 (NSIDC)
 
 Website   : ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/
 Author    : Zachary M. Labe
@@ -162,10 +162,12 @@ plt.plot(doy,quartile10,color='m',alpha=0.7,zorder=3,linewidth=0.01)
 plt.plot(doy,quartile25,color='cornflowerblue',alpha=0.7,zorder=4,linewidth=0.01)
 plt.plot(doy,quartile75,color='cornflowerblue',alpha=0.7,zorder=4,linewidth=0.01)
 plt.plot(doy,quartile90,color='m',alpha=0.7,zorder=3,linewidth=0.01)
+
 ax.fill_between(doy, lower2std, upper2std, facecolor='white', alpha=0.35,
                 label=r'$\pm$2 standard deviations',zorder=2)
 plt.plot(doy,quartile50,color='gold',alpha=1,zorder=3,linewidth=1.5,
-         label=r'Median (1981-2010)')                
+         label=r'Median (1981-2010)')    
+            
 ax.fill_between(doy, quartile90, quartile75, facecolor='m', alpha=0.55,
                 label=r'10-90th percentiles',zorder=2)
 ax.fill_between(doy, quartile10, quartile25, facecolor='m', alpha=0.55,
@@ -173,9 +175,11 @@ ax.fill_between(doy, quartile10, quartile25, facecolor='m', alpha=0.55,
 ax.fill_between(doy, quartile25, quartile50, facecolor='cornflowerblue', alpha=0.6,
                 zorder=2)  
 ax.fill_between(doy, quartile50, quartile75, facecolor='cornflowerblue', alpha=0.6,
-                label=r'25-75th percentiles',zorder=2)                 
+                label=r'25-75th percentiles',zorder=2)              
+   
 plt.scatter(doy[currentdoy-3],ice[-1],s=10,color='aqua',zorder=9)
 
+### Add text to the plot
 plt.ylabel(r'\textbf{Extent} [$\times$10$^{6}$ km$^2$]',fontsize=15,
            color='darkgrey')
 le = plt.legend(shadow=False,fontsize=6,loc='upper left',
@@ -194,7 +198,8 @@ plt.text(360,1.3,r'\textbf{SOURCE:} ftp://sidads.colorado.edu/DATASETS/NOAA/G021
 plt.text(360,0.3,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='right',color='darkgrey')    
 fig.subplots_adjust(top=0.91)
-        
+
+### Save figure        
 plt.savefig(directoryfigure + 'nsidc_sie_ant_quartiles_currentyear.png',dpi=300)        
                   
                         

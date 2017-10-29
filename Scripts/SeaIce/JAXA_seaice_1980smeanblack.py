@@ -1,5 +1,5 @@
 """
-Plots Arctic sea ice extent from June 2002-present using JAXA metadata
+Plots Arctic daily sea ice extent from June 2002-present using JAXA metadata
 
 Website   : https://ads.nipr.ac.jp/vishop/vishop-extent.html
 Author    : Zachary M. Labe
@@ -9,7 +9,6 @@ Date      : 15 May 2016
 ### Import modules
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.colors as c
 import matplotlib
 import datetime
 import urllib as UL
@@ -54,11 +53,14 @@ currentanom = currentice - (mean1980[lastday]/1e6)
 currentyear[10] = currentyear[9]
 currentyear[59] = currentyear[58]
 
-### Changes 
+### Changes in the last day and week
 weekchange = currentice - currentyear[lastday-7]
 daychange = currentice - currentyear[lastday-1]
 
-### Make plot
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
 matplotlib.rc('savefig', facecolor='black')
 matplotlib.rc('axes', edgecolor='white')
 matplotlib.rc('xtick', color='white')
@@ -88,25 +90,28 @@ def adjust_spines(ax, spines):
     else:
         ax.xaxis.set_ticks([])
 
-### 2000s min
 oldaverage = currentyear.copy()
 oldaverage[lastday:] = currentyear[lastday]
 
+### 2000s average
 average2000s = mean2000.copy()
 average2000s[lastday:] = mean2000[lastday]
 average2000s = average2000s/1e6
 oldmin = np.where(mean2000 == np.min(mean2000))[0]
 
+### 1990s average
 average1990s = mean1990.copy()
 average1990s[lastday:] = mean1990[lastday]
 average1990s = average1990s/1e6
 
+### 1980s average
 average1980s = mean1980.copy()
 average1980s[lastday:] = mean1980[lastday]
 average1980s = average1980s/1e6
 
 difference = (oldmin - lastday)[0]
 
+### Are we below decadal climatological min?
 if (currentyear[lastday]*1e6) < np.nanmin(mean1980):
     print( True, '1980')
 if (currentyear[lastday]*1e6) < np.nanmin(mean1990):
@@ -122,6 +127,7 @@ for i in range(years.shape[0]):
     else: 
         recordlow[i] = 0.
 
+### Begin plot
 plt.plot(doy,years[:,:],color='w',linewidth=0.15,
          linestyle='-',alpha=0.7)
 
@@ -156,21 +162,9 @@ xlabels = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',
 strmonth = xlabels[int(currentmn)-1]
 asof = strmonth + ' ' + currentdy + ', ' + currentyr
 
+### Add additional information to the plot
 xcord = 109
 ycord = 9.4
-
-#plt.text(xcord,ycord,r'\textbf{%s}' '\n' r'\textbf{%s} \textbf{km$\bf{^2}$}' \
-#    % (asof,format(currentice*1e6,",f")[:-7]),fontsize=11,
-#    rotation='horizontal',ha='right',color='aqua')         
-#plt.text(xcord,ycord-2,r'\textbf{7--day change}'\
-#        '\n' r'\textbf{%s} \textbf{km$\bf{^2}$}'\
-#        % (format(weekchange*1e6,",f")[:-7]),fontsize=10,
-#        rotation='horizontal',ha='right',color='aqua') 
-#plt.text(xcord,ycord-3.35,r'\textbf{1--day change}' \
-#    '\n' r'\textbf{%s} \textbf{km$\bf{^2}$}'\
-#    % (format((daychange*1e6),",f")[:-7]),fontsize=10,
-#    rotation='horizontal',ha='right',color='aqua') 
-    
 if recordlow[lastday] == 1.0:
     plt.text(xcord + 2,ycord,r'\textbf{[*Record Low*]}',fontsize=11,
              rotation='horizontal',ha='left',color='aqua')
@@ -221,11 +215,11 @@ ylabels = map(str,np.arange(1,18,1))
 plt.yticks(np.arange(1,18,1),ylabels,fontsize=13)
 plt.ylim([1,13])
 plt.xlim([182.35,334.4])
-#ax.grid(zorder=1,color='w',alpha=0.3)
 fig.suptitle(r'\textbf{ARCTIC SEA ICE}',fontsize=28,color='w',alpha=0.6) 
 
 plt.savefig(directoryfigure + 'JAXA_seaice_means_xe5.png',dpi=900)
 
+### Print additional information
 print('\n')
 print('----JAXA Sea Ice Change----')
 print('Day 5 = %s km^2' % ((currentyear[lastday-4] - currentyear[lastday-5])*1e6))
@@ -238,5 +232,4 @@ print('\n' 'Total 5-day Change = %s km^2 \n' % ((currentyear[lastday]-currentyea
 print('2017-1980 = %s km^2' % ((currentyear[lastday]*1e6) - mean1980[lastday]))
 print('2017-1990 = %s km^2' % ((currentyear[lastday]*1e6) - mean1990[lastday]))
 print('2017-2000 = %s km^2' % ((currentyear[lastday]*1e6) - mean2000[lastday]))
-#print('2017-2012 = %s km^2' % ((currentyear[lastday] - years[lastday,-5])*1e6))
 print('\n')

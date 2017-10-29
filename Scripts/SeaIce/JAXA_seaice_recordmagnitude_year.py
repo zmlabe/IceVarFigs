@@ -10,7 +10,6 @@ Date      : 18 October 2016
 ### Import modules
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.colors as c
 import matplotlib
 import datetime
 import urllib as UL
@@ -48,22 +47,25 @@ years = years/1e6
 
 ### Recent day of current year
 currentyear = years[:,-1]
-#lastday = np.where(np.isnan(currentyear[11:]))[0][0] 
 lastday = now.timetuple().tm_yday - 1
 currentice = currentyear[lastday]
 currentanom = currentice - (mean1980[lastday]/1e6)
 
+### Fill in random missing days (does not affect!)
 currentyear[10] = currentyear[9]
 
 ### Calculate magnitude of record
 years2 = years[:,:-1]
 mins = np.nanmin(years2[:,:],axis=1)
 
+### Select month
 octs = np.where(month == 10)[0]
-
 recdiff = currentyear - mins
 
-### Make plot
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
 matplotlib.rc('savefig', facecolor='black')
 matplotlib.rc('axes', edgecolor='white')
 matplotlib.rc('xtick', color='white')
@@ -136,8 +138,10 @@ fig.suptitle(r'\textbf{ARCTIC SEA ICE EXTENT}',
                        fontsize=18,color='darkgrey') 
 ax.tick_params('both',length=5.5,width=2,which='major')
 
+### Save figure
 plt.savefig(directoryfigure + 'JAXA_seaice_record_magnitude_year',dpi=900)
 
+### Print additional information
 print('\n')
 print('----JAXA Sea Ice Change----')
 print('Day 5 = %s km^2' % ((currentyear[lastday-4] - currentyear[lastday-5])*1e6))
@@ -147,7 +151,6 @@ print('Day 2 = %s km^2' % ((currentyear[lastday-1] - currentyear[lastday-2])*1e6
 print('Day 1 = %s km^2' % ((currentyear[lastday] - currentyear[lastday-1])*1e6))
 print('\n' 'Total 5-day Change = %s km^2' % ((currentyear[lastday]-currentyear[lastday-5])*1e6))
 print('\n')
-
 print('2016-1980 = %s km^2' % ((currentyear[lastday]*1e6) - mean1980[lastday]))
 print('2016-2012 = %s km^2' % ((currentyear[lastday] - years[lastday,-5])*1e6))
 print('\n')

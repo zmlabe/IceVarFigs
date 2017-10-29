@@ -1,5 +1,5 @@
 """
-Plots PIOMAS daily Sea Ice Volume for 1979-2016
+Plots PIOMAS monthly Sea Ice Volume for 1979-2016
 
 Website   : http://psc.apl.uw.edu/research/projects/arctic-sea-ice-volume-
             anomaly/data/
@@ -28,13 +28,20 @@ print('\n' 'PIOMAS -- Sea Ice Volume --', \
 ### Read data
 years,aug = np.genfromtxt(directorydata + 'monthly_piomas.txt',
                            unpack=True,delimiter='',usecols=[0,9])
+
+### Calculate average from 1981-2010 baseline
 climyr = np.where((years >= 1981) & (years <= 2010))[0]  
 
 clim = np.nanmean(aug[climyr])                         
 
 print('Completed: Read data!')
 
-### Make plot
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
+
+### Select attributes
 plt.rc('savefig', facecolor='black')
 plt.rc('axes', edgecolor='white')
 plt.rc('xtick', color='white')
@@ -114,7 +121,7 @@ for i in range(aug.shape[0]):
     plt.text(1.4,0.18,r'1981-2010 Average',rotation=0,color='w',
              fontsize=10)
     
-    ### Save figure
+    ### Save figure for GIF creation using ImageMagick
     if i < 10:        
         plt.savefig(directoryfigure + 'siv_0%s.png' % i,dpi=300)
     else:

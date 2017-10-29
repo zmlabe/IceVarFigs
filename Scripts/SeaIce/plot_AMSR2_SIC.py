@@ -40,7 +40,7 @@ titletime = currentmn + '/' + str(currentdy) + '/' + currentyr
 
 print('\n' 'Current Time = %s' '\n' % titletime)
 
-### Pick data set
+### Pick data set (AMSR2 is only one available currently)
 icedataset = 'AMSR2'
     
 if icedataset == 'AMSR2':
@@ -64,13 +64,18 @@ if icedataset == 'AMSR2':
     ice = np.asarray(np.squeeze(ice/100.))
     
     print('Completed: Data read!')
-    
+
+### Mask missing data and values below 15% SIC    
 ice[np.where(ice <= 0.15)] = np.nan
 ice[np.where((ice >= 0.999) & (ice <= 1))] = 0.999
 ice[np.where(ice > 1)] = np.nan
 
 print('Completed: Ice masked!')
 
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 
 plt.rc('savefig',facecolor='black')
@@ -90,16 +95,8 @@ ax = fig.add_subplot(111)
 m = Basemap(projection='npstere',boundinglat=57,lon_0=270,resolution='l',round =True)
 m.drawcoastlines(color = 'y',linewidth=0.4)
 m.drawmapboundary(color='white')
-#m.drawlsmask(land_color='k',ocean_color='k')
-
-#parallels = np.arange(50,86,5)
-#meridians = np.arange(-180,180,30)
-#m.drawparallels(parallels,labels=[False,False,False,False],linewidth=0.0,color='w')
-#par=m.drawmeridians(meridians,labels=[True,True,False,False],linewidth=0.0,fontsize=6,color='w')
-#setcolor(par,'white')
 
 cs = m.contourf(lon,lat,ice[:,:],np.arange(0.2,1.01,.02),extend='min',latlon=True)
-#cs.set_cmap('GMT_relief_oceanography')
 
 cmap = ncm.cmap('MPL_YlGnBu')         
 cs.set_cmap(cmap)

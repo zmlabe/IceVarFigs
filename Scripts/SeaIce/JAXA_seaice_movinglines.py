@@ -1,5 +1,6 @@
 """
-Plots Arctic sea ice extent from June 2002-present using JAXA metadata
+Plots Arctic sea ice extent from June 2002-present using JAXA metadata in 
+an animation
 
 Website   : https://ads.nipr.ac.jp/vishop/vishop-extent.html
 Author    : Zachary M. Labe
@@ -48,11 +49,11 @@ years = years/1e6
 
 ### Recent day of current year
 currentyear = years[:,-1]
-#lastday = np.where(np.isnan(currentyear[1:]))[0][0]
 lastday = now.timetuple().tm_yday -1
 currentice = currentyear[lastday]
 currentanom = currentice - (mean1980[lastday]/1e6)
 
+### Fill in random missing dates (does not affect)
 currentyear[10] = currentyear[9]
 currentyear[59] = currentyear[58]
 
@@ -60,7 +61,10 @@ currentyear[59] = currentyear[58]
 weekchange = currentice - currentyear[lastday-7]
 daychange = currentice - currentyear[lastday-1]
 
-### Make plot
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
 matplotlib.rc('savefig', facecolor='black')
 matplotlib.rc('axes', edgecolor='white')
 matplotlib.rc('xtick', color='white')
@@ -161,6 +165,7 @@ fig.suptitle(r'\textbf{ARCTIC SEA ICE}',
                        fontsize=25,color='w',alpha=0.6) 
 ax.tick_params('both',length=5.5,width=2,which='major')
 
+### Start animation
 year2012 = years[:,-6]
 year2007 = years[:,5]
 year2016 = years[:,-2]
@@ -175,11 +180,14 @@ def update(num,doy,currentyear,year2016,year2012,year2007,bar,bar2,bar4):
     bar4.axes.axis([0,300,3,16])
     return bar,
 
-ani = animation.FuncAnimation(fig,update,310,fargs=[doy,currentyear,year2016,year2012,year2007,bar,bar2,bar4],
-                              interval=.001,blit=True)
+ani = animation.FuncAnimation(fig,update,310,fargs=[doy,currentyear,year2016,
+                                                    year2012,year2007,bar,
+                                                    bar2,bar4],
+                                                    interval=.001,blit=True)
 
 ani.save(directory + 'moving_SIE_JAXA.gif',dpi=150)
 
+### Print additional information
 print('\n')
 print('JAXA Sea Ice Loss Missing Days')
 print('Day 5 Loss = %s km^2' % ((currentyear[lastday-4] - currentyear[lastday-5])*1e6))

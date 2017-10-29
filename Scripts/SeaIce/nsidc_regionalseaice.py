@@ -9,13 +9,12 @@ Date      : 21 October 2017
 
 ### Import modules
 import numpy as np
-import urllib2
 import datetime
 import matplotlib.pyplot as plt
 import pandas as pd
 
 ### Directory and time
-directory = '/Users/zlabe/Documents/Weather/Python_Arctic/Figures/'
+directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures'
 now = datetime.datetime.now()
 currentmn = str(now.month)
 currentdy = str(now.day)
@@ -26,14 +25,15 @@ doy = np.arange(0,365,1)
 lastday = now.timetuple().tm_yday -2
 years = np.arange(1979,2017+1,1)
 
-### Argumenets 
+### Turn on to read in the data (slow!)
 datareader=True
 
 ### Load url
 url = 'ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/seaice_analysis/' \
         'Sea_Ice_Index_Regional_Daily_Data_G02135_v3.0.xlsx'
 
-### Read file
+### Read files from NSIDC (not very efficient - lol)
+### There are more regional seas that can easily be added!
 if datareader == True:       
     df_barents = pd.read_excel(url,sheetname='Barents-Extent-km^2',header=1,
                                parse_cols=range(3,42,1))
@@ -143,20 +143,22 @@ def adjust_spines(ax, spines):
         ax.xaxis.set_ticks_position('bottom')
     else:
         ax.xaxis.set_ticks([]) 
-        
-#xlabels = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',
-#          r'Aug',r'Sep',r'Oct',r'Nov',r'Dec',r'Jan']
+
+### Labels for months and regional seas        
 xlabels = [r'Jan',r'Apr',r'Jul',r'Oct',r'Jan']
-sienames = [r'\textbf{BARENTS SEA}',r'\textbf{BEAUFORT SEA}',r'\textbf{BERING SEA}',
+sienames = [r'\textbf{BARENTS SEA}',r'\textbf{BEAUFORT SEA}',
+            r'\textbf{BERING SEA}',
             r'\textbf{CANADIAN ARCHIPELAGO}',r'\textbf{CHUKCHI SEA}',
             r'\textbf{EAST SIBERIAN SEA}',r'\textbf{GREENLAND SEA}',
             r'\textbf{HUDSON BAY}',r'\textbf{KARA SEA}',
             r'\textbf{LAPTEV SEA}']
 
+### Loop through each regional sea 
 fig = plt.figure()
 for i in range(sie.shape[0]):
     ax = plt.subplot(5,2,i+1)
     
+    ### if statement for adjusting plot axes between bottom and others
     if i >= 8:           
         ax.tick_params('both',length=3.5,width=2,which='major') 
         adjust_spines(ax, ['left','bottom'])            
@@ -175,6 +177,7 @@ for i in range(sie.shape[0]):
         ax.tick_params(labelbottom='off', labelright='off',bottom='off',
                        color='darkgrey')
     
+    ### PLOT
     plt.plot(sie[i,:,-1],color='aqua',zorder=2)
     ax.fill_between(doy, mine[i], maxe[i], facecolor='magenta', alpha=0.4)
     
@@ -186,31 +189,34 @@ for i in range(sie.shape[0]):
     
     plt.ylim([0,1.5])
     
+    ### if statement for adjusting plot axes between bottom and others
     if i >= 8:
         plt.xticks(np.arange(0,366,90.4),xlabels,rotation=0,fontsize=7)
         
     plt.xlim([0,361.5])
     
+    ### Label each sea
     plt.text(0,1.45,sienames[i],color='w',fontsize=9,ha='left',
-             va='center')
-#    ax.yaxis.grid(zorder=1,color='w',alpha=0.35)
+             va='center')     
 
+### Add text to plot
 fig.suptitle(r'\textbf{REGIONAL SEA ICE}',
-                       fontsize=24,color='darkgrey')      
-
+                   fontsize=24,color='darkgrey') 
 plt.text(-436,-1.1,r'\textbf{DATA:} National Snow \& Ice Data Center, Boulder CO',
          fontsize=5.5,rotation='horizontal',ha='left',color='darkgrey')
 plt.text(-436,-1.35,r'\textbf{SOURCE:} ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/seaiceanalysis/',
          fontsize=5.5,rotation='horizontal',ha='left',color='darkgrey')
 plt.text(365,-1.1,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5.5,rotation='horizontal',ha='right',color='darkgrey')
-
 plt.text(-520,6.6,r'\textbf{Extent [$\bf{\times 10^{6}}$\ \textbf{km}$\bf{^2}$]}',
            fontsize=13,alpha=1,color='darkgrey',rotation=90) 
-plt.text(365,9.4,r'$\bf{\pm}$2\ \textbf{std. dev.}',fontsize=10,color='magenta',
-         alpha=0.7,ha='right')   
+plt.text(365,9.4,r'$\bf{\pm}$2\ \textbf{std. dev.}',fontsize=10,
+         color='magenta',alpha=0.7,ha='right') 
+
+### Adjust size of plot  
 fig.subplots_adjust(hspace=0.3)
-       
-plt.savefig(directory + 'nsidc_sie_regionals.png',dpi=300)  
+
+### Save figure       
+plt.savefig(directoryfigure + 'nsidc_sie_regionals.png',dpi=300)  
 
 print('Completed: Script done!')                          

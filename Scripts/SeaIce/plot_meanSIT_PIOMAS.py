@@ -1,5 +1,5 @@
 """
-Scripts calculates SIT time series for March and April 
+Scripts calculates mean monthly SIT from PIOMAS
  
 Notes
 -----
@@ -11,13 +11,10 @@ Notes
 ### Import modules
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.colors as c
 import matplotlib
 import datetime
 import read_SeaIceThick_PIOMAS as CT
 import calc_PiomasArea as CA
-import statsmodels.api as sm
-from mpl_toolkits.basemap import Basemap
 
 ### Define directories
 directorydata = '/home/zlabe/surt/seaice_obs/PIOMAS/'   
@@ -39,7 +36,7 @@ years = np.arange(yearmin,yearmax+1,1)
 months = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',r'Aug',
           r'Sep',r'Oct',r'Nov',r'Dec']
 
-### Call functions
+### Call functions to read data
 lats,lons,sit = CT.readPiomas(directorydata,years,0.15)
 area = CA.readPiomasArea(directorydata)
 
@@ -49,7 +46,8 @@ area = CA.readPiomasArea(directorydata)
 ### Calculating temporal sit
 def weightThick(var,area):
     """
-    Area weights sit array 4d [year,month,lat,lon] into [year,month]
+    Area weights sit array 4d [year,month,lat,lon] into [year,month] using 
+    original PIOMAS GOCC grid, which area-weights
     """
     sityr = np.empty((var.shape[0],var.shape[1]))
     for i in range(var.shape[0]):
@@ -65,6 +63,9 @@ def weightThick(var,area):
      
 sitave = weightThick(sit,area)
 
+###############################################################################
+###############################################################################
+###############################################################################
 ### Plot figure
 matplotlib.rc('savefig', facecolor='black')
 matplotlib.rc('axes', edgecolor='white')
@@ -126,7 +127,6 @@ for i in range(sitave.shape[0]):
         tt = plt.annotate(r'\textbf{%s}' % years[i],xy=(1,1),xytext=(11.3,sitave[i,-1]-0.03),color=cma,
                  fontsize=7)
                           
-
     xlabels = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',
               r'Aug',r'Sep',r'Oct',r'Nov',r'Dec',r'Jan'] 
     plt.xticks(np.arange(0,12,1),xlabels,rotation=0,fontsize=9)
@@ -143,6 +143,7 @@ for i in range(sitave.shape[0]):
     plt.text(0.01,0.5,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
              fontsize=5,rotation='horizontal',ha='left',color='darkgrey')
     
+    ### Use ImageMagick to make GIF from each .png file
     if i <= 9:
         plt.savefig(directoryfigure + 'meansit_0%s.png' % i,dpi=300)
     else:

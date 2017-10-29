@@ -1,5 +1,5 @@
 """
-Reads in current year's Arctic sea ice extent from Sea Ice Index 2 (NSIDC)
+Reads in current year's Arctic sea ice extent from Sea Ice Index 3 (NSIDC)
 
 Website   : ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/
 Author    : Zachary M. Labe
@@ -42,14 +42,14 @@ day = dataset[:,2]
 ice = dataset[:,3]
 missing = dataset[:,4]
 
+### Call present year
 yr2017 = np.where(year == 2017)[0]
-
 ice17 = ice[yr2017]
 
 ### Ice Conversion
 iceval = ice17 * 1e6
 
-### Printing
+### Printing info
 print('\n----- NSIDC Arctic Sea Ice -----')
 print('Current Date =', now.strftime("%Y-%m-%d %H:%M"), '\n')
 
@@ -87,9 +87,10 @@ quartile90 = dataset2[:,7]
 ### Anomalies
 currentanom = iceval[-1]-meanice[currentdoy-2]
 
-### Printing
+### Printing info
 print('Current anomaly = %s km^2 \n' % currentanom)   
 
+### Selected other years for comparisons
 yr2007 = np.where(year == 2007)[0]
 yr2012 = np.where(year == 2012)[0]
 yr2016 = np.where(year == 2016)[0]
@@ -153,24 +154,21 @@ upper2std = (meanice/1e6)+(std*2)
 lower2std = (meanice/1e6)-(std*2)
 
 ax.grid(zorder=1,color='w',alpha=0.2)
-#plt.plot(doy[:-1],sie7,linewidth=1.5,color='yellowgreen',zorder=6,
-#         label=r'Year 2007')
-#plt.plot(doy,sie16,linewidth=1.5,color='limegreen',zorder=7,
-#         label=r'Year 2016')
-#plt.plot(doy,meanice/1e6,linewidth=3,color='w',zorder=4,
-#         label=r'1981-2010 Climatology',alpha=0.85)
 
 plt.plot(ice17,linewidth=1.8,color='aqua',zorder=9,label=r'Current Year (2017)') 
+
 plt.plot(doy,upper2std,color='white',alpha=0.7,zorder=3,linewidth=0.1)
 plt.plot(doy,lower2std,color='white',alpha=0.7,zorder=4,linewidth=0.1)
 plt.plot(doy,quartile10,color='m',alpha=0.7,zorder=3,linewidth=0.4)
 plt.plot(doy,quartile25,color='cornflowerblue',alpha=0.7,zorder=4,linewidth=0.4)
 plt.plot(doy,quartile75,color='cornflowerblue',alpha=0.7,zorder=4,linewidth=0.4)
 plt.plot(doy,quartile90,color='m',alpha=0.7,zorder=3,linewidth=0.4)
+
 ax.fill_between(doy, lower2std, upper2std, facecolor='white', alpha=0.35,
                 label=r'$\pm$2 standard deviations',zorder=2)
 plt.plot(doy,quartile50,color='gold',alpha=1,zorder=3,linewidth=2,
-         label=r'Median (1981-2010)')                
+         label=r'Median (1981-2010)')     
+           
 ax.fill_between(doy, quartile90, quartile75, facecolor='m', alpha=0.55,
                 label=r'10-90th percentiles',zorder=2)
 ax.fill_between(doy, quartile10, quartile25, facecolor='m', alpha=0.55,
@@ -178,7 +176,8 @@ ax.fill_between(doy, quartile10, quartile25, facecolor='m', alpha=0.55,
 ax.fill_between(doy, quartile25, quartile50, facecolor='cornflowerblue', alpha=0.6,
                 zorder=2)  
 ax.fill_between(doy, quartile50, quartile75, facecolor='cornflowerblue', alpha=0.6,
-                label=r'25-75th percentiles',zorder=2)                 
+                label=r'25-75th percentiles',zorder=2)    
+             
 plt.scatter(doy[currentdoy-3],ice[-1],s=10,color='aqua',zorder=9)
 
 plt.ylabel(r'\textbf{Extent} [$\times$10$^{6}$ km$^2$]',fontsize=15,
@@ -199,5 +198,6 @@ plt.text(0.5,2.6,r'\textbf{SOURCE:} ftp://sidads.colorado.edu/DATASETS/NOAA/G021
 plt.text(0.5,2.1,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5.5,rotation='horizontal',ha='left',color='darkgrey')    
 fig.subplots_adjust(top=0.91)
-        
+
+### Save figure        
 plt.savefig(directoryfigure + 'nsidc_sie_quartiles_currentyear.png',dpi=300)     

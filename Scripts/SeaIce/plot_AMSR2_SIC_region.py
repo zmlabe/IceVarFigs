@@ -1,7 +1,6 @@
 """
-Plots JAXA AMSR2 3.125 km (UHH-Processed) Sea Ice Concentration Data
+Plots JAXA AMSR2 3.125 km (Univ Hamburg-Processed) Sea Ice Concentration Data
  
-Source : http://osisaf.met.no/p/ice/
 Author : Zachary Labe
 Date : 27 February 2017
 """
@@ -36,15 +35,12 @@ currentyr = str(now.year)
 if int(currentmn) < 10:
     currentmn = '0' + currentmn
 
-#currentmn = '08'
-#currentdy = '01'
-
 currenttime = currentmn + '_' + str(currentdy) + '_' + currentyr
 titletime = currentmn + '/' + str(currentdy) + '/' + currentyr
 
-print '\n' 'Current Time = %s' '\n' % titletime
+print('\n' 'Current Time = %s' '\n' % titletime)
 
-### Pick data set
+### Pick data set [AMSR2] only available so far
 icedataset = 'AMSR2'
     
 if icedataset == 'AMSR2':
@@ -67,15 +63,20 @@ if icedataset == 'AMSR2':
     
     ice = np.asarray(np.squeeze(ice/100.))
     
-    print 'Completed: Data read!'
-    
+    print('Completed: Data read!')
+  
+### Mask missing data and values less than 15% SIC    
 ice[np.where(ice <= 0.15)] = np.nan
 ice[np.where((ice >= 0.999) & (ice <= 1))] = 0.999
 ice[np.where(ice > 1)] = np.nan
 ice = ice*100.
 
-print 'Completed: Ice masked!'
+print('Completed: Ice masked!')
 
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 
 plt.rc('savefig',facecolor='black')
@@ -93,7 +94,7 @@ def setcolor(x, color):
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-### Enter lat/lon
+### Pick region from following list
 region = 'pacific'
 
 if region == 'kara':
@@ -134,6 +135,7 @@ elif region == 'pacific':
 else:
     ValueError('Wrong region listed!')
 
+### Region specific NPSTERE map
 def polar_stere(lon_w, lon_e, lat_s, lat_n, **kwargs):
     '''Returns a Basemap object (NPS/SPS) focused in a region.
     
@@ -159,19 +161,14 @@ def polar_stere(lon_w, lon_e, lat_s, lat_n, **kwargs):
                        urcrnrlon=ur_lon, urcrnrlat=ur_lat, round=True,
                        resolution='l')
 
+### Call function for map grid
 m = polar_stere(lonmin,lonmax,latmin,latmax)
+
 m.drawcoastlines(color = 'y',linewidth=1)
 m.drawmapboundary(color='white')
 m.drawlsmask(land_color='k',ocean_color='k')
 
-#parallels = np.arange(50,86,5)
-#meridians = np.arange(-180,180,30)
-#m.drawparallels(parallels,labels=[False,False,False,False],linewidth=0.0,color='w')
-#par=m.drawmeridians(meridians,labels=[True,True,False,False],linewidth=0.0,fontsize=6,color='w')
-#setcolor(par,'white')
-
 cs = m.contourf(lon,lat,ice[:,:],np.arange(20,100.01,.1),extend='min',latlon=True)
-#cs.set_cmap('GMT_relief_oceanography')
 
 cmap = ncm.cmap('MPL_YlGnBu')         
 cs.set_cmap(cmap)
@@ -182,7 +179,7 @@ cbar = m.colorbar(cs,location='right',pad = 0.2)
 cbar.outline.set_edgecolor('k')
 barlim = np.arange(20,101,10)
 cbar.set_ticks(barlim)
-cbar.set_ticklabels(map(str,barlim)) 
+cbar.set_ticklabels(list(map(str,barlim))) 
 cbar.set_label(r'\textbf{Concentration (\%)}',fontsize=13,
                          alpha=0.6)
 cbar.ax.tick_params(axis='y', size=.01)
@@ -190,11 +187,11 @@ cbar.ax.tick_params(axis='y', size=.01)
 fig.suptitle(r'\textbf{ARCTIC SEA ICE -- %s}' % titletime,
              fontsize=22,color='white',alpha=0.6)
                          
-plt.annotate(r'\textbf{DATA:} AMSR2 3.125 km (JAXA/Uni Hamburg-Processing)',xy=(250,100),
-             xycoords='figure pixels',color='white',fontsize=6,
+plt.annotate(r'\textbf{DATA:} AMSR2 3.125 km (JAXA/Uni Hamburg-Processing)',
+             xy=(250,100),xycoords='figure pixels',color='white',fontsize=6,
              alpha=0.7,rotation=0) 
-plt.annotate(r'\textbf{SOURCE:} http://icdc.cen.uni-hamburg.de/daten/cryosphere.html',xy=(250,80),
-             xycoords='figure pixels',color='white',fontsize=6,
+plt.annotate(r'\textbf{SOURCE:} http://icdc.cen.uni-hamburg.de/daten/cryosphere.html',
+             xy=(250,80),xycoords='figure pixels',color='white',fontsize=6,
              alpha=0.7,rotation=0) 
 plt.annotate(r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',xy=(250,60),
              xycoords='figure pixels',color='white',fontsize=6,
@@ -202,8 +199,8 @@ plt.annotate(r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',xy=(250,60),
             
 fig.subplots_adjust(top=0.89)
 
-print 'Completed: Figure plotted!'
+print('Completed: Figure plotted!')
 
 plt.savefig(directorys + 'seaiceconc_%s_%s.png' % (region,currenttime), dpi=300)
 
-print 'Completed: Script done!'
+print('Completed: Script done!')

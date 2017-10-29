@@ -1,4 +1,7 @@
 """
+Plots masked sea ice thickness to highlight the loss of thicker ice - uses
+PIOMAS data
+
 Author    : Zachary M. Labe
 Date      : 23 August 2016
 """
@@ -8,7 +11,6 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 import numpy as np
 import datetime
-import calendar as cal
 import matplotlib.colors as c
 
 #### Define constants
@@ -73,8 +75,11 @@ def readPiomas(directory,vari,years,thresh):
     print('Completed: Read "%s" data!' % (vari))   
     
     return lats,lons,var
+
+### Read PIOAMS sea ice thickness data
 lats,lons,sit = readPiomas(directorydata2,'thick',years,0.1)
 
+### Build SIT colormap
 def colormapSIT():
     cmap1 = plt.get_cmap('BuPu')
     cmap2 = plt.get_cmap('RdPu_r')
@@ -90,6 +95,11 @@ sit = sit[:,8,:,:]
 
 sit[np.where(sit < 1.5)] = np.nan
 
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
+
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 
 plt.rc('savefig',facecolor='black')
@@ -98,9 +108,9 @@ plt.rc('xtick',color='white')
 plt.rc('ytick',color='white')
 plt.rc('axes',labelcolor='white')
 plt.rc('axes',facecolor='black')
-#plt.rcParams['axes.linewidth'] = 0.5
+plt.rcParams['axes.linewidth'] = 0.1
 
-## Plot global temperature anomalies
+### Select plot type
 style = 'polar'
 
 ### Define figure
@@ -121,18 +131,15 @@ for i in range(sit.shape[0]):
     m.drawlsmask(land_color='k',ocean_color='k')
     m.drawcoastlines(color='mediumseagreen',linewidth=0.4)
     
-    # Make the plot continuous
+    ### Add colorbar limits
     barlim = np.arange(0,8.1,0.25)
     
-#    var, lons_cyclic = addcyclic(var, lon)
-#    var, lons_cyclic = shiftgrid(180., var, lons_cyclic, start=False)
-#    lon2d, lat2d = np.meshgrid(lons_cyclic, lat)
-#    x, y = m(lon2d, lat2d)
     cmap = colormapSIT()
     cs = m.contourf(lons,lats,var,
                     np.arange(0,8.1,0.25),extend='max',
                     alpha=1,latlon=True,vmin=1.5,cmap=cmap)
-                
+    
+    ### Mask SIT below 1.5 to black            
     cmap.set_under(color='k')
     if i >= 38:
         ccc = 'mediumspringgreen'
@@ -156,14 +163,14 @@ for i in range(sit.shape[0]):
                 fontsize=4.5,color='darkgrey')
                 
     cbar = m.colorbar(cs,drawedges=True,location='bottom',pad = 0.14,size=0.07)
-    ticks = np.arange(0,9,1)8
+    ticks = np.arange(0,9,1)
     labels = list(map(str,np.arange(0,9,1)))
     cbar.set_ticklabels(ticks,labels)
     cbar.set_label(r'\textbf{Sea Ice Thickness (m)}',fontsize=10,color='darkgrey')
     cbar.ax.tick_params(axis='x', size=.1)
     cbar.ax.tick_params(labelsize=6) 
-    plt.rcParams['axes.linewidth'] = 0.1
-         
+    
+    ### Save images to ImageMagick for making a GIF     
     if i < 10:        
         plt.savefig(directory + 'icy_0%s.png' % i,dpi=300)
     else:

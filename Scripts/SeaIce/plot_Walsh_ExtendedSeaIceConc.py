@@ -1,17 +1,16 @@
 """
-HadCRUT4 Temperature anomalies (gridded)
-Website   : https://crudata.uea.ac.uk/cru/data/temperature/
+Plot sea ice concentration from last 100 years using the Walsh reconstruction
+
+Website   : https://nsidc.org/data/g10010
 Author    : Zachary M. Labe
 Date      : 15 June 2016
 """
 
 from netCDF4 import Dataset
 import matplotlib.pyplot as plt
-from mpl_toolkits.basemap import Basemap, addcyclic, shiftgrid
+from mpl_toolkits.basemap import Basemap
 import numpy as np
 import datetime
-import calendar as cal
-from matplotlib.colors import ListedColormap, BoundaryNorm
 import cmocean
 
 ### Define constants
@@ -20,8 +19,10 @@ directoryfigure = '/home/zlabe/Documents/Projects/Tests/SIC_Reconst/'
 now = datetime.datetime.now()
 month = now.month
 
+### Input years
 years = np.arange(1914,2013+1,1)
 
+### Read data from server
 data = Dataset(directorydata + 'G10010_SIBT1850_v1.1.nc')
 lats = data.variables['latitude'][:]
 lons = data.variables['longitude'][:]
@@ -35,6 +36,11 @@ sic = np.reshape(sic,(sic.shape[0]//12,12,lats.shape[0],lons.shape[0]))
 sicmo = sic[:,8,:,:]
 sicmo[np.where(sicmo < 0.1)] = np.nan
 sicmo = sicmo/100.
+
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
 
 ### Define parameters (dark)
 def setcolor(x, color):
@@ -51,9 +57,10 @@ plt.rc('ytick',color='white')
 plt.rc('axes',labelcolor='white')
 plt.rc('axes',facecolor='black')
 
-## Plot global temperature anomalies
+### Select plot type
 style = 'polar'
 
+### Create 2d arrays of latitude and longitude
 lon2,lat2 = np.meshgrid(lons,lats)
 
 ### Define figure
@@ -75,13 +82,8 @@ for i in range(sicmo.shape[0]):
     m.drawlsmask(land_color='k',ocean_color='k')
     m.drawcoastlines(color='dimgrey',linewidth=0.8)
     
-    # Make the plot continuous
+    ### Select limits for colorbar
     barlim = np.arange(0.1,1.1,1)
-    
-#    var, lons_cyclic = addcyclic(var, lons)
-#    var, lons_cyclic = shiftgrid(180., var, lons_cyclic, start=False)
-#    lon2d, lat2d = np.meshgrid(lons_cyclic, lats)
-#    x, y = m(lon2d, lat2d)
     
     cs = m.contourf(lon2,lat2,var,
                     np.arange(0.1,1.1,0.05),extend='both',
@@ -105,6 +107,8 @@ for i in range(sicmo.shape[0]):
              textcoords='axes fraction',
              xy=(0,0), xytext=(-0.28,0.05),
                 fontsize=5,color='darkgrey')
+    
+    ### Save images for creating GIF using ImageMagick
     if i < 10:        
         plt.savefig(directoryfigure + 'icy_0%s.png' % i,dpi=300)
     else:

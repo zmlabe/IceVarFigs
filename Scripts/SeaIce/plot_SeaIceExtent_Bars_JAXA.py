@@ -1,5 +1,6 @@
 """
 Plots Arctic sea ice extent from June 2002-present using JAXA metadata
+
 Website   : https://ads.nipr.ac.jp/vishop/vishop-extent.html
 Author    : Zachary M. Labe
 Date      : 9 August 2016
@@ -47,6 +48,7 @@ currentyear = years[:,-1]
 lastday = now.timetuple().tm_yday - 1
 currentice = currentyear[lastday]
 
+### Missing days (does not affect script)
 currentyear[10] = currentyear[9]
 currentyear[59] = currentyear[58]
 
@@ -101,6 +103,7 @@ def adjust_spines(ax, spines):
         ax.xaxis.set_ticks_position('bottom')
     else:
         ax.xaxis.set_ticks([])
+        
 adjust_spines(ax, ['left', 'bottom'])
 ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')

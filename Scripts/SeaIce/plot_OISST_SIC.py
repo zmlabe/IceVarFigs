@@ -69,11 +69,17 @@ elif icedataset == 'SSMIS':
     ice = np.asarray(np.squeeze(ice/100.))
     
     print('Completed: Data read!')
-    
-ice[np.where(ice <= 0.2)] = np.nan
+
+### Find missing data, mask below 15% SIC    
+ice[np.where(ice <= 0.15)] = np.nan
 ice[np.where(ice > .999)] = .95
 
 print('Completed: Ice masked!')
+
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
 
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 
@@ -83,7 +89,6 @@ plt.rc('xtick',color='white')
 plt.rc('ytick',color='white')
 plt.rc('axes',labelcolor='white')
 plt.rc('axes',facecolor='black')
-#plt.rcParams['axes.linewidth'] = 0.7
 
 def setcolor(x, color):
      for m in x:
@@ -95,7 +100,6 @@ ax = fig.add_subplot(111)
 m = Basemap(projection='npstere',boundinglat=66,lon_0=270,resolution='l',round =True)
 m.drawcoastlines(color = 'k',linewidth=0.7)
 m.drawcountries(color='k',linewidth=0.5)
-#m.drawlsmask(land_color='peru',ocean_color='azure')
 m.drawmapboundary(color='white')
 
 parallels = np.arange(50,86,5)
@@ -103,12 +107,10 @@ meridians = np.arange(-180,180,30)
 m.drawparallels(parallels,labels=[False,False,False,False],linewidth=0.5,color='w')
 par=m.drawmeridians(meridians,labels=[True,True,False,False],linewidth=0.5,fontsize=6,color='w')
 setcolor(par,'white')
-#m.bluemarble()
 m.shadedrelief()
-#m.etopo()
 
-cs = m.contourf(lon,lat,ice[:,:],np.arange(0.2,1.04,.05),extend='min',latlon=True)
-cs2 = m.contour(lon,lat,ice[:,:],np.arange(0.2,0.5,0.1),latlon=True,colors='gold',linewidths=1.5)
+cs = m.contourf(lon,lat,ice[:,:],np.arange(0.15,1.04,.05),extend='min',latlon=True)
+cs2 = m.contour(lon,lat,ice[:,:],np.arange(0.15,0.5,0.1),latlon=True,colors='gold',linewidths=1.5)
 cs.set_cmap('plasma_r')
 
 cbar = m.colorbar(cs,drawedges=True,location='right',pad = 0.55)
@@ -132,7 +134,6 @@ fig.subplots_adjust(top=0.88)
 
 print('Completed: Figure plotted!')
 
-#plt.savefig('SeaIceConc_SSMIS_sample',dpi=300)
 plt.savefig(directorys + 'seaiceconc_%s.png' % currenttime, dpi=300)
 
 print('Completed: Script done!')
