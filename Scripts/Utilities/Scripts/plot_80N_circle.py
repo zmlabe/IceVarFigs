@@ -1,5 +1,5 @@
 """
-Plots circle encompassing 80N
+Plots circle encompassing 80N+
 
 Author : Zachary Labe
 Date : 24 August 2017
@@ -36,6 +36,10 @@ lat1 = np.arange(-90,90.1,0.5)
 lon1 = np.arange(-180,180.1,0.5)
 lon2,lat2 = np.meshgrid(lon1,lat1)
 
+###############################################################################
+###############################################################################
+###############################################################################
+### Plot figure
 
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 

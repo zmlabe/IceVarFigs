@@ -37,14 +37,19 @@ months = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',r'Aug',
           r'Sep',r'Oct',r'Nov',r'Dec']
 datasets = ['20CRv2c','ERA20C','JRA55']
 
+### Read in data
 datat = np.empty((len(datasets),len(years)))
 for i in range(len(datasets)):
     datat[i] = np.genfromtxt(directorydata + '%s_Arctic_%s.txt' % (datasets[i],
                              yearmax),delimiter=',',skip_header=1,
                              unpack=True,usecols=[1])
-    
+
+### Look for missing data    
 datat[np.where(datat == -9999.000)] = np.nan
-                 
+
+###############################################################################
+###############################################################################
+###############################################################################                 
 #### Plot Figure
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 
@@ -117,7 +122,12 @@ plt.text(2017.6,-3.85,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
 
 plt.subplots_adjust(bottom=0.15)        
 
-### Create latitude and longitude
+###############################################################################
+###############################################################################
+###############################################################################
+### Create subplot of region of averaging (67N+)
+
+### Add axis for subplot
 a = plt.axes([.35, .567, .29, .24], axisbg='w') 
 
 def setcolor(x, color):
@@ -145,6 +155,7 @@ setcolor(par,'white')
 
 cs = m.contourf(lon2,lat2,lat2,np.arange(67,100,10),latlon=True,
                 colors='darkgrey')
-           
+
+### Save figure           
 plt.savefig(directoryfigure+'20CReanalysis_Arctic_T_%s.png' % yearmax,dpi=300)
 

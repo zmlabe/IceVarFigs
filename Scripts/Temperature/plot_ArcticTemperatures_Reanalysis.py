@@ -1,5 +1,5 @@
 """
-Scripts plots reanalysis data of 2-m Arctic temperatures (>67N)
+Scripts plots reanalysis data of 2-m Arctic temperatures (67N+)
  
 Notes
 -----
@@ -36,17 +36,21 @@ years = np.arange(yearmin,yearmax+1,1)
 months = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',r'Aug',
           r'Sep',r'Oct',r'Nov',r'Dec']
 datasets = ['R1','R2','CFSR','MERRA2','JRA55','ERAi']
-#datasets = ['ERAI','JRA55','MERRA2','CFSR','R1','R2']
 
+### Read in data
 datat = np.empty((len(datasets),len(years)))
 for i in range(len(datasets)):
     datat[i] = np.genfromtxt(directorydata + '%s_Arctic_%s.txt' % (datasets[i],
                              yearmax),delimiter=',',skip_header=1,
                              unpack=True,usecols=[1])
-    
+
+### Look for missing data    
 datat[np.where(datat == -9999.000)] = np.nan
-                 
-#### Plot Figure
+
+###############################################################################
+###############################################################################
+###############################################################################               
+### Plot Figure
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 
 plt.rc('savefig',facecolor='black')
@@ -118,7 +122,12 @@ plt.text(2017,-3.05,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
 
 plt.subplots_adjust(bottom=0.15)        
 
-### Create latitude and longitude
+###############################################################################
+###############################################################################
+###############################################################################
+### Create subplot of region of averaging (67N+)
+
+### Add axis for subplot
 a = plt.axes([.65, .19, .29, .24], axisbg='w') 
 
 def setcolor(x, color):
@@ -147,5 +156,6 @@ setcolor(par,'white')
 cs = m.contourf(lon2,lat2,lat2,np.arange(67,100,10),latlon=True,
                 colors='darkgrey')
            
+### Save figure
 plt.savefig(directoryfigure+'Reanalysis_Arctic_T_%s.png' % yearmax,dpi=300)
 

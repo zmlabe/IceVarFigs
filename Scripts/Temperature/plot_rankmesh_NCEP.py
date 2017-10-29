@@ -1,5 +1,5 @@
 """
-Plots Arctic mean surface temperature (1948-2016) for Jan-month
+Plots Arctic mean surface temperature (1948-2016) for Jan-$month
 
 Website   : http://www.esrl.noaa.gov/psd/cgi-bin/data/timeseries/timeseries1.pl
 Author    : Zachary M. Labe
@@ -9,15 +9,13 @@ Date      : 15 May 2016
 ### Import modules
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.colors as c
 import scipy.stats as sts
-import nclcmaps as ncm
 
 ### Directory and time
 directoryfigure = '/home/zlabe/Documents/Projects/GlobalTemperature/Results/'
 directorydata = '/home/zlabe/Documents/Projects/GlobalTemperature/Data/'           
 
-### Insert month
+### Insert final month of data
 month = 'Dec'
 
 ### Retrieve Data
@@ -27,12 +25,18 @@ years = data[0,:]
 temps = data[1:,-39:]
 currentyear = int(years[-1])
 
+### Change array shape for plotting
 temps = np.flipud(temps)
 
+### Calculate data ranks
 rank = np.empty(temps.shape)
 for i in range(temps.shape[0]):
     rank[i,:] = abs(sts.rankdata(temps[i,:],method='min')-40)
-    
+ 
+###############################################################################
+###############################################################################
+###############################################################################
+### Begin plot
     
 ### Call parameters
 plt.rc('text',usetex=True)
@@ -44,7 +48,7 @@ plt.rc('ytick',color='white')
 plt.rc('axes',labelcolor='white')
 plt.rc('axes',facecolor='black')
 
-### Plot first meshgrid
+### Plot meshgrid
 fig = plt.figure()
 ax = plt.subplot(111)
 
@@ -71,8 +75,6 @@ plt.tick_params(
 cs = plt.pcolormesh(rank,shading='faceted',edgecolor='k',
                     linewidth=0.3,vmin=1,vmax=37)
 
-#cmap = ncm.cmap('MPL_RdGy')        
-#cs.set_cmap(cmap)   
 cs.set_cmap('RdBu')
 
 ylabels = [r'\textbf{D}',r'\textbf{N}',r'\textbf{O}',r'\textbf{S}',
@@ -88,11 +90,13 @@ plt.xlim([0,39])
 plt.text(-2,-3.3,r'Coldest',color='darkgrey')
 plt.text(36.2,-3.3,r'Warmest',color='darkgrey')
 
+### Insert rank number per grid box
 for i in range(rank.shape[0]):
     for j in range(rank.shape[1]):
         plt.text(j+0.5,i+0.5,'%s' % int(rank[i,j]),fontsize=6,
                  color='k',va='center',ha='center')
-                 
+
+### Invert colorbar for better visual                 
 cbar = plt.colorbar(cs,orientation='horizontal',aspect=50,pad=0.12)
 cbar.ax.invert_xaxis()
 cbar.set_ticks([])
@@ -109,4 +113,5 @@ plt.text(0,12.05,r'\textbf{SOURCE:} http://www.esrl.noaa.gov/psd/data/timeseries
 plt.text(39.,12.05,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='right',color='darkgrey') 
 
+### Save figure
 plt.savefig(directoryfigure + '925T_70N_rank.png',dpi=400)

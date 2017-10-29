@@ -1,5 +1,6 @@
 """
-Plot land ice from GRACE
+Plot change in land ice mass from GRACE satellite. Last update through
+early 2017. GRACE-FO data will be released in the coming years.
 
 Website   : https://climate.nasa.gov/vital-signs/land-ice/
 Author    : Zachary M. Labe
@@ -27,7 +28,7 @@ currentdy = now.day
 currentyr = now.year
 currentmn = datetime.date(currentyr,currentmnq, 1).strftime('%B')
 
-### Load url
+### Load data files for Greenland (g) and Antarctica (a)
 fileg = 'greenland_grace.txt'
 filea = 'antarctic_grace.txt'
 
@@ -42,7 +43,7 @@ print('\nCompleted: Read land ice data!')
 ############################################################################
 ############################################################################
 ############################################################################
-### Create plot
+### Create animation
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 
 plt.rc('savefig',facecolor='black')
@@ -53,6 +54,8 @@ plt.rc('axes',labelcolor='white')
 plt.rc('axes',facecolor='black')
 
 fig = plt.figure()
+
+### Subplot for Antarctica 
 ax = plt.subplot(121)  
 
 ### Adjust axes in time series plots 
@@ -84,11 +87,10 @@ ax.spines['bottom'].set_linewidth(2)
 
 ant, = plt.plot(yeara,aq,linestyle='-',linewidth=2,
          color='deepskyblue',zorder=2)
-#plt.plot(aq,linestyle='--',linewidth=2,zorder=1,color='r')
+
 plt.scatter(yeara[-1],aq[-1],s=20,color='m',zorder=9)
 
 plt.text(2016.1,-2260,r'\textbf{2017}',fontsize=8,color='m')
-
 xlabels = map(str,np.arange(2002,2018,3))
 plt.xticks(np.arange(2002,2018,3),xlabels)
 ylabels = map(str,np.arange(-4000,1,1000))
@@ -105,14 +107,13 @@ plt.text(2002,-5050,r'\textbf{REFERENCE:} Wiese et al. [2015]',
          
 plt.text(1996.6,10,r'\textbf{[Gt]}',color='dimgrey',fontsize=15,va='center',
          alpha=1)         
-         
-
 plt.text(2021,600,r'\textbf{LAND ICE}',fontsize=40,color='w',
          ha='center',va='center',alpha=1)
 
 ###########################################################################
 ###########################################################################
 ###########################################################################
+### Subplot for Greenland
 ax = plt.subplot(122)  
 
 ### Adjust axes in time series plots 
@@ -131,7 +132,6 @@ def adjust_spines(ax, spines):
         ax.xaxis.set_ticks_position('bottom')
     else:
         ax.xaxis.set_ticks([]) 
-
         
 ax.tick_params('both',length=5.5,width=2,which='major')             
 adjust_spines(ax, ['left','bottom'])            
@@ -145,7 +145,7 @@ plt.text(2002,-3850,r'\textbf{Greenland}',color='dimgrey',alpha=1,ha='left',
 
 gre, = plt.plot(yearg,gq,linestyle='-',linewidth=2,
          color='deepskyblue',zorder=2)
-#plt.plot(aq,linestyle='--',linewidth=2,zorder=1,color='r')
+
 plt.scatter(yearg[-1],gq[-1],s=20,color='m',zorder=9)
 
 xlabels = map(str,np.arange(2002,2018,3))
@@ -163,6 +163,7 @@ fig.subplots_adjust(wspace=0.4)
 fig.subplots_adjust(top=0.83)
 fig.subplots_adjust(bottom=0.2)
 
+### Create animation using matplotlib
 def update(num,yearg,aq,gq,ant,bar):
     ant.set_data(yearg[:num+1],gq[:num+1])
     ant.axes.axis([2002,2018,-4000,150])
