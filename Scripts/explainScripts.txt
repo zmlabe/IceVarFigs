@@ -4,8 +4,10 @@
 
 These scripts were in no way originally intended to be the 
 most efficient or well-documented. I am currently improving 
-their comments for ease of use. 
+their comments for ease of use. All of these figures can be
+found in updating versions at:
 
+          http://sites.uci.edu/zlabe/arctic-sea-ice-figures/
 
 ##############################################################################################################################
 ##############################################################################################################################
