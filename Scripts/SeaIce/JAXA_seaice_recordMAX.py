@@ -1,5 +1,6 @@
 """
-Plots Arctic sea ice extent from June 2002-present using JAXA metadata
+Plots Arctic the climatological maximum sea ice extent from June 2002-present 
+using JAXA metadata
 
 Website   : https://ads.nipr.ac.jp/vishop/vishop-extent.html
 Author    : Zachary M. Labe
@@ -9,7 +10,6 @@ Date      : 15 May 2016
 ### Import modules
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.colors as c
 import matplotlib
 import datetime
 import urllib as UL
@@ -51,13 +51,17 @@ lastday = now.timetuple().tm_yday -1
 currentice = currentyear[lastday]
 currentanom = currentice - (mean1980[lastday]/1e6)
 
+### Fill in missing days
 currentyear[10] = currentyear[9]
 currentyear[59] = currentyear[58]
 
-### Changes 
+### Changes in the last week/day
 weekchange = currentice - currentyear[lastday-7]
 daychange = currentice - currentyear[lastday-1]
 
+###############################################################################
+###############################################################################
+###############################################################################
 ### Make plot
 matplotlib.rc('savefig', facecolor='black')
 matplotlib.rc('axes', edgecolor='white')
@@ -88,24 +92,26 @@ def adjust_spines(ax, spines):
     else:
         ax.xaxis.set_ticks([])
 
-### 2000s min
 oldaverage = currentyear.copy()
 oldaverage[lastday:] = currentyear[lastday]
 
+### Calculate 2000s average
 average2000s = mean2000.copy()
 average2000s[lastday:] = mean2000[lastday]
 average2000s = average2000s/1e6
 oldmin = np.where(mean2000 == np.min(mean2000))[0]
 
+### Calculate 1990s average
 average1990s = mean1990.copy()
 average1990s[lastday:] = mean1990[lastday]
 average1990s = average1990s/1e6
 
+### Calculate 1980s average
 average1980s = mean1980.copy()
 average1980s[lastday:] = mean1980[lastday]
 average1980s = average1980s/1e6
 
-### Find maxes
+### Find max sea ice extents
 maxyr = np.empty((years.shape[1]))
 for i in range(years.shape[1]):
     maxyr[i] = np.nanmax(years[:,i])
@@ -114,9 +120,6 @@ maxwhere = np.empty((years.shape[1]))
 for i in range(years.shape[1]):
     maxwhere[i] = np.where(years[:,i] == maxyr[i])[0]
 
-#plt.plot(doy,years[:,:],color='w',linewidth=0.15,
-#         linestyle='-',alpha=1)
-
 plt.scatter(maxwhere[:],maxyr[:],c=maxyr[:],s=50,
             cmap='inferno',zorder=10)
 
@@ -124,13 +127,7 @@ pl = ax.plot(doy,currentyear,linewidth=2.9,zorder=3,
               color='r',)
                   
 plt.scatter(maxwhere[-1],maxyr[-1],s=50,
-            color='r',zorder=10)
-#plt.scatter(doy[lastday],mean2000[lastday]/1e6,
-#            s=20,color='yellowgreen',zorder=11)   
-#plt.scatter(doy[lastday],mean1990[lastday]/1e6,
-#            s=20,color='cornflowerblue',zorder=11)  
-#plt.scatter(doy[lastday],mean1980[lastday]/1e6,
-#            s=20,color='indianred',zorder=11)             
+            color='r',zorder=10)          
             
 plt.plot(doy,mean1980/1e6,linewidth=3,linestyle='--',
          color='darkmagenta',label=r'1980s Mean',alpha=0.8)
@@ -139,6 +136,7 @@ plt.plot(doy,mean1990/1e6,linewidth=3,linestyle='--',
 plt.plot(doy,mean2000/1e6,linewidth=3,linestyle='--',
          color='dodgerblue',label=r'2000s Mean',alpha=0.8)
 
+### Manual labeling to make plot look prettier
 labels = list(map(str,np.arange(2002,2018,1)))
 
 plt.text(maxwhere[1]+0.07,maxyr[1]+0.07,r'\textbf{%s}' % labels[1],color='w',fontsize=7)
@@ -158,17 +156,8 @@ plt.text(maxwhere[14]+0.07,maxyr[14]+0.07,r'\textbf{%s}' % labels[14],color='w',
 plt.text(maxwhere[15]+0.07,maxyr[15]+0.07,r'\textbf{%s}' % labels[15],color='r',fontsize=7)
 
 plt.text(maxwhere[15]+5,maxyr[15]+0.08,r'$\longleftarrow$',color='r',fontsize=11)
-         
-#for label, x, y in zip(labels, maxwhere[:-1], maxyr[:-1]):
-#    plt.annotate(
-#        label,color='w',
-#        xy=(x, y), xytext=(25, -15),
-#        textcoords='offset points', ha='right', va='bottom',
-#        bbox=dict(boxstyle='round,pad=0.1', fc='k', alpha=0.0),
-#        arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0.3',
-#                        color='w'))        
 
-### Define date
+### Define text
 xlabels = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',
           r'Aug',r'Sep',r'Oct',r'Nov',r'Dec',r'Jan'] 
 
@@ -180,10 +169,7 @@ plt.text(30.8,15.91,r'\textbf{DATA:} JAXA (Arctic Data archive System, NIPR)',
 plt.text(30.8,15.84,r'\textbf{SOURCE:} https://ads.nipr.ac.jp/vishop/vishop-extent.html',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey')
 plt.text(30.8,15.77,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
-         fontsize=5,rotation='horizontal',ha='left',color='darkgrey')         
-
-#plt.text(doy[lastday]+2,currentyear[lastday]-0.1,r'\textbf{2017}',
-#             fontsize=11,rotation='horizontal',ha='left',color='m')          
+         fontsize=5,rotation='horizontal',ha='left',color='darkgrey')                
            
 adjust_spines(ax, ['left', 'bottom'])            
 ax.spines['top'].set_color('none')
@@ -206,8 +192,11 @@ ax.grid(zorder=1,color='w',alpha=0.3)
 fig.suptitle(r'\textbf{ARCTIC SEA ICE ANNUAL MAX}',
                        fontsize=22,color='darkgrey')
 ax.tick_params('both',length=5.5,width=2,which='major')
+
+### Save figure
 plt.savefig(directoryfigure + 'JAXA_seaice_recordMAX.png',dpi=900)
 
+### Print additional information
 print('\n')
 print('----JAXA Sea Ice Change----')
 print('Day 5 = %s km^2' % ((currentyear[lastday-4] - currentyear[lastday-5])*1e6))
