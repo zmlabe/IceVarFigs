@@ -1,4 +1,5 @@
-# Weather and Climate Variability Graphics
+# Weather and Climate Variability Graphics [![DOI](https://zenodo.org/badge/107888830.svg)](https://zenodo.org/badge/latestdoi/107888830)
+
 
 Repository contains all of the scripts used in making the figures within (http://sites.uci.edu/zlabe/arctic-sea-ice-figures/). Scripts are *not* intended to be the most efficient or simplest method of plotting and reading data. However, they work for their current purpose. Check back soon for new scripts and/or comments!
 
