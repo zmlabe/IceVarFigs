@@ -171,25 +171,25 @@ if recordlow[lastday] == 1.0:
 
 xcord = lastday - 5.5
 ycord = round(currentice)-0.8
-plt.text(183.4,1.80,r'\textbf{DATA:} JAXA 2002-2017 (Arctic Data archive System, NIPR)',
+plt.text(213.9,1.80,r'\textbf{DATA:} JAXA 2002-2017 (Arctic Data archive System, NIPR)',
          fontsize=5,rotation='horizontal',ha='left',color='w',alpha=0.6)
-plt.text(183.4,1.50,r'\textbf{SOURCE:} https://ads.nipr.ac.jp/vishop/vishop-extent.html',
+plt.text(213.9,1.50,r'\textbf{SOURCE:} https://ads.nipr.ac.jp/vishop/vishop-extent.html',
          fontsize=5,rotation='horizontal',ha='left',color='w',alpha=0.6)
-plt.text(183.4,1.20,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
+plt.text(213.9,1.20,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='left',color='w',alpha=0.6)
 
 plt.text(doy[lastday]+5,currentyear[lastday]-0.8,r'\textbf{$\bf{\longrightarrow}$}',
-             fontsize=18,rotation=65,ha='right',color='darkorange')
-plt.text(334.6,currentyear[lastday]-0.2,r'\textbf{CURRENT}',
+             fontsize=18,rotation=75,ha='right',color='darkorange')
+plt.text(364.8,currentyear[lastday]-0.2,r'\textbf{CURRENT}',
              fontsize=9.5,rotation='horizontal',ha='left',
              color='darkorange',alpha=1) 
-plt.text(334.6,mean2000[lastday]/1e6-0.2,r'2000s',
+plt.text(364.8,mean2000[lastday]/1e6-0.2,r'2000s',
              fontsize=10,rotation='horizontal',ha='left',
              color='dodgerblue') 
-plt.text(334.6,mean1990[lastday]/1e6-0.2,r'1990s',
+plt.text(364.8,mean1990[lastday]/1e6-0.3,r'1990s',
              fontsize=10,rotation='horizontal',ha='left',
              color='c')  
-plt.text(334.6,mean1980[lastday]/1e6-0.2,r'1980s',
+plt.text(364.8,mean1980[lastday]/1e6-0.05,r'1980s',
              fontsize=10,rotation='horizontal',ha='left',
              color='darkmagenta')              
            
@@ -214,7 +214,7 @@ plt.xticks(np.arange(0,366,30.4),xlabels,rotation=0,fontsize=11)
 ylabels = map(str,np.arange(1,18,1))
 plt.yticks(np.arange(1,18,1),ylabels,fontsize=13)
 plt.ylim([1,13])
-plt.xlim([182.35,334.4])
+plt.xlim([212.8,364.8])
 fig.suptitle(r'\textbf{ARCTIC SEA ICE}',fontsize=28,color='w',alpha=0.6) 
 
 plt.savefig(directoryfigure + 'JAXA_seaice_means_xe5.png',dpi=900)
