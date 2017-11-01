@@ -109,7 +109,7 @@ plt.plot(doy,zeroline,linewidth=2,color='w',linestyle='--',
 barlist = plt.bar(np.arange(366),recdiff,color='indianred',
                   edgecolor='indianred',zorder=10)         
 barlist = plt.bar(np.arange(366),recdiff_masked.filled(np.nan),
-                  color='cornflowerblue',edgecolor='dodgerblue',zorder=11)        
+                  color='cornflowerblue',edgecolor='cornflowerblue',zorder=11)        
 
 xlabels = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',
           r'Aug',r'Sep',r'Oct',r'Nov',r'Dec',r'Jan'] 
