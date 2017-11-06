@@ -83,6 +83,10 @@ in black. This is an arbitrary threshold and can be adjusted.
 shows sea ice thickness from PIOMAS v2, while the bar graph indicates total sea ice volume for the corresponding sea ice
 thickness month. Years available include 1979 to present.
 
++ plot_sit_PIOMAS_monthly_v2.py : updated script plots a single [.png] figure per year, which can be concatenated into a GIF. 
+The map shows sea ice thickness from PIOMAS v2, while the bar graph indicates total sea ice volume for the corresponding sea ice
+thickness month. Years available include 1979 to present.
+
 + plot_SITSIV_monthly_anim.py : script shows monthly mean (pan-Arctic) sea ice thickness from 1979 to present (top) and total
 sea ice volume (bottom). Data is from PIOMAS v2. Output is a single [.png] image per year, which can be concatenated into a 
 GIF.
