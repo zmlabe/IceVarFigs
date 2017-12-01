@@ -159,7 +159,7 @@ plt.xticks(np.arange(0,361,30),xlabels,rotation=0,fontsize=10)
 ylabels = map(str,np.arange(2,18,1))
 plt.yticks(np.arange(2,18,1),ylabels,fontsize=10)
 plt.ylim([3,16])
-plt.xlim([0,300])
+plt.xlim([0,360])
 ax.grid(zorder=1,color='w',alpha=0.2)
 fig.suptitle(r'\textbf{ARCTIC SEA ICE}',
                        fontsize=25,color='w',alpha=0.6) 
@@ -171,16 +171,16 @@ year2007 = years[:,5]
 year2016 = years[:,-2]
 def update(num,doy,currentyear,year2016,year2012,year2007,bar,bar2,bar4):
     bar.set_data(doy[:num+1],currentyear[:num+1])
-    bar.axes.axis([0,300,3,16])
+    bar.axes.axis([0,360,3,16])
     bar2.set_data(doy[:num+1],year2012[:num+1])
-    bar2.axes.axis([0,300,3,16])
+    bar2.axes.axis([0,360,3,16])
     bar3.set_data(doy[:num+1],year2007[:num+1])
-    bar3.axes.axis([0,300,3,16])
+    bar3.axes.axis([0,360,3,16])
     bar4.set_data(doy[:num+1],year2016[:num+1])
-    bar4.axes.axis([0,300,3,16])
+    bar4.axes.axis([0,360,3,16])
     return bar,
 
-ani = animation.FuncAnimation(fig,update,310,fargs=[doy,currentyear,year2016,
+ani = animation.FuncAnimation(fig,update,370,fargs=[doy,currentyear,year2016,
                                                     year2012,year2007,bar,
                                                     bar2,bar4],
                                                     interval=.001,blit=True)
