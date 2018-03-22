@@ -17,8 +17,8 @@ import cmocean
 from mpl_toolkits.basemap import Basemap
 
 ### Define directories
-directorydata = '/home/zlabe/Documents/Projects/ArcticTemperatures/Data/'
-directoryfigure = '/home/zlabe/Documents/Projects/ArcticTemperatures/Figures/'
+directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'
+directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/'
 
 ### Define time           
 now = datetime.datetime.now()
@@ -31,7 +31,7 @@ print('\n' '----Arctic Temperatures (Reanalysis Data) - %s----' % titletime)
 
 ## Alott time series
 yearmin = 1900
-yearmax = 2016
+yearmax = 2017
 years = np.arange(yearmin,yearmax+1,1)
 months = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',r'Aug',
           r'Sep',r'Oct',r'Nov',r'Dec']
@@ -113,7 +113,7 @@ l = plt.legend(shadow=False,fontsize=7,loc='upper right',
 for text in l.get_texts():
     text.set_color('w')   
 
-plt.text(1958,-3.05,r'\textbf{DATA:} NOAA/ESRL Physical Sciences Division [WRIT Tool]',
+plt.text(1958,-3.05,r'\textbf{DATA:} NOAA/ESRL Physical Sciences Division [WRIT Tool; +67$\bf{^\circ}$N]',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
 plt.text(1958,-3.2,r'\textbf{SOURCE:} https://www.esrl.noaa.gov/psd/cgi-bin/data/testdap/timeseries.pl',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
