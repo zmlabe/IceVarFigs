@@ -10,17 +10,19 @@ Date      : 11 October 2016
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as c
-import matplotlib
-import datetime
 import urllib as UL
+import datetime
+import cmocean
 
 ### Directory and time
 directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
+directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'                      
 now = datetime.datetime.now()
 currentmn = str(now.month)
-currentdy = str(now.day-1)
+currentdy = str(now.day)
 currentyr = str(now.year)
 currenttime = currentmn + '_' + currentdy + '_' + currentyr
+currentdoy = now.timetuple().tm_yday
 
 ### Load url
 url = 'https://ads.nipr.ac.jp/vishop.ver1/data/graph/plot_extent_n_v2.csv'
@@ -51,17 +53,16 @@ lastday = now.timetuple().tm_yday -1
 currentice = currentyear[lastday]
 currentanom = currentice - (mean1980[lastday]/1e6)
 
-### Fill in missing days
 currentyear[10] = currentyear[9]
 currentyear[59] = currentyear[58]
                         
-print('\nCompleted: Read sea ice data!' )                       
+print('\nCompleted: Read sea ice data!')                        
 
 ### Set missing data to nan
 dataset[np.where(dataset==-9999)] = np.nan
 
-### October (select any month)
-monthq = np.where(month == 10)[0]
+### October
+monthq = np.where(month == 3)[0]
 
 octice = years[monthq,:]
 currentoct = currentyear[monthq]
@@ -83,25 +84,22 @@ plt.rc('ytick',color='white')
 plt.rc('axes',labelcolor='white')
 plt.rc('axes',facecolor='black')
 
-###############################################################################
-###############################################################################
-###############################################################################
-### Plot figure
+### Create plot
 fig = plt.figure()
 ax = plt.subplot(111)
 
 #### Set x/y ticks and labels
 ylabels = map(str,np.arange(-4,4.5,0.5))
 plt.yticks(np.arange(-4,4.5,0.5),ylabels)
-xlabels = map(str,np.arange(1,32,3))
-plt.xticks(np.arange(0,31,3),xlabels)
+xlabels = map(str,np.arange(1,33,3))
+plt.xticks(np.arange(0,33,3),xlabels)
 plt.ylabel(r'\textbf{Extent Change $\bf{(\times}$10$\bf{^{6}}$ \textbf{km}$\bf{^2}$\textbf{)}',
             fontsize=15,color='w',alpha=0.6)
-plt.xlabel(r'\textbf{October',fontsize=15,color='w',alpha=0.6)
+plt.xlabel(r'\textbf{March',fontsize=15,color='w',alpha=0.6)
 
 #### Set x/y limits
 plt.xlim([0,30])
-plt.ylim([-0.5,4])
+plt.ylim([-0.5,0.5])
 
 ### Adjust axes in time series plots 
 def adjust_spines(ax, spines):
@@ -134,23 +132,23 @@ plt.plot(diffcurrent[:],color='darkorange',linewidth=2.5)
 plt.scatter(int(day[lastday]-1),diffcurrent[int(day[lastday]-1)],s=13,
             color='darkorange',zorder=3)
             
-zeroline = [0]*30
+zeroline = [0]*31
 plt.plot(zeroline,linewidth=2,color='w',linestyle='--',
          zorder=1)
 
 ##### Add legend and labels
-plt.text(day[lastday]-1,diffcurrent[int(day[lastday]-1)]+.4,r'\textbf{2017}',
+plt.text(day[lastday]-1,diffcurrent[int(day[lastday]-1)]+.1,r'\textbf{2018}',
          fontsize=14,color='darkorange')  
 
 
 #### Define title
-plt.title(r'\textbf{ARCTIC SEA ICE CHANGE [2002-2017]}',
+plt.title(r'\textbf{ARCTIC SEA ICE CHANGE [2002-2018]}',
                        fontsize=19,color='w',alpha=0.6)         
 
 #### Add text box information
-plt.text(0,-0.3,r'\textbf{DATA:} JAXA (Arctic Data archive System, NIPR)',
+plt.text(0,-0.46,r'\textbf{DATA:} JAXA (Arctic Data archive System, NIPR)',
          fontsize=4.5,rotation='horizontal',ha='left',color='w',alpha=0.6)
-plt.text(0,-0.4,r'\textbf{SOURCE:} https://ads.nipr.ac.jp/vishop/vishop-extent.html',
+plt.text(0,-0.48,r'\textbf{SOURCE:} https://ads.nipr.ac.jp/vishop/vishop-extent.html',
          fontsize=4.5,rotation='horizontal',ha='left',color='w',alpha=0.6)
 plt.text(0,-0.5,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=4.5,rotation='horizontal',ha='left',color='w',alpha=0.6) 
@@ -160,22 +158,5 @@ fig.subplots_adjust(top=0.91)
 fig.subplots_adjust(bottom=0.17)
    
 ### Save figure     
-plt.savefig(directoryfigure + 'Oct17_siecumul_jaxa.png',dpi=300)     
-
-### Print info about the data
-print('\n')
-print('----JAXA Sea Ice Change----')
-print('Day 5 = %s km^2' % ((currentyear[lastday-4] - currentyear[lastday-5])*1e6))
-print('Day 4 = %s km^2' % ((currentyear[lastday-3] - currentyear[lastday-4])*1e6))
-print('Day 3 = %s km^2' % ((currentyear[lastday-2] - currentyear[lastday-3])*1e6))
-print('Day 2 = %s km^2' % ((currentyear[lastday-1] - currentyear[lastday-2])*1e6))
-print('Day 1 = %s km^2' % ((currentyear[lastday] - currentyear[lastday-1])*1e6))
-print('\n' 'Total 5-day Change = %s km^2' % ((currentyear[lastday]-currentyear[lastday-5])*1e6))
-print('\n')
-
-print('2016-1980 = %s km^2' % ((currentyear[lastday]*1e6) - mean1980[lastday]))
-print('2016-2012 = %s km^2' % ((currentyear[lastday] - years[lastday,-5])*1e6))
-print('\n')
-
-print('Completed script!')     
+plt.savefig(directoryfigure + 'Mar18_siecumul_jaxa.png',dpi=300)       
                       

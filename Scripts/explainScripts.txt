@@ -61,6 +61,12 @@ Additional statistical information is also provided (+-2 standard deviation)
 + NSIDCseaice_quartiles.py : plots Arctic sea ice extent for the current year using NSIDC Sea Ice Index v3 data. Additional
 statistical information is also provided (standard deviation and percentiles)
 
++ NSIDCseaice_days2sigma.py : plots the number of days with Arctic sea ice extent at or more than -2 sigma from the 1981-2010
+baseline. Data uses NSIDC Sea Ice Index, Version 3.
+
++ NSIDCseaice_days1sigma.py : plots the number of days with Arctic sea ice extent at or more than -1 sigma from the 1981-2010
+baseline. Data uses NSIDC Sea Ice Index, Version 3.
+
 + plot_AMSR2_SIC.py : plots daily sea ice concentration (SIC) using AMSR2 (ASI 3.125 km, UAH-processed) data for the entire
 Arctic
 
@@ -114,6 +120,9 @@ volume. A second bar includes the 1981-2010 mean sea ice volume for comparison, 
 + SIE_recordlow_JAXA.py : script creates a binary value (red bar on graph) for whether each daily sea ice extent is a new
 record low in the JAXA AMSR2 time series
 
++ SIE_recordlow_JAXA_cumul.py : script creates a cumulative summation of the binary value for whether each daily sea ice 
+extent is a new record low in the JAXA AMSR2 time series
+
 ##############################################################################################################################
 ##############################################################################################################################
 ##############################################################################################################################
@@ -126,18 +135,18 @@ set. Selected years are arbitrary, but 1992-2016 (monthly) for the example. Outp
 ##############################################################################################################################
 ### Temperature
 + plot_ArcticTemperatures_Reanalysis.py : script plots a time series of the mean (2-m) air temperature (67N+) from 1958 to 
-2016 using various reanalysis data sets. Data sets in this example include: NCEP/NCAR Reanalysis 1 (R1), NCEP-DOE AMIP-II 
+2017 using various reanalysis data sets. Data sets in this example include: NCEP/NCAR Reanalysis 1 (R1), NCEP-DOE AMIP-II 
 Reanalysis (R2), Climate Forecast System Reanalysis (CFSR), Modern-Era Retrospective analysis for Research and Applications,
 Version 2  (MERRA-2), Japanese 55-year Reanalysis (JRA-55), and ERA-Interim (ERAi). Data is provided in the ```Data``` 
 directory.
 
 + plot_ArcticTemperatures_20CReanalysis.py : script plots a time series of the mean (2-m) air temperature (67N+) from 1900 to 
-2016 using various 20th century reanalysis data sets. Data sets in this example include: ERA-20C, NOAA-CIRES Twentieth Century
+2017 using various 20th century reanalysis data sets. Data sets in this example include: ERA-20C, NOAA-CIRES Twentieth Century
 Reanalysis (20Cv2c), and the Japanese 55-year Reanalysis (JRA-55) for a modern reference. Data is provided in the ```Data```
 directory.
 
 + plot_rankmesh_NCEP.py : script ranks the mean Arctic (70N+) air temperature at 925 hPa over the satellite era (monthly from
-1979). For example, a rank of 39 is the 'coldest' month in the time series and a rank of 1 is the 'warmest' month. Data is 
+1979). For example, a rank of 40 is the 'coldest' month in the time series and a rank of 1 is the 'warmest' month. Data is 
 from NCEP/NCAR Reanalysis 1 (R1) and provided in the ```Data``` directory. 
 
 ##############################################################################################################################
