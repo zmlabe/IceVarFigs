@@ -127,8 +127,10 @@ extent is a new record low in the JAXA AMSR2 time series
 ##############################################################################################################################
 ##############################################################################################################################
 ### SeaSurfaceTemperatures
-+ plot_ersst5.py``` : example of the interannual seasonal cycle of sea surface temperatures (SST) using the new ERSSTv5 data 
++ plot_ersst5.py : example of the interannual seasonal cycle of sea surface temperatures (SST) using the new ERSSTv5 data 
 set. Selected years are arbitrary, but 1992-2016 (monthly) for the example. Output includes (1) png file per loop.
++ plot_oisst2_enso.py : example of sea surface temperatures over the equatorial Pacific from the El Nino to La Nina 
+transition between 2015 and 2018. Output includes (1) png file per loop
 
 ##############################################################################################################################
 ##############################################################################################################################

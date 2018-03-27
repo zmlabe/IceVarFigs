@@ -14,8 +14,8 @@ import datetime
 import nclcmaps as ncm
 
 ### Read in data files from server
-directorydata = '/surtsey/zlabe/ersst5/'
-directoryfigure = '/home/zlabe/Documents/Projects/Tests/ersst5/Figures/'
+directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
+directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'   
 
 ### Define constants
 now = datetime.datetime.now()
