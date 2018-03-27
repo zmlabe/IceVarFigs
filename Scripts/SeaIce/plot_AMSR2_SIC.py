@@ -14,11 +14,11 @@ import numpy as np
 import datetime
 import calendar as cal
 import gzip
-import nclcmaps as ncm
+import cmocean
 
 ### Directory and time
-directory = '/home/zlabe/Documents/Projects/SeaIceConc_AMSR/'
-directorys = '/home/zlabe/Documents/Projects/SeaIceConc_AMSR/Figures/Year_2017/'
+directory = '/home/zlabe/Documents/Projects/IceVarFigs/Data/' 
+directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
 
 now = datetime.datetime.now()
 currentmn = str(now.month)
@@ -26,7 +26,7 @@ if now.day == 1:
     currentdy = str(cal.monthrange(now.year,now.month-1)[1])
     currentmn = str(now.month-1)
 else:
-    currentdy = str(now.day-2)
+    currentdy = str(now.day-1)
 if int(currentdy) < 10:
     currentdy = '0' + currentdy
     
@@ -40,7 +40,7 @@ titletime = currentmn + '/' + str(currentdy) + '/' + currentyr
 
 print('\n' 'Current Time = %s' '\n' % titletime)
 
-### Pick data set (AMSR2 is only one available currently)
+### Pick data set
 icedataset = 'AMSR2'
     
 if icedataset == 'AMSR2':
@@ -55,7 +55,7 @@ if icedataset == 'AMSR2':
     inF.close()
     outF.close()
     
-    data = Dataset(filenameout)
+    data = Dataset(directory + filenameout,'r')
     ice = data.variables['sea_ice_concentration'][:]
     lat = data.variables['latitude'][:]    
     lon = data.variables['longitude'][:]
@@ -64,22 +64,17 @@ if icedataset == 'AMSR2':
     ice = np.asarray(np.squeeze(ice/100.))
     
     print('Completed: Data read!')
-
-### Mask missing data and values below 15% SIC    
+    
 ice[np.where(ice <= 0.15)] = np.nan
 ice[np.where((ice >= 0.999) & (ice <= 1))] = 0.999
 ice[np.where(ice > 1)] = np.nan
 
 print('Completed: Ice masked!')
 
-###############################################################################
-###############################################################################
-###############################################################################
-### Plot figure
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 
 plt.rc('savefig',facecolor='black')
-plt.rc('axes',edgecolor='white')
+plt.rc('axes',edgecolor='darkgrey')
 plt.rc('xtick',color='white')
 plt.rc('ytick',color='white')
 plt.rc('axes',labelcolor='white')
@@ -92,38 +87,39 @@ def setcolor(x, color):
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
-m = Basemap(projection='npstere',boundinglat=57,lon_0=270,resolution='l',round =True)
-m.drawcoastlines(color = 'y',linewidth=0.4)
-m.drawmapboundary(color='white')
+m = Basemap(projection='npstere',boundinglat=57,lon_0=270,resolution='l',
+            round =True,area_thresh=10000)
+m.drawcoastlines(color = 'tomato',linewidth=0.4)
+m.drawmapboundary(color='k')
 
-cs = m.contourf(lon,lat,ice[:,:],np.arange(0.2,1.01,.02),extend='min',latlon=True)
-
-cmap = ncm.cmap('MPL_YlGnBu')         
+cs = m.contourf(lon,lat,ice[:,:]*100.,np.arange(20,101,2),extend='min',latlon=True)
+    
+cmap = cmocean.cm.ice     
 cs.set_cmap(cmap)
 
 m.fillcontinents(color='k')
 
 cbar = m.colorbar(cs,location='right',pad = 0.55)
-ticks = np.arange(0.2,1.05,0.1)
-labels = map(str,np.arange(0.2,1.05,0.1))
+ticks = np.arange(20,101,10)
+labels = map(str,np.arange(20,101,10))
 cbar.set_ticklabels(ticks,labels)
-cbar.set_label(r'\textbf{SIC ($\bf{\times}$100\%)}',fontsize=13)
+cbar.set_label(r'\textbf{CONCENTRATION [\%]}',fontsize=13,color='darkgrey')
 cbar.ax.tick_params(axis='y', size=.001)
 
-fig.suptitle(r'\textbf{Sea Ice Concentration (SIC) -- %s}' % titletime,
-             fontsize=16,color='white')
+fig.suptitle(r'\textbf{ARCTIC SEA ICE -- %s}' % titletime,
+             fontsize=21,color='darkgrey')
                          
-plt.annotate(r'\textbf{Data:} AMSR2 3.125 km (JAXA/Uni Hamburg-Processing)',xy=(250,80),
-             xycoords='figure pixels',color='white',fontsize=6) 
-plt.annotate(r'\textbf{CSV:} http://icdc.cen.uni-hamburg.de/daten/cryosphere.html',xy=(250,55),
-             xycoords='figure pixels',color='white',fontsize=6) 
-plt.annotate(r'\textbf{Graphic:} Zachary Labe (@ZLabe)',xy=(250,30),
-             xycoords='figure pixels',color='white',fontsize=6)
+plt.annotate(r'\textbf{DATA:} AMSR2 3.125 km (JAXA/Uni Hamburg-Processing)',xy=(250,80),
+             xycoords='figure pixels',color='darkgrey',fontsize=6) 
+plt.annotate(r'\textbf{SOURCE:} http://icdc.cen.uni-hamburg.de/daten/cryosphere.html',xy=(250,55),
+             xycoords='figure pixels',color='darkgrey',fontsize=6) 
+plt.annotate(r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',xy=(250,30),
+             xycoords='figure pixels',color='darkgrey',fontsize=6)
             
 fig.subplots_adjust(top=0.905)
 
 print('Completed: Figure plotted!')
 
-plt.savefig(directorys + 'seaiceconc_%s.png' % currenttime, dpi=300)
+plt.savefig(directoryfigure + 'seaiceconc_%s.png' % currenttime, dpi=300)
 
 print('Completed: Script done!')

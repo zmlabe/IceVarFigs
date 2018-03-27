@@ -1,6 +1,5 @@
 """
-Plots Arctic sea ice extent from June 2002-present using JAXA metadata in 
-an animation
+Plots Arctic sea ice extent from June 2002-present using JAXA metadata
 
 Website   : https://ads.nipr.ac.jp/vishop/vishop-extent.html
 Author    : Zachary M. Labe
@@ -53,18 +52,14 @@ lastday = now.timetuple().tm_yday -1
 currentice = currentyear[lastday]
 currentanom = currentice - (mean1980[lastday]/1e6)
 
-### Fill in random missing dates (does not affect)
-currentyear[10] = currentyear[9]
+### Leap year
 currentyear[59] = currentyear[58]
 
 ### Changes 
 weekchange = currentice - currentyear[lastday-7]
 daychange = currentice - currentyear[lastday-1]
 
-###############################################################################
-###############################################################################
-###############################################################################
-### Plot figure
+### Make plot
 matplotlib.rc('savefig', facecolor='black')
 matplotlib.rc('axes', edgecolor='white')
 matplotlib.rc('xtick', color='white')
@@ -101,16 +96,16 @@ plt.plot(doy,mean1990/1e6,linewidth=1,linestyle='--',
 plt.plot(doy,mean2000/1e6,linewidth=1,linestyle='--',
          color='dodgerblue',label=r'2000s Mean',zorder=1) 
 
-bar4, = ax.plot(doy,years[:,-2],color='r',label=r'Year 2016',linewidth=1.8,
+bar4, = ax.plot(doy,years[:,-2],color='salmon',label=r'Year 2017',linewidth=1.8,
                 alpha=1,zorder=3)        
-bar2, = ax.plot(doy,years[:,-6],color='yellowgreen',label=r'Year 2012',linewidth=1.8,
+bar2, = ax.plot(doy,years[:,-7],color='gold',label=r'Year 2012',linewidth=1.8,
                 alpha=1,zorder=3)
 bar3, = ax.plot(doy,years[:,5],color='white',label=r'Year 2007',linewidth=1.8,
                 alpha=1,zorder=2)
-bar, = ax.plot(doy,currentyear,linewidth=2.5,zorder=4,color='darkorange')
+bar, = ax.plot(doy,currentyear,linewidth=2.5,zorder=4,color='r')
 
 plt.scatter(doy[lastday],currentyear[lastday],
-            s=25,color='darkorange',zorder=4)
+            s=25,color='r',zorder=4)
             
 
 xlabels = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',
@@ -160,34 +155,30 @@ ylabels = map(str,np.arange(2,18,1))
 plt.yticks(np.arange(2,18,1),ylabels,fontsize=10)
 plt.ylim([3,16])
 plt.xlim([0,360])
-ax.grid(zorder=1,color='w',alpha=0.2)
+ax.yaxis.grid(zorder=1,color='w',alpha=0.35)
 fig.suptitle(r'\textbf{ARCTIC SEA ICE}',
-                       fontsize=25,color='w',alpha=0.6) 
+                       fontsize=33,color='w',alpha=0.6) 
 ax.tick_params('both',length=5.5,width=2,which='major')
 
-### Start animation
-year2012 = years[:,-6]
+year2012 = years[:,-7]
 year2007 = years[:,5]
-year2016 = years[:,-2]
-def update(num,doy,currentyear,year2016,year2012,year2007,bar,bar2,bar4):
+year2017 = years[:,-2]
+def update(num,doy,currentyear,year2017,year2012,year2007,bar,bar2,bar4):
     bar.set_data(doy[:num+1],currentyear[:num+1])
     bar.axes.axis([0,360,3,16])
     bar2.set_data(doy[:num+1],year2012[:num+1])
     bar2.axes.axis([0,360,3,16])
     bar3.set_data(doy[:num+1],year2007[:num+1])
     bar3.axes.axis([0,360,3,16])
-    bar4.set_data(doy[:num+1],year2016[:num+1])
+    bar4.set_data(doy[:num+1],year2017[:num+1])
     bar4.axes.axis([0,360,3,16])
     return bar,
 
-ani = animation.FuncAnimation(fig,update,370,fargs=[doy,currentyear,year2016,
-                                                    year2012,year2007,bar,
-                                                    bar2,bar4],
-                                                    interval=.001,blit=True)
+ani = animation.FuncAnimation(fig,update,370,fargs=[doy,currentyear,year2017,year2012,year2007,bar,bar2,bar4],
+                              interval=.001,blit=True)
 
 ani.save(directory + 'moving_SIE_JAXA.gif',dpi=150)
 
-### Print additional information
 print('\n')
 print('JAXA Sea Ice Loss Missing Days')
 print('Day 5 Loss = %s km^2' % ((currentyear[lastday-4] - currentyear[lastday-5])*1e6))

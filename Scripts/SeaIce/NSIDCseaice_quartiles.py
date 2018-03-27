@@ -43,11 +43,11 @@ ice = dataset[:,3]
 missing = dataset[:,4]
 
 ### Call present year
-yr2017 = np.where(year == 2017)[0]
-ice17 = ice[yr2017]
+yr2018 = np.where(year == 2018)[0]
+ice18 = ice[yr2018]
 
 ### Ice Conversion
-iceval = ice17 * 1e6
+iceval = ice18 * 1e6
 
 ### Printing info
 print('\n----- NSIDC Arctic Sea Ice -----')
@@ -155,7 +155,7 @@ lower2std = (meanice/1e6)-(std*2)
 
 ax.grid(zorder=1,color='w',alpha=0.2)
 
-plt.plot(ice17,linewidth=1.8,color='aqua',zorder=9,label=r'Current Year (2017)') 
+plt.plot(ice18,linewidth=1.8,color='aqua',zorder=9,label=r'Current Year (2018)') 
 
 plt.plot(doy,upper2std,color='white',alpha=0.7,zorder=3,linewidth=0.1)
 plt.plot(doy,lower2std,color='white',alpha=0.7,zorder=4,linewidth=0.1)
@@ -189,7 +189,7 @@ for text in le.get_texts():
 plt.title(r'\textbf{ARCTIC SEA ICE}',
                        fontsize=21,color='darkgrey')         
 
-plt.text(doy[currentdoy],ice[-1]-1.35,r'\textbf{2017}',
+plt.text(doy[currentdoy]-5,ice[-1]-1.35,r'\textbf{2018}',
          fontsize=13.5,rotation='horizontal',ha='left',color='aqua')
 plt.text(0.5,3.1,r'\textbf{DATA:} National Snow \& Ice Data Center, Boulder CO',
          fontsize=5.5,rotation='horizontal',ha='left',color='darkgrey')

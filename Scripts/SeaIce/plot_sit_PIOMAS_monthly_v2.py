@@ -1,9 +1,6 @@
 """
-Script plots monthly sea ice thickness (map) and sea ice volume (bar) 
-using PIOMAS data. 
-
 Author    : Zachary M. Labe
-Date      : 4 November 2017
+Date      : 23 August 2016
 """
 
 from netCDF4 import Dataset
@@ -11,19 +8,19 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 import numpy as np
 import datetime
+import calendar as cal
+import matplotlib.colors as c
 import cmocean
 
-#### Define constants
-directory = '/home/zlabe/Documents/Projects/Tests/Piomas/Monthly_v2/'
-directorydata = '/home/zlabe/surt/seaice_obs/PIOMAS/Thickness/'
-directorydata2 = '/home/zlabe/surt/seaice_obs/PIOMAS/' 
-directorydata3 = '/home/zlabe/Documents/Projects/Tests/SIV_animate/Data/' 
+### Define constants
+### Directory and time
+directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
+directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'  
 now = datetime.datetime.now()
 month = now.month
-years = np.arange(1979,2018,1)
+years = np.arange(1979,2019,1)
 months = np.arange(1,13,1)
 
-### Read in PIOMAS data
 def readPiomas(directory,vari,years,thresh):
     """
     Reads binary PIOMAS data
@@ -81,18 +78,13 @@ lats,lons,sit = readPiomas(directorydata2,'thick',years,0.1)
 
 ### Read SIV data
 years2,aug = np.genfromtxt(directorydata3 + 'monthly_piomas.txt',
-                           unpack=True,delimiter='',usecols=[0,10])
+                           unpack=True,delimiter='',usecols=[0,2])
                            
 climyr = np.where((years2 >= 1981) & (years2 <= 2010))[0]  
 clim = np.nanmean(aug[climyr])  
 
 ### Select month
-sit = sit[:,9,:,:]
-
-###############################################################################
-###############################################################################
-###############################################################################
-### Start creating plot
+sit = sit[:,1,:,:]
 
 ### Adjust axes in time series plots 
 def adjust_spines(ax, spines):
@@ -111,7 +103,6 @@ def adjust_spines(ax, spines):
     else:
         ax.xaxis.set_ticks([])
 
-### Add parameters
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 
 plt.rc('savefig',facecolor='black')
@@ -131,7 +122,6 @@ if style == 'ortho':
 elif style == 'polar':
     m = Basemap(projection='npstere',boundinglat=67,lon_0=270,resolution='l',round =True)
 
-### Loop through each year for single [png] file output
 for i in range(aug.shape[0]):
     fig = plt.figure()
     ax = plt.subplot(111)
@@ -143,7 +133,7 @@ for i in range(aug.shape[0]):
     m.drawlsmask(land_color='k',ocean_color='k')
     m.drawcoastlines(color='aqua',linewidth=0.7)
     
-    # Add limits to colorbar
+    # Make the plot continuous
     barlim = np.arange(0,6,1)
     
     cmap = cmocean.cm.thermal
@@ -151,8 +141,8 @@ for i in range(aug.shape[0]):
                     np.arange(0,5.1,0.25),extend='max',
                     alpha=1,latlon=True,cmap=cmap)
                 
-    if i >= 38:
-        ccc = 'tomato'
+    if i >= 39:
+        ccc = 'slateblue'
     else:
         ccc = 'w'
     t1 = plt.annotate(r'\textbf{%s}' % years[i],textcoords='axes fraction',
@@ -167,7 +157,7 @@ for i in range(aug.shape[0]):
                       textcoords='axes fraction',
                       xy=(0,0), xytext=(1.05,-0.0),
                       fontsize=4.5,color='darkgrey',rotation=90,va='bottom')
-    t4 = plt.annotate(r'\textbf{DATA}: PIOMAS v2.1 (Zhang and Rothrock, 2003) (\textbf{October})',
+    t4 = plt.annotate(r'\textbf{DATA}: PIOMAS v2.1 (Zhang and Rothrock, 2003) (\textbf{February})',
                       textcoords='axes fraction',
                       xy=(0,0), xytext=(1.08,-0.0),
                       fontsize=4.5,color='darkgrey',rotation=90,va='bottom')
@@ -180,11 +170,10 @@ for i in range(aug.shape[0]):
                              color='darkgrey')
     cbar.ax.tick_params(axis='x', size=.0001)
     cbar.ax.tick_params(labelsize=7) 
-    
-    ###########################################################################  
-    ###########################################################################
-    ###########################################################################  
-    ### Create subplot for sea ice volume         
+
+###########################################################################
+###########################################################################  
+    ### Create subplot         
     a = plt.axes([.2, .225, .08, .4], axisbg='k')
     
     N = 1
@@ -192,11 +181,14 @@ for i in range(aug.shape[0]):
     width = .33
     
     meansiv = np.nanmean(aug)
+
     rects = plt.bar(ind,[aug[i]],width,zorder=2)
     
+#    plt.plot(([meansiv]*2),zorder=1)    
+    
     rects[0].set_color('aqua')
-    if i == 38:
-        rects[0].set_color('tomato')
+    if i == 39:
+        rects[0].set_color('slateblue')
 
     adjust_spines(a, ['left', 'bottom'])
     a.spines['top'].set_color('none')
@@ -208,28 +200,29 @@ for i in range(aug.shape[0]):
     a.tick_params(labelleft='off')
     a.tick_params('both',length=0,width=0,which='major')
     
-    plt.yticks(np.arange(0,26,5),map(str,np.arange(0,26,5)))
+    plt.yticks(np.arange(0,31,5),map(str,np.arange(0,31,5)))
     plt.xlabel(r'\textbf{SEA ICE VOLUME [km$^{3}$]}',
            fontsize=10,color='darkgrey',labelpad=1)
     
     for rectq in rects:
         height = rectq.get_height()
         cc = 'darkgrey'
-        if i == 38:
-            cc ='tomato'
+        if i == 39:
+            cc ='slateblue'
         plt.text(rectq.get_x() + rectq.get_width()/2.0, 
                  height+1, r'\textbf{%s}' % format(int(height*1000),",d"), 
                  ha='center', va='bottom',color=cc,fontsize=20)
            
     fig.subplots_adjust(right=1.1)
     
-    ### Save figures         
+###########################################################################
+###########################################################################
+         
     if i < 10:        
         plt.savefig(directory + 'icy_0%s.png' % i,dpi=300)
     else:
         plt.savefig(directory + 'icy_%s.png' % i,dpi=300)
-        if i == 38:
-            plt.savefig(directory + 'icy_38.png',dpi=300)
+        if i == 39:
             plt.savefig(directory + 'icy_39.png',dpi=300)
             plt.savefig(directory + 'icy_40.png',dpi=300)
             plt.savefig(directory + 'icy_41.png',dpi=300)

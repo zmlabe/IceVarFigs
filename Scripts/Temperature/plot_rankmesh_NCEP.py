@@ -1,5 +1,5 @@
 """
-Plots Arctic mean surface temperature (1948-2016) for Jan-$month
+Plots Arctic mean surface temperature (1948-2016) for Jan-month
 
 Website   : http://www.esrl.noaa.gov/psd/cgi-bin/data/timeseries/timeseries1.pl
 Author    : Zachary M. Labe
@@ -9,34 +9,31 @@ Date      : 15 May 2016
 ### Import modules
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as c
 import scipy.stats as sts
+import nclcmaps as ncm
+import cmocean
 
 ### Directory and time
-directoryfigure = '/home/zlabe/Documents/Projects/GlobalTemperature/Results/'
-directorydata = '/home/zlabe/Documents/Projects/GlobalTemperature/Data/'           
+directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
+directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'         
 
-### Insert final month of data
+### Insert month
 month = 'Dec'
 
 ### Retrieve Data
 data = np.genfromtxt(directorydata + 'Arctic_Tsurf_months_Jan%s.txt' % month,
                           unpack=True,usecols=[0,1,2,3,4,5,6,7,8,9,10,11,12])
 years = data[0,:]
-temps = data[1:,-39:]
+temps = data[1:,-40:]
 currentyear = int(years[-1])
 
-### Change array shape for plotting
 temps = np.flipud(temps)
 
-### Calculate data ranks
 rank = np.empty(temps.shape)
 for i in range(temps.shape[0]):
-    rank[i,:] = abs(sts.rankdata(temps[i,:],method='min')-40)
- 
-###############################################################################
-###############################################################################
-###############################################################################
-### Begin plot
+    rank[i,:] = abs(sts.rankdata(temps[i,:],method='min')-41)
+    
     
 ### Call parameters
 plt.rc('text',usetex=True)
@@ -48,7 +45,7 @@ plt.rc('ytick',color='white')
 plt.rc('axes',labelcolor='white')
 plt.rc('axes',facecolor='black')
 
-### Plot meshgrid
+### Plot first meshgrid
 fig = plt.figure()
 ax = plt.subplot(111)
 
@@ -72,10 +69,11 @@ plt.tick_params(
     right='off',         # ticks along the top edge are off
     labelleft='on')
 
-cs = plt.pcolormesh(rank,shading='faceted',edgecolor='k',
-                    linewidth=0.3,vmin=1,vmax=37)
+csm=plt.get_cmap(cmocean.cm.balance_r)
+norm = c.BoundaryNorm(np.arange(0,40,1),csm.N)
 
-cs.set_cmap('RdBu')
+cs = plt.pcolormesh(rank,shading='faceted',edgecolor='k',
+                    linewidth=0.3,vmin=1,vmax=40,norm=norm,cmap=csm)
 
 ylabels = [r'\textbf{D}',r'\textbf{N}',r'\textbf{O}',r'\textbf{S}',
            r'\textbf{A}',r'\textbf{J}',r'\textbf{J}',r'\textbf{M}',
@@ -83,20 +81,18 @@ ylabels = [r'\textbf{D}',r'\textbf{N}',r'\textbf{O}',r'\textbf{S}',
 plt.yticks(np.arange(0.5,12.5,1),ylabels,ha='center',color='darkgrey')
 yax = ax.get_yaxis()
 yax.set_tick_params(pad=5)
-plt.xticks(np.arange(0.5,39.5,3),map(str,np.arange(1979,2017,3)),
+plt.xticks(np.arange(0.5,40.5,3),map(str,np.arange(1979,2019,3)),
            color='darkgrey')
-plt.xlim([0,39])
+plt.xlim([0,40])
 
-plt.text(-2,-3.3,r'Coldest',color='darkgrey')
-plt.text(36.2,-3.3,r'Warmest',color='darkgrey')
+plt.text(-2,-3.3,r'\textbf{Coldest}',color=cmocean.cm.balance(0.13))
+plt.text(36.2,-3.3,r'\textbf{Warmest}',color=cmocean.cm.balance(0.87))
 
-### Insert rank number per grid box
 for i in range(rank.shape[0]):
     for j in range(rank.shape[1]):
-        plt.text(j+0.5,i+0.5,'%s' % int(rank[i,j]),fontsize=6,
-                 color='k',va='center',ha='center')
-
-### Invert colorbar for better visual                 
+        plt.text(j+0.5,i+0.5,r'\textbf{%s}' % int(rank[i,j]),fontsize=5,
+                 color='dimgrey',va='center',ha='center')
+                 
 cbar = plt.colorbar(cs,orientation='horizontal',aspect=50,pad=0.12)
 cbar.ax.invert_xaxis()
 cbar.set_ticks([])
@@ -106,12 +102,11 @@ cbar.set_label(r'\textbf{AIR TEMPERATURE RANK BY MONTH}',
 plt.text(9.8,-4.3,r'[ NCEP/NCAR Reanalysis : 925 hPa, \textbf{Arctic}, 70N+ ]',
          fontsize=7,color='darkgrey')
          
-plt.text(0,12.39,r'\textbf{DATA:} NOAA/ESRL/PSD',
+plt.text(0,12.39,r'\textbf{DATA:} NOAA/ESRL/PSD [1979-2018; Satellite Era]',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey')
 plt.text(0,12.05,r'\textbf{SOURCE:} http://www.esrl.noaa.gov/psd/data/timeseries/',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey')
-plt.text(39.,12.05,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
+plt.text(40.,12.05,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='right',color='darkgrey') 
 
-### Save figure
 plt.savefig(directoryfigure + '925T_70N_rank.png',dpi=400)

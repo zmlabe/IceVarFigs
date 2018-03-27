@@ -8,13 +8,13 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 import numpy as np
 import datetime
+import calendar as cal
 import matplotlib.colors as c
 
 #### Define constants
-directory = '/home/zlabe/Documents/Projects/Tests/Piomas/Monthly/'
-directorydata = '/home/zlabe/surt/seaice_obs/PIOMAS/Thickness/'
-directorydata2 = '/home/zlabe/surt/seaice_obs/PIOMAS/' 
-directorydata3 = '/home/zlabe/Documents/Projects/Tests/SIV_animate/Data/' 
+### Directory and time
+directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
+directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'  
 now = datetime.datetime.now()
 month = now.month
 years = np.arange(1979,2018,1)
@@ -73,19 +73,15 @@ def readPiomas(directory,vari,years,thresh):
     print('Completed: Read "%s" data!' % (vari))   
     
     return lats,lons,var
-
-### Read in PIOMAS thickness data
 lats,lons,sit = readPiomas(directorydata2,'thick',years,0.1)
 
-### Read PIOMAS sea ice volume data
+### Read SIV data
 years2,aug = np.genfromtxt(directorydata3 + 'monthly_piomas.txt',
-                           unpack=True,delimiter='',usecols=[0,9])
-
-### Calculate average from 1981-2010 baseline                           
+                           unpack=True,delimiter='',usecols=[0,10])
+                           
 climyr = np.where((years2 >= 1981) & (years2 <= 2010))[0]  
 clim = np.nanmean(aug[climyr])  
 
-### Create SIT colormap
 def colormapSIT():
     cmap1 = plt.get_cmap('BuPu')
     cmap2 = plt.get_cmap('RdPu_r')
@@ -97,7 +93,7 @@ def colormapSIT():
     return cms_sit
 
 ### Select month
-sit = sit[:,8,:,:]
+sit = sit[:,9,:,:]
 
 ### Adjust axes in time series plots 
 def adjust_spines(ax, spines):
@@ -146,9 +142,10 @@ for i in range(aug.shape[0]):
     m.drawlsmask(land_color='k',ocean_color='k')
     m.drawcoastlines(color='mediumseagreen',linewidth=0.4)
     
-    # Select colorbar limits
+    # Make the plot continuous
     barlim = np.arange(0,9,1)
     
+#    cmap = colormapSIT()
     cmap = colormapSIT()
     cs = m.contourf(lons,lats,var,
                     np.arange(0,7.1,0.25),extend='max',
@@ -170,7 +167,7 @@ for i in range(aug.shape[0]):
                  textcoords='axes fraction',
             xy=(0,0), xytext=(-0.43,-0.03),
         fontsize=4.5,color='darkgrey')
-    t4 = plt.annotate(r'\textbf{DATA}: PIOMAS v2.1 (Zhang and Rothrock, 2003) (\textbf{September})',
+    t4 = plt.annotate(r'\textbf{DATA}: PIOMAS v2.1 (Zhang and Rothrock, 2003) (\textbf{October})',
              textcoords='axes fraction',
              xy=(0,0), xytext=(-0.43,0.0),
                 fontsize=4.5,color='darkgrey')
@@ -184,10 +181,9 @@ for i in range(aug.shape[0]):
     cbar.ax.tick_params(axis='x', size=.0001)
     cbar.ax.tick_params(labelsize=7) 
 
-###############################################################################
-###############################################################################
-###############################################################################  
-    ### Create subplot of sea ice volume bar graph        
+###########################################################################
+###########################################################################  
+    ### Create subplot         
     a = plt.axes([.24, .27, .08, .4], axisbg='k')
     
     N = 1
@@ -197,6 +193,8 @@ for i in range(aug.shape[0]):
     meansiv = np.nanmean(aug)
 
     rects = plt.bar(ind,[aug[i]],width,zorder=2)
+    
+#    plt.plot(([meansiv]*2),zorder=1)    
     
     rects[0].set_color('powderblue')
     if i == 38:
@@ -217,7 +215,9 @@ for i in range(aug.shape[0]):
            
     fig.subplots_adjust(right=1.1)
     
-    ### Save each image for use of GIF in ImageMagick         
+###########################################################################
+###########################################################################
+         
     if i < 10:        
         plt.savefig(directory + 'icy_0%s.png' % i,dpi=300)
     else:
@@ -237,8 +237,6 @@ for i in range(aug.shape[0]):
             plt.savefig(directory + 'icy_49.png',dpi=300)
             plt.savefig(directory + 'icy_50.png',dpi=300)
             plt.savefig(directory + 'icy_51.png',dpi=300)
-            
-    ### Remove text per each loop        
     t1.remove()
     t2.remove()
     t3.remove()

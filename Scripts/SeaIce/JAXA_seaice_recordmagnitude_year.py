@@ -106,10 +106,10 @@ recdiff_masked = np.ma.masked_less_equal(recdiff, 0)
 zeroline = [0]*len(doy)
 plt.plot(doy,zeroline,linewidth=2,color='w',linestyle='--',
          zorder=11)        
-barlist = plt.bar(np.arange(366),recdiff,color='indianred',
-                  edgecolor='indianred',zorder=10)         
+barlist = plt.bar(np.arange(366),recdiff,color='tomato',
+                  edgecolor='tomato',zorder=10)         
 barlist = plt.bar(np.arange(366),recdiff_masked.filled(np.nan),
-                  color='cornflowerblue',edgecolor='cornflowerblue',zorder=11)        
+                  color='deepskyblue',edgecolor='deepskyblue',zorder=11)        
 
 xlabels = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',
           r'Aug',r'Sep',r'Oct',r'Nov',r'Dec',r'Jan'] 
@@ -124,7 +124,7 @@ plt.text(0,-1.45,r'\textbf{SOURCE:} https://ads.nipr.ac.jp/vishop/vishop-extent.
 plt.text(0,-1.25,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey') 
          
-plt.text(90,1.55,r'[ 2017 -- Previous Daily Record ]',color='darkgrey',ha='left',
+plt.text(90,1.55,r'[ 2018 -- Previous Daily Record ]',color='darkgrey',ha='left',
          fontsize=11)
          
 plt.xlim([0,365])

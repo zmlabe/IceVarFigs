@@ -16,9 +16,9 @@ import datetime
 import read_SeaIceThick_PIOMAS as CT
 import calc_PiomasArea as CA
 
-### Define directories
-directorydata = '/home/zlabe/surt/seaice_obs/PIOMAS/'   
-directoryfigure = '/home/zlabe/Documents/Projects/Tests/Piomas/meanSIT/'
+### Directory and time
+directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
+directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'  
 
 ### Define time           
 now = datetime.datetime.now()

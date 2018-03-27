@@ -15,19 +15,20 @@ import datetime
 
 ### Directory and time
 directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
+directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/' 
 
 ### Read in data
-year,day,volume = np.loadtxt(
-                          'PIOMAS.vol.daily.1979.2017.Current.v2.1.dat.gz',
+year,day,volume = np.loadtxt(directorydata + \
+                          'PIOMAS.vol.daily.1979.2018.Current.v2.1.dat.gz',
                           skiprows=1,unpack=True)
 
 ### Current time
-day = map(int,day)
+day = list(map(int,day))
 now = datetime.datetime.now()
 currentmn = str(now.month)
 currentdy = str(now.day)
 currentyr = str(now.year)
-years = np.arange(1979,2018,1)
+years = np.arange(1979,2019,1)
 
 currenttime = currentmn + '_' + currentdy + '_' + currentyr
 currentdoy = now.timetuple().tm_yday
@@ -39,7 +40,7 @@ month = datetime.date(int(currentyr), int(currentmn)-1,
 currentyear = volume.copy()[-day[-1]:]
 volumen = volume[:-day[-1]]
 
-volumen = np.reshape(volumen,(volumen.shape[0]/365,365))
+volumen = np.reshape(volumen,(volumen.shape[0]//365,365))
 
 ### Calculate mean volume over all years
 mean = np.nanmean(volumen,axis=0)
@@ -104,17 +105,17 @@ for i in range(volumen.shape[0]):
         c = 'r'
         l = 2
         plt.plot(doy,volumen[i,:],c=c,zorder=2,linewidth=l,label='Year 2012')
-    elif i == 37:
+    elif i == 38:
         c = 'gold'
         l = 2
-        plt.plot(doy,volumen[i,:],c=c,zorder=2,linewidth=l,label='Year 2016')
+        plt.plot(doy,volumen[i,:],c=c,zorder=2,linewidth=l,label='Year 2017')
     else:
         c=next(color)
         l = 0.6
         plt.plot(doy,volumen[i,:],c=c,zorder=1,linewidth=l)
 
 plt.plot(doy[:day[-1]],currentyear,color='aqua',linewidth=2,
-         label='Year 2017',zorder=6)
+         label='Year 2018',zorder=6)
 plt.scatter(day[-1]-1,currentyear[-1],
             s=6,color='aqua',zorder=4,marker='o')
                        
@@ -153,11 +154,11 @@ plt.text(0.3,1.1,r'\textbf{CSV:} http://psc.apl.washington.edu/zhang/IDAO/',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey')
 plt.text(0.3,0.1,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey')
-plt.text(day[-1]+4,currentyear[-1]-2,r'\textbf{2017}',fontsize=8,color='aqua')      
+plt.text(day[-1]+4,currentyear[-1]-2,r'\textbf{2018}',fontsize=8,color='aqua')      
 
 fig.suptitle(r'\textbf{ARCTIC SEA ICE VOLUME (1979-%s)}' % currentyr,
                        fontsize=18,color='darkgrey') 
 
-plt.savefig(directoryfigure + 'SIV_PIOMAS_September.png',dpi=900)
+plt.savefig(directoryfigure + 'SIV_PIOMAS_February.png',dpi=900)
 
 print('\n' '\n' 'Completed: Figure plotted!')

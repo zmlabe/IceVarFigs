@@ -1,5 +1,5 @@
 """
-Plots PIOMAS monthly Sea Ice Volume for 1979-2016
+Plots PIOMAS daily Sea Ice Volume for 1979-2016
 
 Website   : http://psc.apl.uw.edu/research/projects/arctic-sea-ice-volume-
             anomaly/data/
@@ -13,8 +13,8 @@ import matplotlib.pyplot as plt
 import datetime
 
 ### Directory and time
-directorydata = '/home/zlabe/Documents/Projects/Tests/SIV_animate/Data/'                   
-directoryfigure = '/home/zlabe/Documents/Projects/Tests/SIV_animate/'                  
+directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
+directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'                 
 
 now = datetime.datetime.now()
 currentmn = str(now.month-1)
@@ -27,21 +27,14 @@ print('\n' 'PIOMAS -- Sea Ice Volume --', \
 
 ### Read data
 years,aug = np.genfromtxt(directorydata + 'monthly_piomas.txt',
-                           unpack=True,delimiter='',usecols=[0,9])
-
-### Calculate average from 1981-2010 baseline
+                           unpack=True,delimiter='',usecols=[0,2])
 climyr = np.where((years >= 1981) & (years <= 2010))[0]  
 
 clim = np.nanmean(aug[climyr])                         
 
 print('Completed: Read data!')
 
-###############################################################################
-###############################################################################
-###############################################################################
-### Plot figure
-
-### Select attributes
+### Make plot
 plt.rc('savefig', facecolor='black')
 plt.rc('axes', edgecolor='white')
 plt.rc('xtick', color='white')
@@ -93,41 +86,46 @@ for i in range(aug.shape[0]):
     plt.setp(ax.get_yticklines()[0:-1],visible=False)
     
     if aug[i] >= clim:
-        cc = 'cornflowerblue'
+        cc = 'deepskyblue'
     elif aug[i] < clim:
-        cc = 'indianred'
+        cc = 'tomato'
+    if i == 39:
+        cc = 'r'
     
     rects[1].set_color(cc)
     rects[-1].set_color('dimgray')
     
     plt.xticks(np.arange(0,36,5),map(str,np.arange(0,36,5)))
-    plt.xlabel(r'\textbf{Sea Ice Volume [$\times$1000 km$^{3}$]}',
-               fontsize=14,color='darkgrey')
+    plt.xlabel(r'\textbf{ARCTIC SEA ICE VOLUME [$\times$1000 km$^{3}$]}',
+               fontsize=22,color='darkgrey',labelpad=8)
+    
+    plt.xlim([0,30])
                
     plt.subplots_adjust(bottom=0.31)   
 
-    plt.text(0.03,-0.4,r'\textbf{DATA:} PIOMAS v2.1 [Zhang and Rothrock, 2003] [\textbf{September}]',
+    plt.text(0.03,-0.5,r'\textbf{DATA:} PIOMAS v2.1 [Zhang and Rothrock, 2003] [\textbf{February}]',
          fontsize=6,rotation='horizontal',ha='left',color='darkgrey')
-    plt.text(0.03,-0.45,r'\textbf{CSV:} http://psc.apl.washington.edu/zhang/IDAO/data.html',
+    plt.text(0.03,-0.55,r'\textbf{SOURCE:} http://psc.apl.washington.edu/zhang/IDAO/data.html',
              fontsize=6,rotation='horizontal',ha='left',color='darkgrey')
-    plt.text(35.3,-0.4,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
+    plt.text(30,-0.5,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
              fontsize=6,rotation='horizontal',ha='right',color='darkgrey')  
     
-    if i == 38:
-        ccc = 'indianred'  
-    else:
-        ccc = 'white'
-    plt.text(11.5,0.9,r'\textbf{%s}' % int(years[i]),fontsize=49,color=ccc)   
-    plt.text(1.4,0.18,r'1981-2010 Average',rotation=0,color='w',
+    if i == 39:
+        ccc = 'r'  
+    elif aug[i] >= clim:
+        ccc = 'deepskyblue'
+    elif aug[i] < clim:
+        ccc = 'tomato'
+    plt.text(10.,0.9,r'\textbf{%s}' % int(years[i]),fontsize=54,color=ccc)   
+    plt.text(8.1,0.18,r'1981-2010 Average',rotation=0,color='w',
              fontsize=10)
     
-    ### Save figure for GIF creation using ImageMagick
+    ### Save figure
     if i < 10:        
         plt.savefig(directoryfigure + 'siv_0%s.png' % i,dpi=300)
     else:
         plt.savefig(directoryfigure + 'siv_%s.png' % i,dpi=300)
-        if i == 38:
-            plt.savefig(directoryfigure + 'siv_38.png',dpi=300)
+        if i == 39:
             plt.savefig(directoryfigure + 'siv_39.png',dpi=300)
             plt.savefig(directoryfigure + 'siv_40.png',dpi=300)
             plt.savefig(directoryfigure + 'siv_41.png',dpi=300)

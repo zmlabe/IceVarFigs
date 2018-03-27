@@ -44,11 +44,11 @@ ice = dataset[:,3]
 missing = dataset[:,4]
 
 ### Find current year (2017)
-yr2017 = np.where(year == 2017)[0]
-sie17 = ice[yr2017]
+yr2018 = np.where(year == 2018)[0]
+sie18 = ice[yr2018]
 
 ### Ice Conversion
-iceval = sie17 * 1e6
+iceval = sie18 * 1e6
 
 ### Printing info
 print('\n----- NSIDC Arctic Sea Ice -----')
@@ -104,7 +104,8 @@ sie13 = ice[yr2013] - quartile50[:-1]
 sie14 = ice[yr2014] - quartile50[:-1]
 sie15 = ice[yr2015] - quartile50[:-1]
 sie16 = ice[yr2016] - quartile50
-sie17 = sie17 - quartile50[:len(sie17)]
+sie17 = ice[yr2017] - quartile50[:-1]
+sie18 = sie18 - quartile50[:len(sie18)]
 
 ### Append years to extented list
 extend5 = np.append(sie12,sie13,axis=0)
@@ -112,6 +113,7 @@ extend4 = np.append(extend5,sie14,axis=0)
 extend3 = np.append(extend4,sie15,axis=0)
 extend2 = np.append(extend3,sie16,axis=0)
 extend1 = np.append(extend2,sie17,axis=0)
+extend = np.append(extend1,sie18,axis=0)
 
 ### Find median to plot
 median = np.tile(quartile50,6)
@@ -132,12 +134,12 @@ plt.rc('axes',facecolor='black')
 fig = plt.figure()
 ax = plt.subplot(111)
 
-xlabels = map(str,np.arange(2012,2019,1))
-plt.xticks(np.arange(0,2555,365),xlabels,rotation=0)
+xlabels = map(str,np.arange(2012,2020,1))
+plt.xticks(np.arange(0,2556,365),xlabels,rotation=0)
 ylabels = [r'-5',r'-4',r'-3',r'-2',r'-1',r'\textbf{0.0}',r'1',r'2',r'3',r'4',r'5']
 plt.yticks(np.arange(-5,6,1),ylabels)
 plt.ylim([-5,5])
-plt.xlim([0,2190])
+plt.xlim([0,2555])
 
 ### Adjust axes in time series plots 
 def adjust_spines(ax, spines):
@@ -170,11 +172,11 @@ ax.yaxis.grid(zorder=1,color='w',alpha=0.35)
 
 zeroline = [0]*2191
 
-recdiff_masked = np.ma.masked_less_equal(extend1, 0)
+recdiff_masked = np.ma.masked_less_equal(extend, 0)
 
-plt.bar(np.arange(len(extend1)),extend1,color='r',
+plt.bar(np.arange(len(extend)),extend,color='r',
         edgecolor='r',zorder=9) 
-plt.bar(np.arange(len(extend1)),recdiff_masked.filled(np.nan),
+plt.bar(np.arange(len(extend)),recdiff_masked.filled(np.nan),
         color='dodgerblue',edgecolor='dodgerblue',zorder=10) 
 
 plt.ylabel(r'\textbf{Extent Anomalies} [$\times$10$^{6}$ km$^2$]',fontsize=13,
@@ -183,11 +185,11 @@ plt.ylabel(r'\textbf{Extent Anomalies} [$\times$10$^{6}$ km$^2$]',fontsize=13,
 plt.title(r'\textbf{ARCTIC SEA ICE EXTENT ANOMALIES}',
                        fontsize=20,color='darkgray') 
                        
-plt.text(1095,0.25,r'\textbf{1981-2010 Climatology}',fontsize=8,
+plt.text(1195,0.25,r'\textbf{1981-2010 Climatology}',fontsize=8,
          rotation=0,ha='center',color='darkgrey')                        
 plt.text(155,0.8,r'$\bf{\rightarrow}$',fontsize=35,rotation=230,ha='center',
         color='dodgerblue')    
-plt.text(len(extend1)+30,-0.27,r'\textbf{Today!}',fontsize=8,rotation=270,ha='center',
+plt.text(len(extend)+30,-0.27,r'\textbf{Today!}',fontsize=8,rotation=270,ha='center',
         color='r')                    
 
 plt.text(0.5,-4.45,r'\textbf{DATA:} National Snow \& Ice Data Center, Boulder CO',

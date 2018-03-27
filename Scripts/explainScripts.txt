@@ -9,6 +9,10 @@ found in updating versions at:
 
           http://sites.uci.edu/zlabe/arctic-sea-ice-figures/
 
+Last updated: 
+	  
+          27 March 2018
+
 ##############################################################################################################################
 ##############################################################################################################################
 ##############################################################################################################################
@@ -140,5 +144,8 @@ from NCEP/NCAR Reanalysis 1 (R1) and provided in the ```Data``` directory.
 ##############################################################################################################################
 ##############################################################################################################################
 ### Utilities
++ calc_Utilities.py : selection of useful functions (under construction)
 + plot_80N_circle.py : script plots the region of averaging for the ECMWF 80N+ (2-m) temperature figures (e.g., FDD, TDD). 
 Area includes both land and ocean.
++ plot_SeaIceArea_MAX.py : script plots the March sea ice concentration composite from a 1981-2010 baseline
++ plot_SeaIceArea_MIN.py : script plots the September sea ice concentration composite from a 1981-2010 baseline

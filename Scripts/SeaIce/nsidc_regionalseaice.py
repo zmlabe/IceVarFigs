@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 ### Directory and time
-directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures'
+directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/'
 now = datetime.datetime.now()
 currentmn = str(now.month)
 currentdy = str(now.day)
@@ -23,7 +23,7 @@ currenttime = currentmn + '_' + currentdy + '_' + currentyr
 currentdoy = now.timetuple().tm_yday
 doy = np.arange(0,365,1)
 lastday = now.timetuple().tm_yday -2
-years = np.arange(1979,2017+1,1)
+years = np.arange(1979,2018+1,1)
 
 ### Turn on to read in the data (slow!)
 datareader=True
@@ -36,61 +36,61 @@ url = 'ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/seaice_analysis/' \
 ### There are more regional seas that can easily be added!
 if datareader == True:       
     df_barents = pd.read_excel(url,sheetname='Barents-Extent-km^2',header=1,
-                               parse_cols=range(3,42,1))
+                               parse_cols=range(3,43,1))
     barents = df_barents.as_matrix()
     ##################
     ##################
     ##################
     df_beaufort = pd.read_excel(url,sheetname='Beaufort-Extent-km^2',header=1,
-                                parse_cols=range(3,42,1))
+                                parse_cols=range(3,43,1))
     beaufort = df_beaufort.as_matrix()
     ##################
     ##################
     ##################
     df_bering = pd.read_excel(url,sheetname='Bering-Extent-km^2',header=1,
-                                parse_cols=range(3,42,1))
+                                parse_cols=range(3,43,1))
     bering = df_bering.as_matrix()
     ##################
     ##################
     ##################
     df_can = pd.read_excel(url,sheetname='CanadianArchipelago-Extent-km^2',header=1,
-                                parse_cols=range(3,42,1))
+                                parse_cols=range(3,43,1))
     can = df_can.as_matrix()
     ##################
     ##################
     ##################
     df_chukchi = pd.read_excel(url,sheetname='Chukchi-Extent-km^2',header=1,
-                                parse_cols=range(3,42,1))
+                                parse_cols=range(3,43,1))
     chukchi = df_chukchi.as_matrix()
     ##################
     ##################
     ##################
     df_ess = pd.read_excel(url,sheetname='East-Siberian-Extent-km^2',header=1,
-                                parse_cols=range(3,42,1))
+                                parse_cols=range(3,43,1))
     ess = df_ess.as_matrix()
     ##################
     ##################
     ##################
     df_green = pd.read_excel(url,sheetname='Greenland-Extent-km^2',header=1,
-                                parse_cols=range(3,42,1))
+                                parse_cols=range(3,43,1))
     green = df_green.as_matrix()
     ##################
     ##################
     ##################
     df_hudson = pd.read_excel(url,sheetname='Hudson-Extent-km^2',header=1,
-                                parse_cols=range(3,42,1))
+                                parse_cols=range(3,43,1))
     hudson = df_hudson.as_matrix()
     ##################
     ##################
     ##################
     df_kara = pd.read_excel(url,sheetname='Kara-Extent-km^2',header=1,
-                                parse_cols=range(3,42,1))
+                                parse_cols=range(3,43,1))
     kara = df_kara.as_matrix()
     ##################
     ##################
     ##################
     df_lap = pd.read_excel(url,sheetname='Laptev-Extent-km^2',header=1,
-                                parse_cols=range(3,42,1))
+                                parse_cols=range(3,43,1))
     lap = df_lap.as_matrix()
     
     ### Read data in list then array

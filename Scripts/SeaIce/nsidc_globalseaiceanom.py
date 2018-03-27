@@ -44,11 +44,11 @@ iceAR = dataset[:,3]
 missing = dataset[:,4]
 
 ### Find current year
-yr2017 = np.where(year == 2017)[0]
-iceAR17 = iceAR[yr2017]
+yr2018 = np.where(year == 2018)[0]
+iceAR18 = iceAR[yr2018]
 
 ### Ice unit Conversion
-icevalAR = iceAR17 * 1e6    
+icevalAR = iceAR18 * 1e6    
 
 ###########################################################################
 ###########################################################################
@@ -98,11 +98,11 @@ iceAA = dataset[:,3]
 missing = dataset[:,4]
 
 ### Find current year
-yr2017 = np.where(year == 2017)[0]
-iceAA17 = iceAA[yr2017]
+yr2018 = np.where(year == 2018)[0]
+iceAA18 = iceAA[yr2018]
 
 ### Ice Conversion
-icevalAA = iceAA17 * 1e6
+icevalAA = iceAA18 * 1e6
     
 ###########################################################################
 ###########################################################################
@@ -204,7 +204,7 @@ plt.scatter(doy[currentdoy-3],currentanomAA[-1],s=15,color='m',zorder=9)
 
 plt.ylabel(r'\textbf{Extent Anomaly} [$\times$10$^{6}$ km$^2$]',fontsize=15,
            color='darkgrey')  
-plt.title(r'\textbf{%s SEA ICE DEPARTURE}' % int(2017.0),
+plt.title(r'\textbf{%s SEA ICE DEPARTURE}' % 2018,
                        fontsize=24,color='darkgrey')      
                        
 le = plt.legend(shadow=False,fontsize=8,loc='upper left',
