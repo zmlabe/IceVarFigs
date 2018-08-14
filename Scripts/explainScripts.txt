@@ -113,6 +113,9 @@ volume. A second bar includes the 1981-2010 mean sea ice volume for comparison, 
 + plot_Walsh_ExtendedSeaIceConc.py : script loops through 100 years of sea ice concentration (SIC) data from the Walsh et al.
 [2016] reconstruction. Script outputs one [.png] Arctic SIC map per year, which can be concatenated into a GIF.
 
++ plot_VolumeExtent_MovingLines.py : Script plots the annual mean Arctic sea ice extent (NSIDC) and volume (PIOMAS) 
+over the satellite era. Script outputs a GIF.
+
 + read_SeaIceThick_PIOMAS.py : function reads binary sea ice thickness data from PIOMAS and converts to a numpy array
 [year,month,latitude,longitude]. Script fills in nan's for future months in the present year. In addition, the function
 ```calc_PiomasArea.py``` is needed to calculate sea ice volume.
