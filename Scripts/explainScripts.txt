@@ -139,6 +139,9 @@ transition between 2015 and 2018. Output includes (1) png file per loop
 ##############################################################################################################################
 ##############################################################################################################################
 ### Temperature
++ plot_ArcticAmplification_MovingLines.py : Script plots the annual mean Arctic sea ice extent (NSIDC) and temperature (BEST) 
+over the satellite era. Script outputs a GIF.
+
 + plot_ArcticTemperatures_Reanalysis.py : script plots a time series of the mean (2-m) air temperature (67N+) from 1958 to 
 2017 using various reanalysis data sets. Data sets in this example include: NCEP/NCAR Reanalysis 1 (R1), NCEP-DOE AMIP-II 
 Reanalysis (R2), Climate Forecast System Reanalysis (CFSR), Modern-Era Retrospective analysis for Research and Applications,
