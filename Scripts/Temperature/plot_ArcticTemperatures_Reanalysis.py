@@ -31,11 +31,11 @@ print('\n' '----Arctic Temperatures (Reanalysis Data) - %s----' % titletime)
 
 ## Alott time series
 yearmin = 1900
-yearmax = 2017
+yearmax = 2018
 years = np.arange(yearmin,yearmax+1,1)
 months = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',r'Aug',
           r'Sep',r'Oct',r'Nov',r'Dec']
-datasets = ['R1','R2','CFSR','MERRA2','JRA55','ERAi']
+datasets = ['R1','R2','CFSR','MERRA2','JRA55','ERAi','ERA5']
 
 ### Read in data
 datat = np.empty((len(datasets),len(years)))
@@ -54,10 +54,10 @@ datat[np.where(datat == -9999.000)] = np.nan
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 
 plt.rc('savefig',facecolor='black')
-plt.rc('axes',edgecolor='white')
-plt.rc('xtick',color='white')
-plt.rc('ytick',color='white')
-plt.rc('axes',labelcolor='white')
+plt.rc('axes',edgecolor='darkgrey')
+plt.rc('xtick',color='darkgrey')
+plt.rc('ytick',color='darkgrey')
+plt.rc('axes',labelcolor='darkgrey')
 plt.rc('axes',facecolor='black')
 
 ### Adjust axes in time series plots 
@@ -88,28 +88,34 @@ ax.spines['left'].set_linewidth(2)
 ax.tick_params('both',length=5.5,width=2,which='major')
 
 plt.plot(np.arange(yearmin,yearmax+2,1),([0]*(len(years)+1)),
-         linewidth=2,color='darkgrey',alpha=1,linestyle='--')
+         linewidth=2,color='darkgrey',alpha=1,linestyle='--',dashes=(1,0.3))
 
 color=iter(cmocean.cm.thermal(np.linspace(0.17,1,len(datasets))))
 for i in range(len(datasets)):
     c=next(color)
+    if i == 6:
+        c = 'w'
+    elif i == 5:
+        c = 'yellow'
+    elif i == 4:
+        c = 'darkorange'
     plt.plot(years,datat[i],linewidth=1.3,color=c,alpha=1,
-             label = '%s' % datasets[i])
+             label = '%s' % datasets[i],clip_on=False)
 
 plt.xticks(np.arange(1900,2040,10),np.arange(1900,2040,10))
 plt.yticks(np.arange(-2,4,1),map(str,np.arange(-2,4,1))) 
-plt.xlim([1958,2017])
+plt.xlim([1958,2018])
 plt.ylim([-2.3,3])
 
 plt.ylabel(r'\textbf{2-m Air Temperature Anomalies ($\bf{^\circ}$C)}',fontsize=13,
                      color='darkgrey')
 plt.title(r'\textbf{ARCTIC TEMPERATURES',
-                    color='darkgrey',fontsize=25)
+                    color='w',fontsize=25)
 plt.text(2000,-2.3,r'\textbf{BASELINE: 1981-2010}',
          fontsize=10.1,rotation='horizontal',ha='left',color='darkgrey')
 
-l = plt.legend(shadow=False,fontsize=7,loc='upper right',
-           bbox_to_anchor=(0.73, 1.02),fancybox=True,ncol=3,frameon=False)
+l = plt.legend(shadow=False,fontsize=7,loc='upper center',
+           bbox_to_anchor=(0.5, 1.02),fancybox=True,ncol=4,frameon=False)
 for text in l.get_texts():
     text.set_color('w')   
 
@@ -117,7 +123,7 @@ plt.text(1958,-3.05,r'\textbf{DATA:} NOAA/ESRL Physical Sciences Division [WRIT 
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
 plt.text(1958,-3.2,r'\textbf{SOURCE:} https://www.esrl.noaa.gov/psd/cgi-bin/data/testdap/timeseries.pl',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
-plt.text(2017,-3.05,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
+plt.text(2018,-3.05,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='right',color='darkgrey',alpha=1)
 
 plt.subplots_adjust(bottom=0.15)        
@@ -128,7 +134,9 @@ plt.subplots_adjust(bottom=0.15)
 ### Create subplot of region of averaging (67N+)
 
 ### Add axis for subplot
-a = plt.axes([.65, .19, .29, .24], axisbg='w') 
+a = plt.axes([.65, .19, .29, .24]) 
+
+c=cmocean.cm.thermal(0.17)
 
 def setcolor(x, color):
      for m in x:

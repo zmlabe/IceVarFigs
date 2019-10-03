@@ -1,6 +1,6 @@
 """
 Plot change in sea ice extent (NSIDC) and volume (PIOMAS) for annual means
-from 1979 to 2017.
+from 1979 to 2018.
 
 Author    : Zachary M. Labe
 Date      : 14 August 2018
@@ -26,11 +26,11 @@ directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'
 directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/'
 
 ### Load data files for Extent (e) and Antarctica (v)
-filee = 'NSIDC_AnnualSIE_2017.txt'
-filev = 'PIOMAS_AnnualSIV_2017.txt'
+filee = 'NSIDC_AnnualSIE_2018.txt'
+filev = 'PIOMAS_AnnualSIV_2018.txt'
 
 ### Years through 2017
-years = np.arange(1979,2017+1,1)
+years = np.arange(1979,2018+1,1)
 
 ### Read file
 eq = np.genfromtxt(directorydata + filee,unpack=True)
@@ -83,19 +83,19 @@ ax.spines['right'].set_color('none')
 ax.spines['left'].set_linewidth(2)
 ax.spines['bottom'].set_linewidth(2) 
 
-ant, = plt.plot(years,eq,linestyle='-',linewidth=3,
-         color='deepskyblue',zorder=2)
+ant, = plt.plot(years,eq,linestyle='-',linewidth=3.5,
+         color='deepskyblue',zorder=2,clip_on=False)
 
-plt.scatter(years[-1],eq[-1],s=30,color='crimson',zorder=9)
+plt.scatter(years[-1],eq[-1],s=30,color='crimson',zorder=9,clip_on=False)
 
 xlabels = map(str,np.arange(1979,2019,6))
 plt.xticks(np.arange(1979,2019,6),xlabels,fontsize=9)
 ylabels = map(str,np.arange(10,13,0.5))
 plt.yticks(np.arange(10,13,0.5),ylabels,fontsize=9)
 plt.ylim([10,12.5])
-plt.xlim([1979,2017.8])
+plt.xlim([1979,2018])
 
-plt.text(2019,10.32,r'\textbf{2017}',fontsize=10,color='crimson',ha='left')
+plt.text(2019.5,10.29,r'\textbf{2018}',fontsize=10,color='crimson',ha='left')
 
 plt.text(1979,9.5,r'\textbf{DATA:} NSIDC Sea Ice Index v3.0 (\textbf{ANNUAL}, Satellite)',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
@@ -142,17 +142,17 @@ ax.spines['bottom'].set_linewidth(2)
 plt.text(1979,12.4,r'\textbf{VOLUME}',color='deepskyblue',alpha=0.5,ha='left',
         fontsize=22,rotation=0,va='center',zorder=1)
 
-gre, = plt.plot(years,vq,linestyle='-',linewidth=3,
-         color='deepskyblue',zorder=2)
+gre, = plt.plot(years,vq,linestyle='-',linewidth=3.5,
+         color='deepskyblue',zorder=2,clip_on=False)
 
-plt.scatter(years[-1],vq[-1],s=30,color='crimson',zorder=9)
+plt.scatter(years[-1],vq[-1],s=30,color='crimson',zorder=9,clip_on=False)
 
 xlabels = map(str,np.arange(1979,2019,6))
 plt.xticks(np.arange(1979,2019,6),xlabels,fontsize=9)
 ylabels = map(str,np.arange(12,27,2))
 plt.yticks(np.arange(12,27,2),ylabels,fontsize=9)
 plt.ylim([12,26])
-plt.xlim([1979,2017.8])
+plt.xlim([1979,2018])
 
 plt.text(1979,9.25,r'\textbf{DATA:} PIOMAS v2.1 (\textbf{ANNUAL}, Simulated)',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
@@ -161,7 +161,7 @@ plt.text(1979,8.75,r'\textbf{SOURCE:} http://psc.apl.washington.edu/zhang/IDAO/d
 plt.text(1979,8.29,r'\textbf{REFERENCE:} Zhang and Rothrock [2003]',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
 
-plt.text(2019,12.6,r'\textbf{2017}',fontsize=10,color='crimson',ha='left')
+plt.text(2019.5,13.5,r'\textbf{2018}',fontsize=10,color='crimson',ha='left')
 plt.text(1966.7,26.8,r'\textbf{[\textbf{$\times$1000 km$^{3}$}]}',color='darkgrey',
                            fontsize=12,va='center',alpha=1) 
 
@@ -172,9 +172,9 @@ fig.subplots_adjust(bottom=0.2)
 ### Create animation using matplotlib
 def update(num,years,eq,vq,ant,gre,bar):
     ant.set_data(years[:num+1],eq[:num+1])
-    ant.axes.axis([1979,2017.8,10,12.5])
+    ant.axes.axis([1979,2019,10,12.5])
     gre.set_data(years[:num+1],vq[:num+1])
-    gre.axes.axis([1979,2017.8,12,26])
+    gre.axes.axis([1979,2019,12,26])
     return bar,
 
 ani = animation.FuncAnimation(fig,update,60,fargs=[years,
