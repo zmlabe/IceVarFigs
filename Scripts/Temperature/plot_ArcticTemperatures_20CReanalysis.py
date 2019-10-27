@@ -35,7 +35,7 @@ yearmax = 2018
 years = np.arange(yearmin,yearmax+1,1)
 months = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',r'Aug',
           r'Sep',r'Oct',r'Nov',r'Dec']
-datasets = ['GISTEMP','Berkeley','20CRv2c','ERA20C','JRA55','ERAi','ERA5']
+datasets = ['GISTEMP','Berkeley','20CRv2c','20CRv3','ERA20C','JRA55','ERAi','ERA5']
 
 ### Read in data
 datat = np.empty((len(datasets),len(years)))
@@ -90,12 +90,18 @@ ax.tick_params('both',length=5.5,width=2,which='major')
 plt.plot(np.arange(yearmin,yearmax+2,1),([0]*(len(years)+1)),
          linewidth=2,color='darkgrey',alpha=1,linestyle='--')
 
-color=iter(plt.cm.cubehelix(np.linspace(0.15,1,len(datasets))))
+color=iter(plt.cm.cubehelix(np.linspace(0.2,1.1,len(datasets))))
 for i in range(len(datasets)):
     c=next(color)
     if i == 6:
+        c = 'crimson'
+    elif i == 7:
+        c = 'dodgerblue'
+    elif i == 3:
+        c = 'w'
+    elif i == 5:
         c = 'm'
-    plt.plot(years,datat[i],linewidth=1.3,color=c,alpha=1,
+    plt.plot(years,datat[i],linewidth=1.1,color=c,alpha=1,
              label = '%s' % datasets[i],clip_on=False)
 
 plt.xticks(np.arange(1900,2040,10),np.arange(1900,2040,10))
@@ -111,7 +117,7 @@ plt.text(1983.4,-3.0,r'\textbf{BASELINE: 1981-2010}',
          fontsize=10.1,rotation='horizontal',ha='left',color='darkgrey')
 
 l = plt.legend(shadow=False,fontsize=6,loc='upper center',
-           bbox_to_anchor=(0.5, 1.02),fancybox=True,ncol=7,frameon=False,
+           bbox_to_anchor=(0.5, 1.02),fancybox=True,ncol=8,frameon=False,
            columnspacing=0.95,handletextpad=0.3)
 for text in l.get_texts():
     text.set_color('darkgrey')   
@@ -146,7 +152,7 @@ lon2,lat2 = np.meshgrid(lon1,lat1)
 
 m = Basemap(projection='npstere',boundinglat=55.3,lon_0=270,resolution='l',
             round =True,area_thresh=10000)
-m.drawcoastlines(color = c,linewidth=0.3)
+m.drawcoastlines(color = 'dodgerblue',linewidth=0.3)
 m.drawmapboundary(color='k')
 m.drawlsmask(land_color='k',ocean_color='k')
 
