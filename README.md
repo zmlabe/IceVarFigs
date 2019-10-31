@@ -33,6 +33,8 @@ Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https:
     + Kalnay, E., and co-authors, 1996: The NCEP/NCAR 40-year reanalysis project. Bulletin of the American meteorological Society, 77(3), 437-471 [[Publication]](http://journals.ametsoc.org/doi/abs/10.1175/1520-0477(1996)077%3C0437:TNYRP%3E2.0.CO;2)
 + NOAA-CIRES Twentieth Century Reanalysis (20Cv2c) : [[DATA]](https://www.esrl.noaa.gov/psd/data/gridded/data.20thC_ReanV2.html)
     + Compo, G.P., and co-authors., 2011: The Twentieth Century Reanalysis Project. Quarterly J. Roy. Meteorol. Soc., 137, 1-28. DOI: 10.1002/qj.776. [[Publication]](http://onlinelibrary.wiley.com/doi/10.1002/qj.776/abstract)
++ NOAA-CIRES-DOE Twentieth Century Reanalysis (20CRv3) : [[DATA]](https://www.esrl.noaa.gov/psd/data/gridded/data.20thC_ReanV3.html)
+    + Slivinski, L. C., Compo, G. P., Whitaker, J. S., Sardeshmukh, P. D., Giese, B. S., McColl, C., ... & Kennedy, J. (2019). Towards a more reliable historical reanalysis: Improvements for version 3 of the Twentieth Century Reanalysis system. Quarterly Journal of the Royal Meteorological Society. [[Publication]](https://rmets.onlinelibrary.wiley.com/doi/full/10.1002/qj.3598)
 ###### Sea Ice Concentration/Extent
 + AMSR2 (ASI 3.125 km, UAH-processed) : [[DATA]](http://icdc.cen.uni-hamburg.de/daten/cryosphere.html)
     + Beitsch, A.; Kaleschke, L.; Kern, S. Investigating High-Resolution AMSR2 Sea Ice Concentrations during the February 2013 Fracture Event in the Beaufort Sea, 2014: Remote Sens. 6, 3841-3856, doi:10.3390/rs6053841 [[Publication]](http://www.mdpi.com/2072-4292/6/5/3841)
