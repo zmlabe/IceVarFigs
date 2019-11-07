@@ -11,7 +11,7 @@ found in updating versions at:
 
 Last updated: 
 	  
-          27 March 2018
+          7 November 2019
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -104,8 +104,11 @@ GIF.
 + plot_sityrdiff_PIOMAS.py : script compares monthly sea ice thickness data between selected previous years [input year] with
 the present month. Data is from PIOMAS v2 and reads in using ```read_SeaIceThick_PIOMAS.py```
 
-+ plot_SIV_PIOMAS.py : plots the annual cycle of daily sea ice volume from PIOMAS v2 from 1979 to present. The data is updated
++ plot_SIV_PIOMAS.py : plots the annual cycle of daily sea ice volume from PIOMAS v2.1 from 1979 to present. The data is updated
 at the start of the following month. The total (1979-present average) daily mean is shown by a solid, white line.
+
++ plot_SIV_v2_PIOMAS.py : plots the annual cycle of daily sea ice volume from PIOMAS v2.1 from 1979 to present. The data is updated
+at the start of the following month. 
 
 + plot_SIVbar.py : script creates one bar graph [.png] file per year of the selected month. Data is from PIOMAS v2 sea ice
 volume. A second bar includes the 1981-2010 mean sea ice volume for comparison, which is adjusted based on the selected month.
@@ -143,18 +146,18 @@ transition between 2015 and 2018. Output includes (1) png file per loop
 over the satellite era. Script outputs a GIF.
 
 + plot_ArcticTemperatures_Reanalysis.py : script plots a time series of the mean (2-m) air temperature (67N+) from 1958 to 
-2017 using various reanalysis data sets. Data sets in this example include: NCEP/NCAR Reanalysis 1 (R1), NCEP-DOE AMIP-II 
+2018 using various reanalysis data sets. Data sets in this example include: NCEP/NCAR Reanalysis 1 (R1), NCEP-DOE AMIP-II 
 Reanalysis (R2), Climate Forecast System Reanalysis (CFSR), Modern-Era Retrospective analysis for Research and Applications,
-Version 2  (MERRA-2), Japanese 55-year Reanalysis (JRA-55), and ERA-Interim (ERAi). Data is provided in the ```Data``` 
+Version 2  (MERRA-2), Japanese 55-year Reanalysis (JRA-55), ERA-Interim (ERAi), and ERA5. Data is provided in the ```Data``` 
 directory.
 
 + plot_ArcticTemperatures_20CReanalysis.py : script plots a time series of the mean (2-m) air temperature (67N+) from 1900 to 
-2017 using various 20th century reanalysis data sets. Data sets in this example include: ERA-20C, NOAA-CIRES Twentieth Century
-Reanalysis (20Cv2c), and the Japanese 55-year Reanalysis (JRA-55) for a modern reference. Data is provided in the ```Data```
+2018 using various 20th century reanalysis data sets. Data sets in this example include: ERA-20C, NOAA-CIRES Twentieth Century
+Reanalysis (20Cv2c), NOAA-CIRES-DOE Twentieth Century Reanalysis 20CRv3, and the Japanese 55-year Reanalysis (JRA-55) for a modern reference. Data is provided in the ```Data```
 directory.
 
 + plot_rankmesh_NCEP.py : script ranks the mean Arctic (70N+) air temperature at 925 hPa over the satellite era (monthly from
-1979). For example, a rank of 40 is the 'coldest' month in the time series and a rank of 1 is the 'warmest' month. Data is 
+1979). For example, a rank of 41 is the 'coldest' month in the time series and a rank of 1 is the 'warmest' month. Data is 
 from NCEP/NCAR Reanalysis 1 (R1) and provided in the ```Data``` directory. 
 
 ##############################################################################################################################
