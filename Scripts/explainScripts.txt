@@ -73,6 +73,9 @@ Arctic
 + plot_AMSR2_SIC_region.py : plots daily sea ice concentration (SIC) using AMSR2 (ASI 3.125 km, UAH-processed) data for
 selected regions. These areas can be modified in the script and are a rough approximation to various geographic boundaries.
 
++ plot_AMSR2_SIC_Ant.py : plots daily sea ice concentration (SIC) using AMSR2 (ASI 3.125 km, UAH-processed) data for the entire 
+Antarctic
+
 + plot_OISST_SIC.py : plots daily sea ice concentration (SIC) using SSMIS Sea Ice Concentration (EUMETSAT OSI SAF) data for
 the entire Arctic. This sea ice data set is a lower resolution than the ```plot_AMSR2_SIC.py``` script.
 
