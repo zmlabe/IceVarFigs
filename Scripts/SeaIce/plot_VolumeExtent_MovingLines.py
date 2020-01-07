@@ -26,11 +26,11 @@ directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'
 directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/'
 
 ### Load data files for Extent (e) and Antarctica (v)
-filee = 'NSIDC_AnnualSIE_2018.txt'
-filev = 'PIOMAS_AnnualSIV_2018.txt'
+filee = 'NSIDC_AnnualSIE_2019.txt'
+filev = 'PIOMAS_AnnualSIV_2019.txt'
 
 ### Years through 2017
-years = np.arange(1979,2018+1,1)
+years = np.arange(1979,2019+1,1)
 
 ### Read file
 eq = np.genfromtxt(directorydata + filee,unpack=True)
@@ -89,13 +89,13 @@ ant, = plt.plot(years,eq,linestyle='-',linewidth=3.5,
 plt.scatter(years[-1],eq[-1],s=30,color='crimson',zorder=9,clip_on=False)
 
 xlabels = map(str,np.arange(1979,2019,6))
-plt.xticks(np.arange(1979,2019,6),xlabels,fontsize=9)
+plt.xticks(np.arange(1979,2019,6),xlabels,fontsize=7)
 ylabels = map(str,np.arange(10,13,0.5))
-plt.yticks(np.arange(10,13,0.5),ylabels,fontsize=9)
+plt.yticks(np.arange(10,13,0.5),ylabels,fontsize=7)
 plt.ylim([10,12.5])
-plt.xlim([1979,2018])
+plt.xlim([1979,2019])
 
-plt.text(2019.5,10.29,r'\textbf{2018}',fontsize=10,color='crimson',ha='left')
+plt.text(2020.5,10.2,r'\textbf{2019}',fontsize=10,color='crimson',ha='left')
 
 plt.text(1979,9.5,r'\textbf{DATA:} NSIDC Sea Ice Index v3.0 (\textbf{ANNUAL}, Satellite)',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
@@ -148,20 +148,20 @@ gre, = plt.plot(years,vq,linestyle='-',linewidth=3.5,
 plt.scatter(years[-1],vq[-1],s=30,color='crimson',zorder=9,clip_on=False)
 
 xlabels = map(str,np.arange(1979,2019,6))
-plt.xticks(np.arange(1979,2019,6),xlabels,fontsize=9)
+plt.xticks(np.arange(1979,2019,6),xlabels,fontsize=7)
 ylabels = map(str,np.arange(12,27,2))
-plt.yticks(np.arange(12,27,2),ylabels,fontsize=9)
+plt.yticks(np.arange(12,27,2),ylabels,fontsize=7)
 plt.ylim([12,26])
-plt.xlim([1979,2018])
+plt.xlim([1979,2019])
 
 plt.text(1979,9.25,r'\textbf{DATA:} PIOMAS v2.1 (\textbf{ANNUAL}, Simulated)',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
-plt.text(1979,8.75,r'\textbf{SOURCE:} http://psc.apl.washington.edu/zhang/IDAO/data.html',
+plt.text(1979,8.75,r'\textbf{SOURCE:} http://psc.apl.uw.edu/research/projects/',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
 plt.text(1979,8.29,r'\textbf{REFERENCE:} Zhang and Rothrock [2003]',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
 
-plt.text(2019.5,13.5,r'\textbf{2018}',fontsize=10,color='crimson',ha='left')
+plt.text(2020.5,13.5,r'\textbf{2019}',fontsize=10,color='crimson',ha='left')
 plt.text(1966.7,26.8,r'\textbf{[\textbf{$\times$1000 km$^{3}$}]}',color='darkgrey',
                            fontsize=12,va='center',alpha=1) 
 
