@@ -26,17 +26,17 @@ directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'
 directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/'
 
 ### Load data files for Extent (e) and Temperature anomalies (t)
-filee = 'NSIDC_AnnualSIE_2018.txt'
+filee = 'NSIDC_AnnualSIE_2019_MeanMonth.txt'
 filet = 'BEST_Arctic.txt'
 
-### Years through 2018
-years = np.arange(1979,2018+1,1)
+### Years through 2019
+years = np.arange(1979,2019+1,1)
 
 ### Read file
 eq = np.genfromtxt(directorydata + filee,unpack=True)
 tq = np.genfromtxt(directorydata + filet,delimiter=',',skip_header=1,
                    unpack=True,usecols=[1]) 
-tq = tq[-40:]                   
+tq = tq[-41:]                   
                         
 print('\nCompleted: Read AA data!')                        
 
@@ -90,14 +90,14 @@ ant, = plt.plot(years,eq,linestyle='-',linewidth=3,
 
 plt.scatter(years[-1],eq[-1],s=30,color='gold',zorder=9,clip_on=False)
 
-xlabels = map(str,np.arange(1979,2020,6))
-plt.xticks(np.arange(1979,2020,6),xlabels,fontsize=9)
+xlabels = map(str,np.arange(1979,2020,5))
+plt.xticks(np.arange(1979,2020,5),xlabels,fontsize=7)
 ylabels = map(str,np.arange(10,13,0.5))
-plt.yticks(np.arange(10,13,0.5),ylabels,fontsize=9)
+plt.yticks(np.arange(10,13,0.5),ylabels,fontsize=7)
 plt.ylim([10,12.5])
-plt.xlim([1979,2018])
+plt.xlim([1979,2019])
 
-plt.text(2019.2,10.29,r'\textbf{2018}',fontsize=10,color='gold',ha='left')
+plt.text(2020.2,10.16,r'\textbf{2019}',fontsize=9,color='gold',ha='left')
 
 plt.text(1979,9.5,r'\textbf{DATA:} NSIDC Sea Ice Index v3.0 (\textbf{ANNUAL}, Satellite)',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
@@ -149,22 +149,22 @@ gre, = plt.plot(years,tq,linestyle='-',linewidth=3,
 
 plt.scatter(years[-1],tq[-1],s=30,color='gold',zorder=9,clip_on=False)
 
-xlabels = map(str,np.arange(1979,2020,6))
-plt.xticks(np.arange(1979,2020,6),xlabels,fontsize=9)
+xlabels = map(str,np.arange(1979,2020,5))
+plt.xticks(np.arange(1979,2020,5),xlabels,fontsize=7)
 ylabels = map(str,np.arange(-6,7,1))
-plt.yticks(np.arange(-6,7,1),ylabels,fontsize=9)
-plt.ylim([-3,3.5])
-plt.xlim([1979,2018])
+plt.yticks(np.arange(-6,7,1),ylabels,fontsize=7)
+plt.ylim([-3,3])
+plt.xlim([1979,2019])
 
-plt.text(1979,-4.36,r'\textbf{DATA:} Berkeley Earth Data using NOAA/ESRL [WRIT Tool]',
+plt.text(1979,-4.22,r'\textbf{DATA:} Berkeley Earth Data using NOAA/ESRL [WRIT Tool; +67$\bf{^\circ}$N]',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
-plt.text(1979,-4.54,r'\textbf{SOURCE:} https://www.esrl.noaa.gov/psd/cgi-bin/data/testdap/timeseries.pl',
+plt.text(1979,-4.40,r'\textbf{SOURCE:} https://www.esrl.noaa.gov/psd/cgi-bin/data/testdap/timeseries.pl',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
-plt.text(1979,-4.72,r'\textbf{BASELINE:} Temperature \textbf{anomalies} computed from 1981-2010',
+plt.text(1979,-4.58,r'\textbf{BASELINE:} Temperature \textbf{anomalies} computed from 1981-2010',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
 
-plt.text(2017.25,1.6,r'\textbf{2018}',fontsize=10,color='gold',ha='left')
-plt.text(1974.2,3.9,r'\textbf{($\bf{^\circ}$C)}',color='darkgrey',
+plt.text(2020.25,1.73,r'\textbf{2019}',fontsize=9,color='gold',ha='left')
+plt.text(1974.2,3.35,r'\textbf{[$\bf{^\circ}$C]}',color='darkgrey',
                            fontsize=12,va='center',alpha=1) 
 
 fig.subplots_adjust(wspace=0.4)
@@ -174,9 +174,9 @@ fig.subplots_adjust(bottom=0.2)
 ### Create animation using matplotlib
 def update(num,years,eq,tq,ant,gre,bar):
     ant.set_data(years[:num+1],eq[:num+1])
-    ant.axes.axis([1979,2018,10,12.5])
+    ant.axes.axis([1979,2019,10,12.5])
     gre.set_data(years[:num+1],tq[:num+1])
-    gre.axes.axis([1979,2018,-3,3.5])
+    gre.axes.axis([1979,2019,-3,3])
     return bar,
 
 ani = animation.FuncAnimation(fig,update,60,fargs=[years,
