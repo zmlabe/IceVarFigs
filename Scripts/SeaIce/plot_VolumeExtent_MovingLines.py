@@ -26,7 +26,7 @@ directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'
 directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/'
 
 ### Load data files for Extent (e) and Antarctica (v)
-filee = 'NSIDC_AnnualSIE_2019.txt'
+filee = 'NSIDC_AnnualSIE_2019_MeanMonth.txt'
 filev = 'PIOMAS_AnnualSIV_2019.txt'
 
 ### Years through 2017
