@@ -217,32 +217,32 @@ xlabels = map(str,np.arange(1979,2020,5))
 plt.xticks(np.arange(1979,2020,5),xlabels,fontsize=6)
 ylabels = map(str,np.around(np.arange(-6,7,0.25),4))
 plt.yticks(np.arange(-6,7,0.25),ylabels,fontsize=6)
-plt.ylim([-0.5,1])
+plt.ylim([-0.5,0.75])
 plt.xlim([1979,2019])
 
-plt.text(1979,-0.8,r'\textbf{DATA:} NOAA Optimum Interpolation (OI) Sea Surface Temperature (SST) V2 [+67$\bf{^\circ}$N]',
+plt.text(1979,-0.75,r'\textbf{DATA:} NOAA Optimum Interpolation (OI) Sea Surface Temperature (SST) V2 [+67$\bf{^\circ}$N]',
          fontsize=4.5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
-plt.text(1979,-0.845,r'\textbf{SOURCE:} https://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.html',
+plt.text(1979,-0.785,r'\textbf{SOURCE:} https://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.html',
          fontsize=4.5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
-plt.text(1979,-0.89,r'\textbf{BASELINE:} SST \textbf{anomalies} computed from 1982-2010 (\textbf{ANNUAL})',
+plt.text(1979,-0.82,r'\textbf{BASELINE:} SST \textbf{anomalies} computed from 1982-2010 (\textbf{ANNUAL})',
          fontsize=4.5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
 
-plt.text(2020.25,0.43,r'\textbf{2019}',fontsize=8,color='gold',ha='left')
-plt.text(1974.2,1.09,r'\textbf{[$\bf{^\circ}$C]}',color='darkgrey',
+plt.text(2020.25,0.345,r'\textbf{2019}',fontsize=8,color='gold',ha='left')
+plt.text(1974.2,0.825,r'\textbf{[$\bf{^\circ}$C]}',color='darkgrey',
                            fontsize=12,va='center',alpha=1)
 
 fig.subplots_adjust(wspace=0.4)
 fig.subplots_adjust(top=0.75)
 fig.subplots_adjust(bottom=0.2)
 
-### Create animation using matplotlib
+#### Create animation using matplotlib
 def update(num,years,eq,tq,sq,ant,gre,sst,bar):
     ant.set_data(years[:num+1],eq[:num+1])
     ant.axes.axis([1979,2019,10,12.5])
     gre.set_data(years[:num+1],tq[:num+1])
     gre.axes.axis([1979,2019,-3,3])
     sst.set_data(years[:num+1],sq[:num+1])
-    sst.axes.axis([1979,2019,-0.5,1])
+    sst.axes.axis([1979,2019,-0.5,0.75])
     return bar,
 
 ani = animation.FuncAnimation(fig,update,70,fargs=[years,
