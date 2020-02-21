@@ -1,10 +1,11 @@
 # This file may be used to create an environment using:
 # $ conda create --name <env> --file <this file>
 # platform: linux-64
+_anaconda_depends=2019.03=py37_0
 _ipyw_jlab_nb_ext_conf=0.1.0=py37_0
 _libgcc_mutex=0.1=main
 alabaster=0.7.12=py37_0
-anaconda=2019.07=py37_0
+anaconda=custom=py37_1
 anaconda-client=1.7.2=py37_0
 anaconda-navigator=1.9.7=py37_0
 anaconda-project=0.8.3=py_0
@@ -32,11 +33,12 @@ bokeh=1.2.0=py37_0
 boto=2.49.0=py37_0
 bottleneck=1.2.1=py37h035aef0_1
 bzip2=1.0.8=h7b6447c_0
-ca-certificates=2019.5.15=0
+ca-certificates=2019.9.11=hecc5488_0
 cairo=1.14.12=h8948797_3
 cartopy=0.17.0=py37h0aa2c8f_1004
+cdo=1.9.6=hd104f1c_1006
 cdsapi=0.1.6=py_0
-certifi=2019.6.16=py37_0
+certifi=2019.9.11=py37_0
 cffi=1.12.3=py37h2e261b9_0
 cftime=1.0.3.4=py37hd352d35_1001
 chardet=3.0.4=py37_1
@@ -46,7 +48,7 @@ clyent=1.2.2=py37_1
 cmocean=2.0=py_1
 colorama=0.4.1=py37_0
 colorspacious=1.1.2=pyh24bf2e0_0
-conda=4.7.11=py37_0
+conda=4.7.12=py37_0
 conda-build=3.18.8=py37_0
 conda-env=2.6.0=1
 conda-package-handling=1.3.11=py37_0
@@ -64,11 +66,14 @@ decorator=4.4.0=py37_1
 defusedxml=0.6.0=py_0
 distributed=2.1.0=py_0
 docutils=0.14=py37_0
+eccodes=2.12.3=h4fa793d_1
+ecmwf-api-client=1.5.4=pypi_0
 entrypoints=0.3=py37_0
 eofs=1.4.0=py_0
 et_xmlfile=1.0.1=py37_0
 expat=2.2.6=he6710b0_0
 fastcache=1.1.0=py37h7b6447c_0
+fftw=3.3.8=nompi_h7f3a6c3_1109
 filelock=3.0.12=py_0
 flask=1.1.1=py_0
 fontconfig=2.13.0=h9420a91_0
@@ -104,13 +109,14 @@ ipython_genutils=0.2.0=py37_0
 ipywidgets=7.5.0=py_0
 isort=4.3.21=py37_0
 itsdangerous=1.1.0=py37_0
+jasper=1.900.1=h07fcdf6_1006
 jbig=2.1=hdba287a_0
 jdcal=1.4.1=py_0
 jedi=0.13.3=py37_0
 jeepney=0.4=py37_0
 jinja2=2.10.1=py37_0
 joblib=0.13.2=py37_0
-jpeg=9b=h024ee3a_2
+jpeg=9c=h14c3975_1001
 json5=0.8.4=py_0
 jsonschema=3.0.1=py37_0
 jupyter=1.0.0=py37_7
@@ -123,6 +129,7 @@ keyring=18.0.0=py37_0
 kiwisolver=1.1.0=py37he6710b0_0
 krb5=1.16.1=h173b8e3_7
 lazy-object-proxy=1.4.1=py37h7b6447c_0
+libaec=1.0.4=hf484d3e_0
 libarchive=3.3.3=h5d8350f_5
 libcurl=7.65.2=h20c2e04_0
 libedit=3.1.20181209=hc058e9b_0
@@ -130,7 +137,7 @@ libffi=3.2.1=hd88cf55_4
 libgcc-ng=9.1.0=hdf63c60_0
 libgfortran-ng=7.3.0=hdf63c60_0
 liblief=0.9.0=h7725739_2
-libnetcdf=4.6.1=h11d0813_2
+libnetcdf=4.6.2=hbdf4f91_1001
 libpng=1.6.37=hbc83047_0
 libsodium=1.0.16=h1bed415_0
 libssh2=1.8.2=h1ba5d50_0
@@ -177,7 +184,8 @@ numpy-base=1.16.4=py37hde5b4d6_0
 numpydoc=0.9.1=py_0
 olefile=0.46=py37_0
 openpyxl=2.6.2=py_0
-openssl=1.1.1c=h7b6447c_1
+openssl=1.1.1c=h516909a_0
+ossuuid=1.6.2=hf484d3e_1000
 owslib=0.18.0=py_0
 packaging=19.0=py37_0
 palettable=3.2.0=pypi_0
@@ -281,6 +289,7 @@ sqlalchemy=1.3.5=py37h7b6447c_0
 sqlite=3.29.0=h7b6447c_0
 statsmodels=0.10.0=py37hdd07704_0
 sympy=1.4=py37_0
+tbb=2019.9=hc9558a2_0
 tblib=1.4.0=py_0
 terminado=0.8.2=py37_0
 testpath=0.4.2=py37_0
@@ -289,6 +298,7 @@ toolz=0.10.0=py_0
 tornado=6.0.3=py37h7b6447c_0
 tqdm=4.32.1=py_0
 traitlets=4.3.2=py37_0
+udunits2=2.2.27.6=h4e0c4b3_1001
 unicodecsv=0.14.1=py37_0
 unixodbc=2.3.7=h14c3975_0
 urllib3=1.24.2=py37_0
@@ -312,3 +322,4 @@ zict=1.0.0=py_0
 zipp=0.5.1=py_0
 zlib=1.2.11=h7b6447c_3
 zstd=1.3.7=h0b5b093_0
+
