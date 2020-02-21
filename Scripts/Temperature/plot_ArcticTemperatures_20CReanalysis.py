@@ -88,7 +88,8 @@ ax.spines['left'].set_linewidth(2)
 ax.tick_params('both',length=5.5,width=2,which='major')
 
 plt.plot(np.arange(yearmin,yearmax+2,1),([0]*(len(years)+1)),
-         linewidth=2,color='darkgrey',alpha=1,linestyle='--')
+         linewidth=2,color='darkgrey',alpha=1,linestyle='--',
+         dashes=(1,0.3))
 
 color=iter(plt.cm.cubehelix(np.linspace(0.2,1.1,len(datasets))))
 for i in range(len(datasets)):
@@ -158,11 +159,11 @@ m.drawlsmask(land_color='k',ocean_color='k')
 
 parallels = np.arange(50,91,5)
 meridians = np.arange(-180,180,30)
-m.drawparallels(parallels,labels=[True,True,True,True],
-                linewidth=0.2,color='w')
-par=m.drawmeridians(meridians,labels=[True,True,True,True],
-                    linewidth=0.2,fontsize=3,color='w')
-setcolor(par,'k')
+#m.drawparallels(parallels,labels=[True,True,True,True],
+#                linewidth=0.2,color='w')
+#par=m.drawmeridians(meridians,labels=[True,True,True,True],
+#                    linewidth=0.2,fontsize=3,color='w')
+#setcolor(par,'k')
 
 cs = m.contourf(lon2,lat2,lat2,np.arange(67,100,10),latlon=True,
                 colors='darkgrey')

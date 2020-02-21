@@ -1,6 +1,5 @@
 """
-Plot change in land ice mass from GRACE satellite. Last update through
-early 2017. GRACE-FO data will be released in the coming years.
+Plot land ice from GRACE
 
 Website   : https://climate.nasa.gov/vital-signs/land-ice/
 Author    : Zachary M. Labe
@@ -28,7 +27,7 @@ currentdy = now.day
 currentyr = now.year
 currentmn = datetime.date(currentyr,currentmnq, 1).strftime('%B')
 
-### Load data files for Greenland (g) and Antarctica (a)
+### Load url
 fileg = 'greenland_grace.txt'
 filea = 'antarctic_grace.txt'
 
@@ -36,14 +35,18 @@ filea = 'antarctic_grace.txt'
 yearg,gq,ung = np.genfromtxt(fileg,unpack=True,
                         usecols=[0,1,2])
 yeara,aq,una = np.genfromtxt(filea,unpack=True,
-                        usecols=[0,1,2])                        
+                        usecols=[0,1,2])        
+
+missing = np.where((yearg >2017.6) & (yearg <= 2018.45))[0]    
+gq[missing] = np.nan     
+aq[missing] = np.nan
                         
 print('\nCompleted: Read land ice data!')                        
 
 ############################################################################
 ############################################################################
 ############################################################################
-### Create animation
+### Create plot
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 
 plt.rc('savefig',facecolor='black')
@@ -54,8 +57,6 @@ plt.rc('axes',labelcolor='white')
 plt.rc('axes',facecolor='black')
 
 fig = plt.figure()
-
-### Subplot for Antarctica 
 ax = plt.subplot(121)  
 
 ### Adjust axes in time series plots 
@@ -75,7 +76,7 @@ def adjust_spines(ax, spines):
     else:
         ax.xaxis.set_ticks([]) 
 
-plt.text(2002,-3850,r'\textbf{Antarctica}',color='dimgrey',alpha=1,ha='left',
+plt.text(2002,-4850,r'\textbf{Antarctica}',color='deepskyblue',alpha=0.3,ha='left',
         fontsize=22,rotation=0,va='center',zorder=1)
         
 ax.tick_params('both',length=5.5,width=2,which='major')             
@@ -85,35 +86,37 @@ ax.spines['right'].set_color('none')
 ax.spines['left'].set_linewidth(2)
 ax.spines['bottom'].set_linewidth(2) 
 
-ant, = plt.plot(yeara,aq,linestyle='-',linewidth=2,
+ant, = plt.plot(yeara,aq,linestyle='-',linewidth=2.4,
          color='deepskyblue',zorder=2)
+#plt.plot(aq,linestyle='--',linewidth=2,zorder=1,color='r')
+plt.scatter(yeara[-1],aq[-1],s=20,color='m',zorder=9,clip_on=False)
 
-plt.scatter(yeara[-1],aq[-1],s=20,color='m',zorder=9)
+plt.text(2020.4,-2455,r'\textbf{2019}',fontsize=11,color='m')
 
-plt.text(2016.1,-2260,r'\textbf{2017}',fontsize=8,color='m')
-xlabels = map(str,np.arange(2002,2018,3))
-plt.xticks(np.arange(2002,2018,3),xlabels)
-ylabels = map(str,np.arange(-4000,1,1000))
-plt.yticks(np.arange(-4000,1,1000),ylabels)
-plt.ylim([-4000,150])
-plt.xlim([2002,2018])
+xlabels = map(str,np.arange(2002,2030,3))
+plt.xticks(np.arange(2002,2030,3),xlabels,size=7)
+ylabels = map(str,np.arange(-8000,1,1000))
+plt.yticks(np.arange(-8000,1,1000),ylabels,size=7)
+plt.ylim([-5000,150])
+plt.xlim([2002,2021])
 
-plt.text(2002,-4750,r'\textbf{DATA:} Gravity Recovery and Climate Experiment (GRACE)',
-         fontsize=5,rotation='horizontal',ha='left',color='dimgrey',alpha=1)
-plt.text(2002,-4900,r'\textbf{SOURCE:} https://climate.nasa.gov/vital-signs/land-ice/ (NASA)',
-         fontsize=5,rotation='horizontal',ha='left',color='dimgrey',alpha=1)
-plt.text(2002,-5050,r'\textbf{REFERENCE:} Wiese et al. [2015]',
-         fontsize=5,rotation='horizontal',ha='left',color='dimgrey',alpha=1)
+plt.text(2002,-6050,r'\textbf{DATA:} Gravity Recovery and Climate Experiment (GRACE/GRACE-FO)',
+         fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
+plt.text(2002,-6200,r'\textbf{SOURCE:} https://climate.nasa.gov/vital-signs/land-ice/ (NASA JPL)',
+         fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
+plt.text(2002,-6350,r'\textbf{REFERENCE:} Wiese et al. [2015, 2019]',
+         fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
          
-plt.text(1996.6,10,r'\textbf{[Gt]}',color='dimgrey',fontsize=15,va='center',
+plt.text(1995.6,10,r'\textbf{[Gt]}',color='darkgrey',fontsize=15,va='center',
          alpha=1)         
-plt.text(2021,600,r'\textbf{LAND ICE}',fontsize=40,color='w',
+         
+
+plt.text(2025,750,r'\textbf{LAND ICE}',fontsize=40,color='w',
          ha='center',va='center',alpha=1)
 
 ###########################################################################
 ###########################################################################
 ###########################################################################
-### Subplot for Greenland
 ax = plt.subplot(122)  
 
 ### Adjust axes in time series plots 
@@ -132,6 +135,7 @@ def adjust_spines(ax, spines):
         ax.xaxis.set_ticks_position('bottom')
     else:
         ax.xaxis.set_ticks([]) 
+
         
 ax.tick_params('both',length=5.5,width=2,which='major')             
 adjust_spines(ax, ['left','bottom'])            
@@ -140,46 +144,45 @@ ax.spines['right'].set_color('none')
 ax.spines['left'].set_linewidth(2)
 ax.spines['bottom'].set_linewidth(2) 
 
-plt.text(2002,-3850,r'\textbf{Greenland}',color='dimgrey',alpha=1,ha='left',
+plt.text(2002,-4850,r'\textbf{Greenland}',color='deepskyblue',alpha=0.3,ha='left',
         fontsize=22,rotation=0,va='center',zorder=1)
 
-gre, = plt.plot(yearg,gq,linestyle='-',linewidth=2,
+gre, = plt.plot(yearg,gq,linestyle='-',linewidth=2.4,
          color='deepskyblue',zorder=2)
+#plt.plot(aq,linestyle='--',linewidth=2,zorder=1,color='r')
+plt.scatter(yearg[-1],gq[-1],s=20,color='m',zorder=9,clip_on=False)
 
-plt.scatter(yearg[-1],gq[-1],s=20,color='m',zorder=9)
+xlabels = map(str,np.arange(2002,2030,3))
+plt.xticks(np.arange(2002,2030,3),xlabels,size=7)
+ylabels = map(str,np.arange(-8000,1,1000))
+plt.yticks(np.arange(-8000,1,1000),ylabels,size=7)
+plt.ylim([-5000,150])
+plt.xlim([2002,2021])
 
-xlabels = map(str,np.arange(2002,2018,3))
-plt.xticks(np.arange(2002,2018,3),xlabels)
-ylabels = map(str,np.arange(-4000,1,1000))
-plt.yticks(np.arange(-4000,1,1000),ylabels)
-plt.ylim([-4000,150])
-plt.xlim([2002,2018])
-
-plt.text(2017.9,-3844,r'\textbf{2017}',fontsize=8,color='m',ha='left')
-plt.text(1996.6,10,r'\textbf{[Gt]}',color='dimgrey',fontsize=15,va='center',
+plt.text(2020.4,-4820,r'\textbf{2019}',fontsize=11,color='m',ha='left')
+plt.text(1995.6,10,r'\textbf{[Gt]}',color='darkgrey',fontsize=15,va='center',
          alpha=1) 
 
 fig.subplots_adjust(wspace=0.4)
 fig.subplots_adjust(top=0.83)
 fig.subplots_adjust(bottom=0.2)
 
-### Create animation using matplotlib
 def update(num,yearg,aq,gq,ant,bar):
     ant.set_data(yearg[:num+1],gq[:num+1])
-    ant.axes.axis([2002,2018,-4000,150])
+    ant.axes.axis([2002,2021,-5000,150])
     gre.set_data(yearg[:num+1],aq[:num+1])
-    gre.axes.axis([2002,2018,-4000,150])
+    gre.axes.axis([2002,2021,-5000,150])
     return bar,
 
 ani = animation.FuncAnimation(fig,update,190,fargs=[yearg,
                               gq,aq,ant,gre],interval=0.001,blit=True)
 
-plt.text(2018.2,-4750,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
-         fontsize=5,rotation='horizontal',ha='right',color='w',alpha=0.3)
+plt.text(2021.2,-6050,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
+         fontsize=5,rotation='horizontal',ha='right',color='darkgrey',alpha=1)
 
-### Save figure
-#plt.savefig('landice.png',dpi=300)
-ani.save('landice_moving.gif',dpi=300)
+#### Save figure
+plt.savefig('landice.png',dpi=300)
+ani.save('landice_moving.gif',writer='imagemagick',dpi=300)
 
 print('\nCompleted: Script done!')
                      
