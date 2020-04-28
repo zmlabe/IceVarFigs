@@ -31,7 +31,7 @@ print('\n' '----Arctic Temperatures (Reanalysis Data) - %s----' % titletime)
 
 ## Alott time series
 yearmin = 1900
-yearmax = 2018
+yearmax = 2019
 years = np.arange(yearmin,yearmax+1,1)
 months = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',r'Aug',
           r'Sep',r'Oct',r'Nov',r'Dec']
@@ -100,18 +100,18 @@ for i in range(len(datasets)):
     elif i == 4:
         c = 'darkorange'
     plt.plot(years,datat[i],linewidth=1.3,color=c,alpha=1,
-             label = '%s' % datasets[i],clip_on=False)
+             label = '%s' % datasets[i])
 
 plt.xticks(np.arange(1900,2040,10),np.arange(1900,2040,10))
 plt.yticks(np.arange(-2,4,1),map(str,np.arange(-2,4,1))) 
-plt.xlim([1958,2018])
+plt.xlim([1958,2020])
 plt.ylim([-2.3,3])
 
 plt.ylabel(r'\textbf{2-m Air Temperature Anomalies ($\bf{^\circ}$C)}',fontsize=13,
                      color='darkgrey')
 plt.title(r'\textbf{ARCTIC TEMPERATURES',
                     color='w',fontsize=25)
-plt.text(2000,-2.3,r'\textbf{BASELINE: 1981-2010}',
+plt.text(2002,-2.3,r'\textbf{BASELINE: 1981-2010}',
          fontsize=10.1,rotation='horizontal',ha='left',color='darkgrey')
 
 l = plt.legend(shadow=False,fontsize=7,loc='upper center',
@@ -123,7 +123,7 @@ plt.text(1958,-3.05,r'\textbf{DATA:} NOAA/ESRL Physical Sciences Division [WRIT 
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
 plt.text(1958,-3.2,r'\textbf{SOURCE:} https://www.esrl.noaa.gov/psd/cgi-bin/data/testdap/timeseries.pl',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
-plt.text(2018,-3.05,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
+plt.text(2020,-3.05,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='right',color='darkgrey',alpha=1)
 
 plt.subplots_adjust(bottom=0.15)        
@@ -136,7 +136,7 @@ plt.subplots_adjust(bottom=0.15)
 ### Add axis for subplot
 a = plt.axes([.65, .19, .29, .24]) 
 
-c=cmocean.cm.thermal(0.17)
+c=cmocean.cm.thermal(0.98)
 
 def setcolor(x, color):
      for m in x:
@@ -155,11 +155,11 @@ m.drawlsmask(land_color='k',ocean_color='k')
 
 parallels = np.arange(50,91,5)
 meridians = np.arange(-180,180,30)
-m.drawparallels(parallels,labels=[False,False,False,False],
-                linewidth=0.2,color='w')
-par=m.drawmeridians(meridians,labels=[False,False,False,False],
-                    linewidth=0.2,fontsize=6,color='w')
-setcolor(par,'white')
+#m.drawparallels(parallels,labels=[False,False,False,False],
+#                linewidth=0.2,color='w')
+#par=m.drawmeridians(meridians,labels=[False,False,False,False],
+#                    linewidth=0.2,fontsize=6,color='w')
+#setcolor(par,'white')
 
 cs = m.contourf(lon2,lat2,lat2,np.arange(67,100,10),latlon=True,
                 colors='darkgrey')

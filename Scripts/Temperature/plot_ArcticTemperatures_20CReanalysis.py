@@ -31,7 +31,7 @@ print('\n' '----Arctic Temperatures (20C Reanalysis Data) - %s----' % titletime)
 
 ## Alott time series
 yearmin = 1900
-yearmax = 2018
+yearmax = 2019
 years = np.arange(yearmin,yearmax+1,1)
 months = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',r'Aug',
           r'Sep',r'Oct',r'Nov',r'Dec']
@@ -107,27 +107,27 @@ for i in range(len(datasets)):
 
 plt.xticks(np.arange(1900,2040,10),np.arange(1900,2040,10))
 plt.yticks(np.arange(-3,4,1),map(str,np.arange(-3,4,1))) 
-plt.xlim([1900,2018])
+plt.xlim([1900,2020])
 plt.ylim([-3,3])
 
 plt.ylabel(r'\textbf{2-m Air Temperature Anomalies ($\bf{^\circ}$C)}',fontsize=13,
                      color='darkgrey')
 plt.title(r'\textbf{ARCTIC TEMPERATURES',
                     color='w',fontsize=25)
-plt.text(1983.4,-3.0,r'\textbf{BASELINE: 1981-2010}',
+plt.text(1985,-3.0,r'\textbf{BASELINE: 1981-2010}',
          fontsize=10.1,rotation='horizontal',ha='left',color='darkgrey')
 
 l = plt.legend(shadow=False,fontsize=6,loc='upper center',
            bbox_to_anchor=(0.5, 1.02),fancybox=True,ncol=8,frameon=False,
-           columnspacing=0.95,handletextpad=0.3)
+           columnspacing=0.95,handletextpad=0.2)
 for text in l.get_texts():
-    text.set_color('darkgrey')   
+    text.set_color('w')   
 
 plt.text(1900,-3.85,r'\textbf{DATA:} NOAA/ESRL Physical Sciences Division [WRIT Tool; +67$\bf{^\circ}$N]',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
 plt.text(1900,-4.0,r'\textbf{SOURCE:} https://www.esrl.noaa.gov/psd/cgi-bin/data/testdap/timeseries.pl',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey',alpha=1)
-plt.text(2018.6,-3.85,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
+plt.text(2020,-3.85,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='right',color='darkgrey',alpha=1)
 
 plt.subplots_adjust(bottom=0.15)        
