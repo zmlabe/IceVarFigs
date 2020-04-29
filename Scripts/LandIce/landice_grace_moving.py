@@ -91,7 +91,7 @@ ant, = plt.plot(yeara,aq,linestyle='-',linewidth=2.4,
 #plt.plot(aq,linestyle='--',linewidth=2,zorder=1,color='r')
 plt.scatter(yeara[-1],aq[-1],s=20,color='m',zorder=9,clip_on=False)
 
-plt.text(2020.4,-2455,r'\textbf{2019}',fontsize=11,color='m')
+plt.text(2020.8,-2900,r'\textbf{2020}',fontsize=11,color='m')
 
 xlabels = map(str,np.arange(2002,2030,3))
 plt.xticks(np.arange(2002,2030,3),xlabels,size=7)
@@ -159,7 +159,7 @@ plt.yticks(np.arange(-8000,1,1000),ylabels,size=7)
 plt.ylim([-5000,150])
 plt.xlim([2002,2021])
 
-plt.text(2020.4,-4820,r'\textbf{2019}',fontsize=11,color='m',ha='left')
+plt.text(2020.8,-4820,r'\textbf{2020}',fontsize=11,color='m',ha='left')
 plt.text(1995.6,10,r'\textbf{[Gt]}',color='darkgrey',fontsize=15,va='center',
          alpha=1) 
 
