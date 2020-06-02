@@ -119,6 +119,8 @@ volume. A second bar includes the 1981-2010 mean sea ice volume for comparison, 
 + plot_Walsh_ExtendedSeaIceConc.py : script loops through 100 years of sea ice concentration (SIC) data from the Walsh et al.
 [2016] reconstruction. Script outputs one [.png] Arctic SIC map per year, which can be concatenated into a GIF.
 
++ plot_Walsh_ExtendedSeaIceConc_v2.py : script loops through 100 years of sea ice concentration (SIC) data from the Walsh et al. [2016; VERSION 2] reconstruction. Script outputs one [.png] Arctic SIC map per year, which can be concatenated into a GIF.
+
 + plot_VolumeExtent_MovingLines.py : Script plots the annual mean Arctic sea ice extent (NSIDC) and volume (PIOMAS) 
 over the satellite era. Script outputs a GIF.
 
