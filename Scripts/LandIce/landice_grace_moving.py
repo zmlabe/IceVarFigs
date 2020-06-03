@@ -167,22 +167,22 @@ fig.subplots_adjust(wspace=0.4)
 fig.subplots_adjust(top=0.83)
 fig.subplots_adjust(bottom=0.2)
 
-def update(num,yearg,aq,gq,ant,bar):
-    ant.set_data(yearg[:num+1],gq[:num+1])
-    ant.axes.axis([2002,2021,-5000,150])
-    gre.set_data(yearg[:num+1],aq[:num+1])
-    gre.axes.axis([2002,2021,-5000,150])
-    return bar,
-
-ani = animation.FuncAnimation(fig,update,190,fargs=[yearg,
-                              gq,aq,ant,gre],interval=0.001,blit=True)
+#def update(num,yearg,aq,gq,ant,bar):
+#    ant.set_data(yearg[:num+1],gq[:num+1])
+#    ant.axes.axis([2002,2021,-5000,150])
+#    gre.set_data(yearg[:num+1],aq[:num+1])
+#    gre.axes.axis([2002,2021,-5000,150])
+#    return bar,
+#
+#ani = animation.FuncAnimation(fig,update,190,fargs=[yearg,
+#                              gq,aq,ant,gre],interval=0.001,blit=True)
 
 plt.text(2021.2,-6050,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='right',color='darkgrey',alpha=1)
 
 #### Save figure
 plt.savefig('landice.png',dpi=300)
-ani.save('landice_moving.gif',writer='imagemagick',dpi=300)
+#ani.save('landice_moving.gif',writer='imagemagick',dpi=300)
 
 print('\nCompleted: Script done!')
                      
