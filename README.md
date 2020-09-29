@@ -9,9 +9,11 @@ Repository contains all of the scripts used in making the figures within (http:/
 Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https://twitter.com/ZLabe)
 
 ## Description
++ ```bin/```: Shell scripts
 + ```Data/```: Additional data files not provided by Python URL functions
 + ```Figures/```: Arbitrary figures as examples from listed scripts
 + ```Scripts/```: Main [Python](https://www.python.org/) scripts/functions used in data analysis and plotting. More details are provided in ```explainScripts.txt``` for each script and function.
++ ```Dockerfile```: Docker image manifest for building dependencies
 + ```requirements.txt```: List of environments and modules associated with the most recent version of this project. A Python [Anaconda3 Distribution](https://docs.continuum.io/anaconda/) was used for the analysis. Tools including [NCL 6.4.0](https://www.ncl.ucar.edu/), [CDO](https://code.mpimet.mpg.de/projects/cdo), and [NCO](http://nco.sourceforge.net/) were also used for initial data manipulation. [ImageMagick](https://www.imagemagick.org/script/index.php) is used for most of the animations (GIF). All code has been tested with Python ```3.6```.
 
 ## Data
@@ -52,3 +54,14 @@ Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https:
     + Huang, B., Peter W. Thorne, et. al, 2017: Extended Reconstructed Sea Surface Temperature version 5 (ERSSTv5), Upgrades, validations, and intercomparisons. J. Climate, doi: 10.1175/JCLI-D-16-0836.1 [[Publication]](http://journals.ametsoc.org/doi/10.1175/JCLI-D-16-0836.1)
 + NOAA Optimum Interpolation Sea Surface Temperature High Resolution (OISST) v2 : [[DATA]](https://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.highres.html)
     + Reynolds, Richard W., Thomas M. Smith, Chunying Liu, Dudley B. Chelton, Kenneth S. Casey, Michael G. Schlax, 2007: Daily High-Resolution-Blended Analyses for Sea Surface Temperature. J. Climate, 20, 5473-5496. doi: 10.1175/2007JCLI1824.1 [[Publication]](https://journals.ametsoc.org/doi/abs/10.1175/2007JCLI1824.1)
+
+## Docker
+
+###### Build image
+Build an image containing all the dependencies by running `bin/build_image.sh`. Takes optional `VERSION` environment variable, defaults to 'latest'.
+Designed to be used with a volume mount to the repository root so that scripts can be modified without rebuilding the image.
+
+###### Run scripts in container
+Once the image has been built run `bin/run_container.sh <script path>`. Also takes optional `VERSION` environment variable, defaults to 'latest'. Figures will be written to the local `Figures` directory.
+
+Example: `bin/run_container.sh Scripts/Temperature/plot_ArcticTemperatures_Reanalysis.py`
