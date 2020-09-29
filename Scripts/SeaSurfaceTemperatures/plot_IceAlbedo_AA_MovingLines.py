@@ -22,8 +22,8 @@ currenttime = currentmn + '_' + currentdy + '_' + currentyr
 currentdoy = now.timetuple().tm_yday
 
 ### Add directories
-directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'
-directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/'
+directorydata = './Data/'
+directoryfigure = './Figures/'
 
 ### Load data files for Extent (e) and Temperature anomalies (t)
 filee = 'NSIDC_AnnualSIE_2019_MeanMonth.txt'

@@ -19,8 +19,8 @@ import math
 import cmocean
 
 ### Directory and time
-directory = '/home/zlabe/Documents/Projects/IceVarFigs/Data/' 
-directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
+directory = './Data/'
+directoryfigure = './Figures/'
 
 now = datetime.datetime.now()
 currentmn = str(now.month)
@@ -60,14 +60,14 @@ for i in range(24,25):
         url = 'ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR2/3.125km/'
         filename = 'Arc_%s%s%s_res3.125_pyres.nc.gz' % (currentyr,currentmn,currentdy)
         filenameout = 'Arc_AMSR2_SIC.nc'
-        UL.urlretrieve(url+filename, filename)
-        inF = gzip.open(filename, 'rb')
-        outF = open(filenameout, 'wb')
+        UL.urlretrieve(url + filename, directory + filename)
+        inF = gzip.open(directory + filename, 'rb')
+        outF = open(directory + filenameout, 'wb')
         outF.write( inF.read() )
         inF.close()
         outF.close()
         
-        data = Dataset(filenameout)
+        data = Dataset(directory + filenameout)
         ice = data.variables['sea_ice_concentration'][:]
         lat = data.variables['latitude'][:]    
         lon = data.variables['longitude'][:]

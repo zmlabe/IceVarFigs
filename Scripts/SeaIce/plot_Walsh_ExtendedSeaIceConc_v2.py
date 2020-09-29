@@ -17,8 +17,8 @@ from matplotlib.colors import ListedColormap, BoundaryNorm
 import cmocean
 
 ### Define constants
-directorydata = '../IceVarFigs/Data/'
-directoryfigure = '../IceVarFigs/Figures/'
+directorydata = './Data/'
+directoryfigure = './Figures/'
 now = datetime.datetime.now()
 month = now.month
 

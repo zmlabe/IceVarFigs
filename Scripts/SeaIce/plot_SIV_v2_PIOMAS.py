@@ -15,12 +15,12 @@ import datetime
 import cmocean
 
 ### Directory and time
-directorydata = '~/Projects/IceVarFigs/Data/'
-directoryfigure = '~/Projects/IceVarFigs/Figures/'
+directorydata = './Data/'
+directoryfigure = './Figures/'
 
-year,day,volume = np.loadtxt(
-                          'PIOMAS.vol.daily.1979.2019.Current.v2.1.dat.gz',
-                          skiprows=1,unpack=True)
+year,day,volume = np.loadtxt(directorydata +
+                             'PIOMAS.vol.daily.1979.2018.Current.v2.1.dat.gz',
+                             skiprows=1,unpack=True)
 
 ### Current time
 day = list(map(int,day))

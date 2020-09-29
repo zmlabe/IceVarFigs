@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 ### Directory and time
-directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/'
+directoryfigure = './Figures/'
 now = datetime.datetime.now()
 currentmn = str(now.month)
 currentdy = str(now.day)
@@ -30,7 +30,7 @@ datareader=True
 
 ### Load url
 url = 'ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/seaice_analysis/' \
-        'Sea_Ice_Index_Regional_Daily_Data_G02135_v3.0.xlsx'
+        'N_Sea_Ice_Index_Regional_Daily_Data_G02135_v3.0.xlsx'
 
 ### Read files from NSIDC (not very efficient - lol)
 ### There are more regional seas that can easily be added!

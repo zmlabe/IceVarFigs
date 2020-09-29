@@ -14,8 +14,8 @@ import datetime
 import cmocean
 
 ### Define constants
-directorydata = '/surtsey/zlabe/seaice_obs/seaice_reconstruct/'
-directoryfigure = '/home/zlabe/Documents/Projects/Tests/SIC_Reconst/'
+directorydata = './Data/'
+directoryfigure = './Figures/'
 now = datetime.datetime.now()
 month = now.month
 

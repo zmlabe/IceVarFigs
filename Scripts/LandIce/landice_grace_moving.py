@@ -14,6 +14,7 @@ import matplotlib.animation as animation
 import math 
 
 ### Directory and time
+directoryfigure = './Figures/'
 now = datetime.datetime.now()
 currentmn = str(now.month)
 currentdy = str(now.day)
@@ -28,8 +29,8 @@ currentyr = now.year
 currentmn = datetime.date(currentyr,currentmnq, 1).strftime('%B')
 
 ### Load url
-fileg = 'greenland_grace.txt'
-filea = 'antarctic_grace.txt'
+fileg = './Data/greenland_grace.txt'
+filea = './Data/antarctic_grace.txt'
 
 ### Read file
 yearg,gq,ung = np.genfromtxt(fileg,unpack=True,
@@ -181,7 +182,7 @@ plt.text(2021.2,-6050,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='right',color='darkgrey',alpha=1)
 
 #### Save figure
-plt.savefig('landice.png',dpi=300)
+plt.savefig(directoryfigure + 'landice.png',dpi=300)
 #ani.save('landice_moving.gif',writer='imagemagick',dpi=300)
 
 print('\nCompleted: Script done!')

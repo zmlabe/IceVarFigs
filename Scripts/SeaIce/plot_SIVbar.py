@@ -13,8 +13,8 @@ import matplotlib.pyplot as plt
 import datetime
 
 ### Directory and time
-directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
-directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'                 
+directoryfigure = './Figures/'
+directorydata = './Data/'
 
 now = datetime.datetime.now()
 currentmn = str(now.month-1)

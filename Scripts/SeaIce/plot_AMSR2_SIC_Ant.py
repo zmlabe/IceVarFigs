@@ -16,14 +16,14 @@ import gzip
 import cmocean
 
 ### Directory and time
-directory = '..'
-directorys = '..'
+directory = './Data/'
+directoryfigure = './Figures/'
 now = datetime.datetime.now()
 currentyr = str(now.year)
     
 for i in range(14,31): ### enter days
     currentdy = str(i+1)
-    currentmn = '12'
+    currentmn = '08'
     if int(currentdy) < 10:
         currentdy = '0' + currentdy
     currentyr = str(now.year)
@@ -35,14 +35,14 @@ for i in range(14,31): ### enter days
     url = 'ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR2/3.125km/'
     filename = 'Ant_%s%s%s_res3.125_pyres.nc.gz' % (currentyr,currentmn,currentdy)
     filenameout = 'Arc_AMSR2_SIC.nc'
-    UL.urlretrieve(url+filename, filename)
-    inF = gzip.open(filename, 'rb')
-    outF = open(filenameout, 'wb')
+    UL.urlretrieve(url+filename, directory + filename)
+    inF = gzip.open(directory + filename, 'rb')
+    outF = open(directory + filenameout, 'wb')
     outF.write( inF.read() )
     inF.close()
     outF.close()
     
-    data = Dataset(filenameout)
+    data = Dataset(directory + filenameout)
     ice = data.variables['sea_ice_concentration'][:]
     lat = data.variables['latitude'][:]    
     lon = data.variables['longitude'][:]
@@ -116,6 +116,6 @@ for i in range(14,31): ### enter days
     fig.subplots_adjust(top=0.89)
     
     print('Completed: Figure plotted!')
-    plt.savefig(directorys + 'seaiceconc_%s.png' % currenttime, dpi=300)
+    plt.savefig(directoryfigure + 'seaiceconc_%s.png' % currenttime, dpi=300)
     
 print('Completed: Script done!')

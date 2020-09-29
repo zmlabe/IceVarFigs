@@ -10,13 +10,14 @@ Date      : 11 October 2016
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as c
+import urllib.request
 import urllib as UL
 import datetime
 import cmocean
 
 ### Directory and time
-directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
-directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'                      
+directoryfigure = './Figures/'
+directorydata = './Data/'
 now = datetime.datetime.now()
 currentmn = str(now.month)
 currentdy = str(now.day)

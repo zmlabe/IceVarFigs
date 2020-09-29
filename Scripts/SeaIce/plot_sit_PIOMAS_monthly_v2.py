@@ -14,8 +14,8 @@ import cmocean
 
 ### Define constants
 ### Directory and time
-directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
-directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'  
+directoryfigure = './Figures/'
+directorydata = './Data/'
 now = datetime.datetime.now()
 month = now.month
 years = np.arange(1979,2019,1)
@@ -74,10 +74,10 @@ def readPiomas(directory,vari,years,thresh):
     print('Completed: Read "%s" data!' % (vari))   
     
     return lats,lons,var
-lats,lons,sit = readPiomas(directorydata2,'thick',years,0.1)
+lats,lons,sit = readPiomas(directorydata,'thick',years,0.1)
 
 ### Read SIV data
-years2,aug = np.genfromtxt(directorydata3 + 'monthly_piomas.txt',
+years2,aug = np.genfromtxt(directorydata + 'monthly_piomas.txt',
                            unpack=True,delimiter='',usecols=[0,2])
                            
 climyr = np.where((years2 >= 1981) & (years2 <= 2010))[0]  
