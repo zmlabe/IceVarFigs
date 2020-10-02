@@ -67,7 +67,7 @@ defusedxml=0.6.0=py_0
 distributed=2.1.0=py_0
 docutils=0.14=py37_0
 eccodes=2.12.3=h4fa793d_1
-ecmwf-api-client=1.5.4=pypi_0
+ecmwf-api-client=1.5.4=py_0
 entrypoints=0.3=py37_0
 eofs=1.4.0=py_0
 et_xmlfile=1.0.1=py37_0
@@ -188,7 +188,7 @@ openssl=1.1.1c=h516909a_0
 ossuuid=1.6.2=hf484d3e_1000
 owslib=0.18.0=py_0
 packaging=19.0=py37_0
-palettable=3.2.0=pypi_0
+palettable=3.2.0=py_0
 pandas=0.24.2=py37he6710b0_0
 pandoc=2.2.3.2=0
 pandocfilters=1.4.2=py37_1
@@ -308,7 +308,7 @@ webencodings=0.5.1=py37_1
 werkzeug=0.15.4=py_0
 wheel=0.33.4=py37_0
 widgetsnbextension=3.5.0=py37_0
-windspharm=1.7.0=py37_1000
+windspharm=1.7.0=py37_1001
 wrapt=1.11.2=py37h7b6447c_0
 wurlitzer=1.0.2=py37_0
 xarray=0.12.3=py_0
