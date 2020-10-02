@@ -13,10 +13,11 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as c
 import matplotlib
 import datetime
+import urllib.request
 import urllib as UL
 
 ### Directory and time
-directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
+directoryfigure = './Figures/'
 source = 'twitter'
 now = datetime.datetime.now()
 currentmn = str(now.month)

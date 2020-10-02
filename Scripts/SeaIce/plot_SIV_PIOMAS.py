@@ -14,11 +14,11 @@ import matplotlib.colors as c
 import datetime
 
 ### Directory and time
-directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
-directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/' 
+directoryfigure = './Figures/'
+directorydata = './Data/'
 
 ### Read in data
-year,day,volume = np.loadtxt(directorydata + \
+year,day,volume = np.loadtxt(directorydata +
                           'PIOMAS.vol.daily.1979.2018.Current.v2.1.dat.gz',
                           skiprows=1,unpack=True)
 

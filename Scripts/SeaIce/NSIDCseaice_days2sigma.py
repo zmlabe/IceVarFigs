@@ -8,13 +8,14 @@ Date      : 22 January 2018
 
 ### Import modules
 import numpy as np
+import urllib.request
 import urllib as UL
 import datetime
 import matplotlib.pyplot as plt
 
 ### Directory and time
-directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
-directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'     
+directoryfigure = './Figures/'
+directorydata = './Data/'
 now = datetime.datetime.now()
 currentmn = str(now.month)
 currentdy = str(now.day)

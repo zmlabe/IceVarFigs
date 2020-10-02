@@ -18,8 +18,8 @@ import read_SeaIceThick_PIOMAS as CT
 import calc_PiomasArea as CA
 
 ### Define directories
-directorydata = '/home/zlabe/surt/seaice_obs/PIOMAS/'   
-directoryfigure = '/home/zlabe/Documents/Projects/Tests/Piomas/Mean_SITSIV/'
+directorydata = './Data/'
+directoryfigure = './Figures/'
 
 ### Define time           
 now = datetime.datetime.now()
@@ -41,14 +41,12 @@ months = [r'Jan',r'Feb',r'Mar',r'Apr',r'May',r'Jun',r'Jul',r'Aug',
 lats,lons,sit = CT.readPiomas(directorydata,years,0.15)
 area = CA.readPiomasArea(directorydata)
 
-### Directory and time
-directorydatab = '/home/zlabe/Documents/Projects/Tests/SIV_animate/Data/'                                  
-
+### Time
 print('\n' 'PIOMAS -- Sea Ice Volume --', \
         now.strftime("%Y-%m-%d %H:%M"), '\n' '\n')
 
 ### Read data
-years2,aug = np.genfromtxt(directorydatab + 'monthly_piomas.txt',
+years2,aug = np.genfromtxt(directorydata + 'monthly_piomas.txt',
                            unpack=True,delimiter='',usecols=[0,9])
 
 ### Calculate climatology from 1981-2010 baseline

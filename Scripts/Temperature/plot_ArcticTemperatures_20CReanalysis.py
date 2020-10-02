@@ -17,8 +17,8 @@ import cmocean
 from mpl_toolkits.basemap import Basemap
 
 ### Define directories
-directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'
-directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/'
+directorydata = './Data/'
+directoryfigure = './Figures/'
 
 ### Define time           
 now = datetime.datetime.now()

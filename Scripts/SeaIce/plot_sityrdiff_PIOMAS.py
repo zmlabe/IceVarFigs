@@ -18,8 +18,8 @@ import iris.quickplot as qplt
 
 ### Define directories
 ### Directory and time
-directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
-directorydata = '/home/zlabe/Documents/Projects/IceVarFigs/Data/'  
+directoryfigure = './Figures/'
+directorydata = './Data/'
 
 yearmin = 1979
 yearmax = 2017
@@ -33,7 +33,7 @@ currentyr = str(now.year)
 currenttime = currentmn + '_' + currentdy + '_' + currentyr
 titletime = currentmn + '/' + currentdy + '/' + currentyr
 
-print '\n' '----Plot Sea Ice Thickness - %s----' % titletime 
+print '\n' '----Plot Sea Ice Thickness - %s----' % titletime
 
 ### Use functions
 lats,lons,sit = CP.readPiomas(directorydata,years,0.01)

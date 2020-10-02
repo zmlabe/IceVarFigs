@@ -11,10 +11,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 import datetime
+import urllib.request
 import urllib as UL
 
 ### Directory and time
-directoryfigure = '/home/zlabe/Documents/Projects/IceVarFigs/Figures/' 
+directoryfigure = './Figures/'
 now = datetime.datetime.now()
 currentmn = str(now.month)
 currentdy = str(now.day-1)
@@ -25,7 +26,7 @@ currenttime = currentmn + '_' + currentdy + '_' + currentyr
 url = 'https://ads.nipr.ac.jp/vishop.ver1/data/graph/plot_extent_n_v2.csv'
 
 ### Read file
-raw_data = UL.request.urlopen(url)
+raw_data = urllib.request.urlopen(url)
 dataset = np.genfromtxt(raw_data, skip_header=0,delimiter=",",)
 
 ### Set missing data to nan

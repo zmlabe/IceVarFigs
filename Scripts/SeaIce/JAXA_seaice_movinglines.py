@@ -12,10 +12,11 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import matplotlib
 import datetime
+import urllib.request
 import urllib as UL
 
 ### Directory and time
-directory = '/home/zlabe/Documents/Projects/Tests/'
+directory = './Figures/'
 source = 'twitter'
 now = datetime.datetime.now()
 currentmn = str(now.month)
